@@ -1,7 +1,8 @@
 # 新荘音頭（Shinso Ondo）
+
 ## Official Digital Archive
 
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC--BY--4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 ![GitHub last commit](https://img.shields.io/github/last-commit/kojikomatsuzaki/shinso-ondo)
 ![GitHub repo size](https://img.shields.io/github/repo-size/kojikomatsuzaki/shinso-ondo)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/kojikomatsuzaki/shinso-ondo)
@@ -15,59 +16,69 @@
 
 # このリポジトリについて
 
-このリポジトリは、新荘会（Shinsokai）が管理する「新荘音頭」の公式デジタルアーカイブです。
+ここは、小松崎浩司（Hiroshi Komatsuzaki）が管理する「新荘音頭」の公式デジタルアーカイブです。
 
-新荘音頭に関する資料を**収集・整理・保存・公開**し、地域文化の継承と活用を支えるデジタルアーカイブとして整備しています。
+GitHubのバージョン管理機能を活用し、
 
-現在および今後、次のような資料を順次公開します。
+- 資料の保存
+- 更新履歴の管理
+- マルチメディア資料の公開
+- 継続的な公開・改善
 
-- 歌詞
-- 楽曲
-- 楽譜
-- 音源
-- カラオケ音源
-- パンフレット
-- 写真
-- 動画
-- 振付資料
-- 制作資料
-- その他関連資料
+を目的として整備しています。
 
 ---
 
-# このアーカイブの目的
+# 公開資料
 
-新荘音頭を次世代へ継承するとともに、教育、研究、地域活動などで広く活用していただくことを目的として公開しています。
+現在公開している資料は次のとおりです。
 
-地域文化は、保存されるだけではなく、歌われ、踊られ、学ばれ、受け継がれることで、その価値を未来へつないでいくことができます。
+| フォルダ | 内容 |
+|----------|------|
+| `lyrics/` | 歌詞 |
+| `scores/` | 楽譜 |
+| `audio/` | 公式音源 |
+| `publications/` | パンフレット等の出版物 |
+| `development/` | 開発・設計・研究メモ |
 
-このリポジトリが、新荘音頭を未来へ伝えるための基盤となることを願っています。
+資料は今後も順次追加・更新します。
 
 ---
 
-# GitHubを利用する理由
+# このアーカイブの特徴
 
-GitHubはソフトウェア開発のためのプラットフォームとして広く利用されています。
+本デジタルアーカイブでは、
 
-本リポジトリでは、そのバージョン管理機能や変更履歴管理機能を活用し、地域文化のデジタルアーカイブ基盤として利用しています。
+- GitHubによるバージョン管理
+- Markdownによる資料解説
+- PDF・PNG・WAV等のマルチメディア公開
+- オープンライセンスによる再利用促進
 
-GitHubのコミット履歴（Commit History）は、本デジタルアーカイブの整備・発展の記録でもあります。
+を組み合わせることで、
+
+**「保存するだけではなく、利用され、育っていくデジタルアーカイブ」**
+
+を目指しています。
 
 ---
 
 # ライセンス
 
-別途記載がある場合を除き、本リポジトリに収録された資料は **Creative Commons Attribution 4.0 International（CC BY 4.0）** のもとで公開しています。
+別途記載がある場合を除き、本リポジトリに収録された資料は
 
-利用の際は、著作権者および制作者への適切なクレジット表示をお願いします。
+**Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International（CC BY-NC-SA 4.0）**
 
-詳細は **LICENSE** をご覧ください。
+により公開しています。
+
+利用の際は、著作権者・制作者の表示をお願いします。
+
+詳細は `LICENSE` をご覧ください。
 
 ---
 
 # 著作権者・許諾者
 
-**新荘会（Shinsokai）**
+**住みよいまちづくり新荘会（Shinsokai）**
 
 ---
 
@@ -77,9 +88,9 @@ GitHubのコミット履歴（Commit History）は、本デジタルアーカイ
 
 - 川又 一郎（Ichiro Kawamata）
 - 小網 昇（Noboru Koami）
-- 椹沢 庸平（Yohei Kunugizawa）
+- 椹沢 庸平（Yohei Kunugisawa）
 
-## 作曲 / Music
+## 作曲・編曲 / Music
 
 - 馬立 明美（Akemi Umadate）
 
@@ -87,11 +98,19 @@ GitHubのコミット履歴（Commit History）は、本デジタルアーカイ
 
 - 国府田 はるか（Haruka Koda）
 
+## 演奏 / Performance
+
+- ツーウィー（Tsuwi）
+
 ## 歌唱 / Vocals
 
-- 新荘小学校児童有志（Volunteer Students, Shinso Elementary School）
-- 新荘会会員有志（Volunteer Members, Shinsokai）
+- 新荘音頭制作委員
+- 新荘小学校管楽合奏部児童
 - 塙 亜樹（Aki Hanawa）
+
+## 総監修 / General Supervision
+
+- 橋本 久雄（Hisao Hashimoto）
 
 ## 音楽編集 / Music Editing
 
@@ -103,89 +122,54 @@ GitHubのコミット履歴（Commit History）は、本デジタルアーカイ
 
 ---
 
-# Roadmap（今後の公開予定）
+# Roadmap
 
-本デジタルアーカイブでは、今後も資料の収集・整理・保存・公開を継続し、順次コンテンツを充実させていく予定です。
+今後は、
 
-現在、次の資料を追加予定としています。
-
-- 振付解説
+- 振付資料
 - 振付動画
-- BGM演奏者クレジット
-- 楽譜
+- 写真資料
 - 制作記録
-- 写真・映像資料
-- その他、新荘音頭に関する関連資料
+- 関連史料
 
-GitHubのコミット履歴は、本デジタルアーカイブの整備・発展の履歴として継続的に蓄積されます。
+などを順次追加予定です。
+
+GitHubのコミット履歴は、本デジタルアーカイブの整備・発展の履歴として継続的に保存されます。
 
 ---
 
 # English
 
-## Official Digital Archive
+## About
 
-> The official digital archive of **Shinso Ondo**, a traditional folk dance performed during the **Shinso Summer Festival** in Mito City, Ibaraki, Japan.
+This repository is the official digital archive of **Shinso Ondo**, a traditional folk dance song performed during the **Shinso Summer Festival** in Mito City, Ibaraki, Japan.
 
-This repository collects, organizes, preserves, and provides public access to materials related to Shinso Ondo.
+The archive is maintained by **Hiroshi Komatsuzaki** and preserves materials related to the music, lyrics, choreography, publications, and historical records of Shinso Ondo.
 
----
+## Repository Structure
 
-## About this Repository
+| Folder | Contents |
+|---------|----------|
+| `lyrics/` | Lyrics |
+| `scores/` | Musical scores |
+| `audio/` | Official audio recordings |
+| `publications/` | Publications and pamphlets |
+| `development/` | Development notes and research records |
 
-This repository is maintained by **Shinsokai**.
+## Features
 
-It has been established as a digital archive to **collect, organize, preserve, and provide access** to materials related to Shinso Ondo, supporting the preservation and continued use of local cultural heritage.
+This archive combines:
 
-The repository will gradually include:
+- Version control with GitHub
+- Documentation using Markdown
+- Multimedia resources (PDF, PNG, WAV)
+- Open licensing under CC BY-NC-SA 4.0
 
-- Lyrics
-- Musical works
-- Musical scores
-- Audio recordings
-- Karaoke tracks
-- Pamphlets
-- Photographs
-- Videos
-- Choreography materials
-- Production documents
-- Other related resources
+to provide a sustainable and reusable digital archive.
 
----
-
-## Purpose
-
-The purpose of this archive is to preserve Shinso Ondo for future generations while encouraging its use in education, research, and community activities.
-
-Local culture gains lasting value not only through preservation, but also by being sung, danced, studied, and passed on to future generations.
-
-We hope this repository will serve as a foundation for preserving and sharing Shinso Ondo.
-
----
-
-## Why GitHub?
-
-Although GitHub is widely known as a software development platform, this repository utilizes its version control and history management features as the foundation of a digital archive for local cultural heritage.
-
-The Git commit history serves as a record of the ongoing development of this digital archive.
-
----
-
-## License
-
-Unless otherwise noted, the materials contained in this repository are licensed under the **Creative Commons Attribution 4.0 International (CC BY 4.0)**.
-
-Please provide appropriate attribution when using these materials.
-
-See the **LICENSE** file for details.
-
----
-
-## Copyright Holder and Licensor
+## Copyright Holder
 
 **Shinsokai**
-
----
 
 ## Credits
 
@@ -193,7 +177,7 @@ See the **LICENSE** file for details.
 
 - Ichiro Kawamata
 - Noboru Koami
-- Yohei Kunugizawa
+- Yohei Kunugisawa
 
 ### Music
 
@@ -203,11 +187,19 @@ See the **LICENSE** file for details.
 
 - Haruka Koda
 
+### Performance
+
+- Tsuwi
+
 ### Vocals
 
-- Volunteer Students, Shinso Elementary School
-- Volunteer Members, Shinsokai
+- Shinso Ondo Production Committee
+- Students of the Shinso Elementary School Wind Ensemble
 - Aki Hanawa
+
+### General Supervision
+
+- Hisao Hashimoto
 
 ### Music Editing
 
@@ -217,24 +209,6 @@ See the **LICENSE** file for details.
 
 - Hiroshi Komatsuzaki
 
----
+## License
 
-## Roadmap
-
-The Shinso Ondo Official Digital Archive will continue to expand through the collection, organization, preservation, and publication of additional materials.
-
-Planned future additions include:
-
-- Choreography guide
-- Choreography videos
-- Background music performer credits
-- Musical scores
-- Production records
-- Photographs and video materials
-- Other related resources
-
-The Git commit history will continue to document the ongoing growth and development of this digital archive.
-
----
-
-© Shinsokai
+Unless otherwise noted, materials in this repository are licensed under the **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International（CC BY-NC-SA 4.0）** License.
