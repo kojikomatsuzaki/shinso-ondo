@@ -8,7 +8,7 @@
 
 | ファイル | 内容 |
 |---|---|
-| `shinso-ondo-pamphlet-20260726.pdf` | 2026年7月26日に公開された「新荘音頭」の公式パンフレット |
+| `shinso-ondo-panphlet8-20260726-outlined.pdf` | 2026年7月26日に公開された「新荘音頭」の公式パンフレット（文字アウトライン化済みPDF） |
 | `shinso-ondo-score-trimmed20260726.png` | パンフレット掲載用にトリミングした「新荘音頭」の楽譜画像 |
 
 パンフレットには、次の内容が収録されています。
@@ -31,8 +31,8 @@ This folder contains materials related to **Shinso Ondo** published in 2026.
 
 | File | Description |
 |---|---|
-| `shinso-ondo-pamphlet-20260726.pdf` | Official Shinso Ondo pamphlet published on July 26, 2026 |
-| `shinso-ondo-score-trimmed20260726.png` | Cropped image of the Shinso Ondo musical score used in the pamphlet |
+| `shinso-ondo-panphlet8-20260726-outlined.pdf` | Official **Shinso Ondo** pamphlet published on July 26, 2026 (text converted to outlines) |
+| `shinso-ondo-score-trimmed20260726.png` | Cropped image of the **Shinso Ondo** musical score used in the pamphlet |
 
 The pamphlet includes:
 
