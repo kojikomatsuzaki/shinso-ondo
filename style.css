@@ -1,65 +1,870 @@
+/* ==========================================
+   新荘音頭デジタルアーカイブ
+   Common Style Sheet
+========================================== */
+
+
+/* ==========================================
+   Design tokens
+========================================== */
+
 :root {
-  --background: #f7f4ed;
-  --surface: #ffffff;
-  --surface-soft: #eee7d7;
-  --text: #24211d;
-  --muted: #6b645a;
-  --accent: #8b2f2f;
-  --accent-dark: #692020;
-  --border: #d9d0c1;
-  --shadow: 0 10px 28px rgba(55, 43, 30, 0.08);
-  --radius: 18px;
-  --content-width: 1120px;
+    --background: #f7f4ed;
+    --surface: #ffffff;
+    --surface-soft: #eee7d7;
+
+    --text: #24211d;
+    --muted: #6b645a;
+
+    --accent: #8b2f2f;
+    --accent-dark: #692020;
+
+    --border: #d9d0c1;
+
+    --shadow:
+        0 10px 28px rgba(55, 43, 30, 0.08);
+
+    --radius: 18px;
+
+    --content-width: 1120px;
+    --reading-width: 860px;
+
+    --font-sans:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Hiragino Sans",
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        "YuGothic",
+        "Meiryo",
+        "Noto Sans JP",
+        sans-serif;
 }
 
-*, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  background: var(--background);
-  color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic", "YuGothic", "Noto Sans JP", sans-serif;
-  line-height: 1.75;
+
+/* ==========================================
+   Reset and base
+========================================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
-a { color: inherit; }
-.container { width: min(calc(100% - 40px), var(--content-width)); margin-inline: auto; }
-.skip-link { position: fixed; top: 12px; left: 12px; z-index: 100; padding: 10px 14px; border-radius: 8px; background: var(--text); color: #fff; transform: translateY(-160%); }
-.skip-link:focus { transform: translateY(0); }
-.site-header { padding: 76px 0 60px; background: linear-gradient(135deg, rgba(139,47,47,.96), rgba(81,28,28,.96)), radial-gradient(circle at top right, rgba(255,255,255,.16), transparent 36%); color: #fff; }
-.header-inner { display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; }
-.eyebrow { margin: 0 0 8px; color: var(--accent); font-size: .78rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
-.site-header .eyebrow { color: rgba(255,255,255,.78); }
-h1, h2, h3, p { margin-top: 0; }
-h1 { margin-bottom: 4px; font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", serif; font-size: clamp(3rem, 8vw, 5.6rem); font-weight: 600; letter-spacing: .04em; line-height: 1.08; }
-.subtitle { margin-bottom: 0; color: rgba(255,255,255,.82); font-size: 1.15rem; letter-spacing: .08em; }
-.language-button { display: inline-flex; min-width: 110px; align-items: center; justify-content: center; padding: 11px 18px; border: 1px solid rgba(255,255,255,.72); border-radius: 999px; color: #fff; font-weight: 700; text-decoration: none; transition: background-color .2s ease, color .2s ease, transform .2s ease; }
-.language-button:hover, .language-button:focus-visible { background: #fff; color: var(--accent-dark); transform: translateY(-2px); }
-.intro { background: var(--surface); border-bottom: 1px solid var(--border); }
-.intro-inner { max-width: 880px; padding-top: 46px; padding-bottom: 46px; }
-.intro p { color: var(--muted); font-size: 1.04rem; }
-.intro .lead { margin-bottom: 12px; color: var(--text); font-size: clamp(1.18rem, 2.4vw, 1.5rem); font-weight: 600; }
-.resources { padding: 76px 0; }
-.section-heading { margin-bottom: 28px; }
-h2 { margin-bottom: 0; font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; line-height: 1.25; }
-.card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
-.card { display: flex; min-height: 250px; flex-direction: column; padding: 28px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); text-decoration: none; transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
-.card:hover, .card:focus-visible { border-color: var(--accent); box-shadow: 0 16px 34px rgba(55,43,30,.13); transform: translateY(-5px); }
-.card-kicker { margin-bottom: 10px; color: var(--accent); font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-.card h3 { margin-bottom: 12px; font-size: 1.35rem; line-height: 1.35; }
-.card p { margin-bottom: 24px; color: var(--muted); }
-.card-link { margin-top: auto; color: var(--accent); font-weight: 700; }
-.archive-info { padding: 0 0 82px; }
-.archive-panel { display: grid; grid-template-columns: 1.25fr .75fr; gap: 48px; padding: 42px; border-radius: var(--radius); background: var(--surface-soft); }
-.archive-panel p { margin-bottom: 0; color: var(--muted); }
-.link-list { display: flex; flex-direction: column; gap: 12px; justify-content: center; }
-.link-list a { display: block; padding: 13px 16px; border: 1px solid rgba(139,47,47,.22); border-radius: 10px; background: rgba(255,255,255,.65); color: var(--accent-dark); font-weight: 700; text-decoration: none; }
-.link-list a:hover, .link-list a:focus-visible { border-color: var(--accent); background: #fff; }
-.site-footer { padding: 34px 0; background: #2d2924; color: rgba(255,255,255,.84); }
-.footer-inner { display: flex; justify-content: space-between; gap: 30px; }
-.site-footer strong { color: #fff; }
-.site-footer p { margin-bottom: 0; font-size: .92rem; }
-.footer-meta { text-align: right; }
-a:focus-visible { outline: 3px solid #f3bd63; outline-offset: 4px; }
-@media (max-width: 900px) { .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .archive-panel { grid-template-columns: 1fr; gap: 28px; } }
-@media (max-width: 620px) { .container { width: min(calc(100% - 28px), var(--content-width)); } .site-header { padding: 48px 0 42px; } .header-inner { flex-direction: column; gap: 24px; } .language-button { min-width: 0; } .resources { padding: 56px 0; } .card-grid { grid-template-columns: 1fr; } .card { min-height: 0; } .archive-panel { padding: 28px; } .footer-inner { flex-direction: column; } .footer-meta { text-align: left; } }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; } }
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--background);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.8;
+    overflow-wrap: break-word;
+}
+
+img,
+svg,
+video,
+audio {
+    max-width: 100%;
+}
+
+img {
+    height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+
+/* ==========================================
+   General typography
+========================================== */
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+dl,
+blockquote {
+    margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+}
+
+h1 {
+    margin-bottom: 0.4rem;
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h2 {
+    margin-bottom: 1rem;
+    font-size: clamp(1.45rem, 2.7vw, 2rem);
+}
+
+h3 {
+    margin-bottom: 0.45rem;
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+}
+
+h4 {
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+}
+
+p {
+    margin-bottom: 1.2rem;
+}
+
+ul,
+ol {
+    margin-bottom: 1.4rem;
+    padding-left: 1.5rem;
+}
+
+li + li {
+    margin-top: 0.35rem;
+}
+
+strong {
+    font-weight: 700;
+}
+
+small {
+    font-size: 0.88rem;
+}
+
+code {
+    padding: 0.12em 0.35em;
+    border-radius: 4px;
+    background: rgba(107, 100, 90, 0.1);
+    font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        Menlo,
+        monospace;
+    font-size: 0.92em;
+}
+
+blockquote {
+    margin-right: 0;
+    margin-left: 0;
+    padding: 1rem 1.25rem;
+    border-left: 4px solid var(--accent);
+    background: var(--surface-soft);
+}
+
+
+/* ==========================================
+   Links
+========================================== */
+
+a {
+    color: var(--accent-dark);
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+}
+
+a:hover {
+    color: var(--accent);
+}
+
+a:focus-visible {
+    outline: 3px solid #f3bd63;
+    outline-offset: 4px;
+}
+
+
+/* ==========================================
+   Shared layout
+========================================== */
+
+.container {
+    width: min(
+        calc(100% - 40px),
+        var(--content-width)
+    );
+    margin-inline: auto;
+}
+
+.skip-link {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 100;
+
+    padding: 10px 14px;
+
+    border-radius: 8px;
+    background: var(--text);
+    color: #ffffff;
+
+    transform: translateY(-160%);
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+
+/* ==========================================
+   Simple subpage layout
+
+   contributors/index.html
+   editorial-policy/index.html
+   about-ondo/index.html
+   about-shinso/index.html
+========================================== */
+
+body > header:not(.site-header) {
+    width: min(
+        calc(100% - 40px),
+        var(--reading-width)
+    );
+
+    margin-inline: auto;
+    padding-top: 3.5rem;
+    padding-bottom: 1.8rem;
+
+    border-bottom: 1px solid var(--border);
+}
+
+body > header:not(.site-header) h1 {
+    margin-bottom: 0.25rem;
+}
+
+body > header:not(.site-header) p {
+    margin-bottom: 0;
+    color: var(--muted);
+    font-size: 0.98rem;
+    letter-spacing: 0.04em;
+}
+
+body > main {
+    width: min(
+        calc(100% - 40px),
+        var(--reading-width)
+    );
+
+    margin-inline: auto;
+    padding-top: 2.5rem;
+    padding-bottom: 4rem;
+}
+
+body > main > section {
+    margin-bottom: 3.5rem;
+}
+
+body > main > section:last-child {
+    margin-bottom: 0;
+}
+
+body > main > section > h2 {
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+}
+
+body > footer:not(.site-footer) {
+    width: min(
+        calc(100% - 40px),
+        var(--reading-width)
+    );
+
+    margin-inline: auto;
+    padding-bottom: 2.5rem;
+
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+body > footer:not(.site-footer) hr {
+    margin: 0 0 1.5rem;
+    border: 0;
+    border-top: 1px solid var(--border);
+}
+
+body > footer:not(.site-footer) p {
+    margin-bottom: 0.65rem;
+}
+
+
+/* ==========================================
+   Top page header
+========================================== */
+
+.site-header {
+    padding: 76px 0 60px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(139, 47, 47, 0.96),
+            rgba(81, 28, 28, 0.96)
+        ),
+        radial-gradient(
+            circle at top right,
+            rgba(255, 255, 255, 0.16),
+            transparent 36%
+        );
+
+    color: #ffffff;
+}
+
+.header-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
+}
+
+.eyebrow {
+    margin: 0 0 8px;
+
+    color: var(--accent);
+
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.site-header .eyebrow {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.site-header h1 {
+    margin-bottom: 0.35rem;
+
+    font-size: clamp(2.5rem, 6vw, 4.6rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+}
+
+.subtitle {
+    margin-bottom: 0;
+
+    color: rgba(255, 255, 255, 0.82);
+
+    font-size: 1.08rem;
+    letter-spacing: 0.08em;
+}
+
+.language-button {
+    display: inline-flex;
+    min-width: 110px;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 11px 18px;
+
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: 999px;
+
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.language-button:hover,
+.language-button:focus-visible {
+    background: #ffffff;
+    color: var(--accent-dark);
+
+    transform: translateY(-2px);
+}
+
+
+/* ==========================================
+   Top page introduction
+========================================== */
+
+.intro {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.intro-inner {
+    max-width: 880px;
+    padding-top: 46px;
+    padding-bottom: 46px;
+}
+
+.intro p {
+    color: var(--muted);
+    font-size: 1.04rem;
+}
+
+.intro .lead {
+    margin-bottom: 12px;
+
+    color: var(--text);
+
+    font-size: clamp(1.12rem, 2.2vw, 1.4rem);
+    font-weight: 600;
+}
+
+
+/* ==========================================
+   Resource cards
+========================================== */
+
+.resources {
+    padding: 76px 0;
+}
+
+.section-heading {
+    margin-bottom: 28px;
+}
+
+.section-heading h2 {
+    margin-bottom: 0;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.card {
+    display: flex;
+    min-height: 250px;
+    flex-direction: column;
+
+    padding: 28px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    background: var(--surface);
+    box-shadow: var(--shadow);
+
+    color: inherit;
+    text-decoration: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.card:hover,
+.card:focus-visible {
+    border-color: var(--accent);
+
+    box-shadow:
+        0 16px 34px rgba(55, 43, 30, 0.13);
+
+    transform: translateY(-5px);
+}
+
+.card-kicker {
+    margin-bottom: 10px;
+
+    color: var(--accent);
+
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.card h3 {
+    margin-bottom: 12px;
+    font-size: 1.28rem;
+    line-height: 1.45;
+}
+
+.card p {
+    margin-bottom: 24px;
+    color: var(--muted);
+}
+
+.card-link {
+    margin-top: auto;
+
+    color: var(--accent);
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   Archive information
+========================================== */
+
+.archive-info {
+    padding: 0 0 82px;
+}
+
+.archive-panel {
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 48px;
+
+    padding: 42px;
+
+    border-radius: var(--radius);
+    background: var(--surface-soft);
+}
+
+.archive-panel p {
+    margin-bottom: 0;
+    color: var(--muted);
+}
+
+.link-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+}
+
+.link-list a {
+    display: block;
+
+    padding: 13px 16px;
+
+    border: 1px solid rgba(139, 47, 47, 0.22);
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.65);
+
+    color: var(--accent-dark);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.link-list a:hover,
+.link-list a:focus-visible {
+    border-color: var(--accent);
+    background: #ffffff;
+}
+
+
+/* ==========================================
+   Contributors
+========================================== */
+
+.contributor {
+    margin-bottom: 2.25rem;
+}
+
+.contributor:last-child {
+    margin-bottom: 0;
+}
+
+.contributor h3 {
+    margin-bottom: 0.15rem;
+}
+
+.contributor-name-en {
+    margin-bottom: 0.65rem;
+
+    color: var(--muted);
+
+    font-size: 0.94rem;
+    line-height: 1.5;
+}
+
+.contributor-roles {
+    margin-bottom: 0;
+    padding-left: 1.4rem;
+}
+
+.contributor-roles li {
+    padding-left: 0.1rem;
+}
+
+#loading-message,
+#error-message {
+    padding: 1rem 1.2rem;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background: var(--surface);
+}
+
+#error-message h2 {
+    font-size: 1.3rem;
+}
+
+
+/* ==========================================
+   Tables
+========================================== */
+
+table {
+    width: 100%;
+    margin-bottom: 1.5rem;
+
+    border-collapse: collapse;
+    background: var(--surface);
+}
+
+th,
+td {
+    padding: 0.75rem 0.9rem;
+
+    border: 1px solid var(--border);
+
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    background: var(--surface-soft);
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   Top page footer
+========================================== */
+
+.site-footer {
+    padding: 34px 0;
+
+    background: #2d2924;
+    color: rgba(255, 255, 255, 0.84);
+}
+
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.site-footer strong {
+    color: #ffffff;
+}
+
+.site-footer p {
+    margin-bottom: 0;
+    font-size: 0.92rem;
+}
+
+.site-footer a {
+    color: #ffffff;
+}
+
+.footer-meta {
+    text-align: right;
+}
+
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width: 900px) {
+    .card-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .archive-panel {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+}
+
+@media (max-width: 620px) {
+    .container,
+    body > header:not(.site-header),
+    body > main,
+    body > footer:not(.site-footer) {
+        width: min(
+            calc(100% - 28px),
+            var(--content-width)
+        );
+    }
+
+    body {
+        line-height: 1.75;
+    }
+
+    body > header:not(.site-header) {
+        padding-top: 2.3rem;
+        padding-bottom: 1.3rem;
+    }
+
+    body > main {
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+    }
+
+    body > main > section {
+        margin-bottom: 2.7rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.45rem;
+    }
+
+    h3 {
+        font-size: 1.12rem;
+    }
+
+    .site-header {
+        padding: 48px 0 42px;
+    }
+
+    .site-header h1 {
+        font-size: clamp(2.2rem, 12vw, 3.4rem);
+    }
+
+    .header-inner {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .language-button {
+        min-width: 0;
+    }
+
+    .resources {
+        padding: 56px 0;
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        min-height: 0;
+        padding: 24px;
+    }
+
+    .archive-panel {
+        padding: 28px;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+    }
+
+    .footer-meta {
+        text-align: left;
+    }
+
+    .contributor {
+        margin-bottom: 1.8rem;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+
+/* ==========================================
+   Reduced motion
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+    }
+}
+
+
+/* ==========================================
+   Print
+========================================== */
+
+@media print {
+    :root {
+        --background: #ffffff;
+        --surface: #ffffff;
+        --surface-soft: #ffffff;
+        --text: #000000;
+        --muted: #333333;
+        --border: #999999;
+    }
+
+    body {
+        background: #ffffff;
+        color: #000000;
+        font-size: 11pt;
+        line-height: 1.6;
+    }
+
+    .site-header {
+        padding: 0 0 1.5rem;
+        background: none;
+        color: #000000;
+    }
+
+    .site-header .eyebrow,
+    .subtitle {
+        color: #333333;
+    }
+
+    .language-button {
+        display: none;
+    }
+
+    .card {
+        min-height: 0;
+        break-inside: avoid;
+        box-shadow: none;
+    }
+
+    .site-footer {
+        background: none;
+        color: #000000;
+    }
+
+    .site-footer a {
+        color: #000000;
+    }
+
+    a {
+        color: #000000;
+    }
+}
