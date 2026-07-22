@@ -7,7 +7,7 @@
   <title>歌詞 | 新荘音頭 公式デジタルアーカイブ</title>
   <meta
     name="description"
-    content="新荘音頭の全七番の歌詞、よみがな、作詞者、注記、権利・ライセンス情報を掲載しています。"
+    content="新荘音頭の全七番の歌詞をルビ付きで掲載し、作詞者、注記、権利・ライセンス情報を紹介しています。"
   >
 
   <link rel="stylesheet" href="../style.css">
@@ -78,14 +78,22 @@
       border-bottom: 2px solid var(--border);
     }
 
-    .lyric-lines,
-    .kana-lines {
+    .lyric-lines {
       margin-bottom: 1.25rem;
     }
 
-    .lyric-line,
-    .kana-line {
-      margin-bottom: 0.25rem;
+    .lyric-line {
+      margin-bottom: 0.8rem;
+      line-height: 2.25;
+    }
+
+    .lyric-line ruby {
+      ruby-position: over;
+    }
+
+    .lyric-line rt {
+      font-size: 0.52em;
+      line-height: 1.2;
     }
 
     .lyricist {
@@ -315,6 +323,53 @@
 
 
     /**
+     * 歌詞本文と読みを一行ずつ対応させ、各行をruby要素として出力する。
+     * YAML内の text と kana の行数が一致しない場合は、本文だけを表示する。
+     */
+    function createRubyLyricGroup(text, kana) {
+      const groupElement = document.createElement("div");
+      groupElement.className = "lyric-lines";
+
+      const textLines = text.split(/\r?\n/);
+      const kanaLines = kana.split(/\r?\n/);
+
+      textLines.forEach((textLine, index) => {
+        const lineElement = document.createElement("p");
+        lineElement.className = "lyric-line";
+
+        const reading = kanaLines[index] ?? "";
+
+        if (reading) {
+          const rubyElement = document.createElement("ruby");
+          const rpOpenElement = document.createElement("rp");
+          const rtElement = document.createElement("rt");
+          const rpCloseElement = document.createElement("rp");
+
+          rubyElement.append(document.createTextNode(textLine));
+
+          rpOpenElement.textContent = "（";
+          rtElement.textContent = reading;
+          rpCloseElement.textContent = "）";
+
+          rubyElement.append(
+            rpOpenElement,
+            rtElement,
+            rpCloseElement
+          );
+
+          lineElement.appendChild(rubyElement);
+        } else {
+          lineElement.textContent = textLine;
+        }
+
+        groupElement.appendChild(lineElement);
+      });
+
+      return groupElement;
+    }
+
+
+    /**
      * 数値の番番号を、日本語の見出しへ変換する。
      * 既知の範囲外でもページが壊れないよう、数値表記へ退避する。
      */
@@ -328,7 +383,7 @@
     ========================================== */
 
     /**
-     * このページの生成に必要な最小限の構造だけを確認する。
+     * このページのルビ付き表示に必要な最小限の構造だけを確認する。
      * 正本全体を過剰に検証せず、表示責務の範囲に限定する。
      */
     function validateMetadata(metadata) {
@@ -429,24 +484,13 @@
 
       verseSectionElement.appendChild(headingElement);
       verseSectionElement.appendChild(
-        createLineGroup(verse.text, "lyric-lines", "lyric-line")
+        createRubyLyricGroup(verse.text, verse.kana)
       );
 
       const lyricistElement = document.createElement("p");
       lyricistElement.className = "lyricist";
       lyricistElement.textContent = `作詞：${verse.lyricist}`;
       verseSectionElement.appendChild(lyricistElement);
-
-      const kanaDetailsElement = document.createElement("details");
-      const kanaSummaryElement = document.createElement("summary");
-      kanaSummaryElement.textContent = "よみがな";
-
-      kanaDetailsElement.appendChild(kanaSummaryElement);
-      kanaDetailsElement.appendChild(
-        createLineGroup(verse.kana, "kana-lines", "kana-line")
-      );
-
-      verseSectionElement.appendChild(kanaDetailsElement);
 
       if (typeof verse.note === "string" && verse.note.trim() !== "") {
         const noteElement = document.createElement("p");
