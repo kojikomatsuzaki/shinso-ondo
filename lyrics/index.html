@@ -31,9 +31,19 @@
       margin-bottom: 2.5rem;
     }
 
-    .title-kana {
+    ruby {
+      ruby-position: over;
+    }
+
+    rt {
       color: var(--muted);
-      font-size: 0.95rem;
+      font-size: 0.42em;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    #page-subtitle ruby {
+      ruby-position: over;
     }
 
     .loading-message,
@@ -163,7 +173,6 @@
     <article aria-labelledby="lyrics-heading">
       <section class="lyrics-introduction">
         <h2 id="lyrics-heading">歌詞</h2>
-        <p id="title-kana" class="title-kana" hidden></p>
         <p>
           このページは、正本メタデータ
           <a href="../metadata/shinso-ondo.yaml"><code>metadata/shinso-ondo.yaml</code></a>
@@ -267,7 +276,6 @@
 
     const pageTitleElement = document.getElementById("page-title");
     const pageSubtitleElement = document.getElementById("page-subtitle");
-    const titleKanaElement = document.getElementById("title-kana");
 
     const loadingMessageElement = document.getElementById("loading-message");
     const errorMessageElement = document.getElementById("error-message");
@@ -357,23 +365,49 @@
        Page header
     ========================================== */
 
+    function replaceWithRuby(element, baseText, readingText) {
+      element.replaceChildren();
+
+      if (!readingText) {
+        element.textContent = baseText;
+        return;
+      }
+
+      const rubyElement = document.createElement("ruby");
+      const rpOpenElement = document.createElement("rp");
+      const rtElement = document.createElement("rt");
+      const rpCloseElement = document.createElement("rp");
+
+      rubyElement.append(document.createTextNode(baseText));
+
+      rpOpenElement.textContent = "（";
+      rtElement.textContent = readingText;
+      rpCloseElement.textContent = "）";
+
+      rubyElement.append(
+        rpOpenElement,
+        rtElement,
+        rpCloseElement
+      );
+
+      element.appendChild(rubyElement);
+    }
+
+
     function renderPageHeader(metadata) {
       const title = metadata.work.title;
       const subtitle = title.subtitle ?? "";
       const kanaMain = title.kana?.main ?? "";
       const kanaSubtitle = title.kana?.subtitle ?? "";
 
-      pageTitleElement.textContent = title.main;
-      pageSubtitleElement.textContent = subtitle || "歌詞";
+      replaceWithRuby(pageTitleElement, title.main, kanaMain);
+      replaceWithRuby(
+        pageSubtitleElement,
+        subtitle || "歌詞",
+        subtitle ? kanaSubtitle : ""
+      );
 
       document.title = `歌詞 | ${title.main} 公式デジタルアーカイブ`;
-
-      const kanaParts = [kanaMain, kanaSubtitle].filter(Boolean);
-
-      if (kanaParts.length > 0) {
-        titleKanaElement.textContent = `読み：${kanaParts.join("／")}`;
-        titleKanaElement.hidden = false;
-      }
     }
 
 
