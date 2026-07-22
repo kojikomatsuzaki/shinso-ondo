@@ -89,11 +89,13 @@
 
     .lyric-line ruby {
       ruby-position: over;
+      ruby-align: center;
     }
 
     .lyric-line rt {
       font-size: 0.52em;
       line-height: 1.2;
+      letter-spacing: 0.04em;
     }
 
     .lyricist {
@@ -323,44 +325,69 @@
 
 
     /**
-     * 歌詞本文と読みを一行ずつ対応させ、各行をruby要素として出力する。
-     * YAML内の text と kana の行数が一致しない場合は、本文だけを表示する。
+     * 歌詞本文と読みを一行ずつ対応させる。
+     *
+     * さらに、各行を全角空白による分かち書き単位へ分割し、
+     * まとまりごとに <ruby><rt> を生成する。
+     *
+     * 例：
+     *   水戸の歴史に　ふれる新屋敷
+     *   みとのれきしに　ふれるしんやしき
+     *
+     * 生成結果：
+     *   <ruby>水戸の歴史に<rt>みとのれきしに</rt></ruby>
+     *   <ruby>ふれる新屋敷<rt>ふれるしんやしき</rt></ruby>
      */
     function createRubyLyricGroup(text, kana) {
       const groupElement = document.createElement("div");
       groupElement.className = "lyric-lines";
 
-      const textLines = text.split(/\r?\n/);
-      const kanaLines = kana.split(/\r?\n/);
+      const textLines = text.split(/
+?
+/);
+      const kanaLines = kana.split(/
+?
+/);
 
-      textLines.forEach((textLine, index) => {
+      textLines.forEach((textLine, lineIndex) => {
         const lineElement = document.createElement("p");
         lineElement.className = "lyric-line";
 
-        const reading = kanaLines[index] ?? "";
+        const kanaLine = kanaLines[lineIndex] ?? "";
 
-        if (reading) {
-          const rubyElement = document.createElement("ruby");
-          const rpOpenElement = document.createElement("rp");
-          const rtElement = document.createElement("rt");
-          const rpCloseElement = document.createElement("rp");
+        // YAMLの歌詞で使われている全角空白を分かち書きの境界とする。
+        const textSegments = textLine.split("　");
+        const kanaSegments = kanaLine.split("　");
 
-          rubyElement.append(document.createTextNode(textLine));
+        textSegments.forEach((textSegment, segmentIndex) => {
+          const reading = kanaSegments[segmentIndex] ?? "";
 
-          rpOpenElement.textContent = "（";
-          rtElement.textContent = reading;
-          rpCloseElement.textContent = "）";
+          if (reading) {
+            const rubyElement = document.createElement("ruby");
+            const rtElement = document.createElement("rt");
 
-          rubyElement.append(
-            rpOpenElement,
-            rtElement,
-            rpCloseElement
-          );
+            rubyElement.appendChild(
+              document.createTextNode(textSegment)
+            );
 
-          lineElement.appendChild(rubyElement);
-        } else {
-          lineElement.textContent = textLine;
-        }
+            rtElement.textContent = reading;
+            rubyElement.appendChild(rtElement);
+
+            lineElement.appendChild(rubyElement);
+          } else {
+            // 読みが不足している場合も本文は失わない。
+            lineElement.appendChild(
+              document.createTextNode(textSegment)
+            );
+          }
+
+          // 分かち書きの区切りを、元データと同じ全角空白で保持する。
+          if (segmentIndex < textSegments.length - 1) {
+            lineElement.appendChild(
+              document.createTextNode("　")
+            );
+          }
+        });
 
         groupElement.appendChild(lineElement);
       });
