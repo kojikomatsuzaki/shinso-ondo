@@ -227,7 +227,8 @@
         role="alert"
         hidden
       >
-        歌詞データを読み込めませんでした。時間をおいて再度お試しください。
+        歌詞データを読み込めませんでした。
+        <a href="../metadata/shinso-ondo.yaml">正本メタデータを直接確認する</a>こともできます。
       </p>
 
       <div id="lyrics-list" class="lyrics-list" hidden></div>
@@ -287,8 +288,6 @@
     js-yaml 4.1.0
     ブラウザはYAMLを直接解釈できないため、YAML解析に使用する。
   -->
-  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
-
   <script>
     "use strict";
 
@@ -668,10 +667,88 @@
        YAML data loading
     ========================================== */
 
-    async function loadCanonicalMetadata() {
-      if (typeof window.jsyaml?.load !== "function") {
-        throw new Error("The YAML parser could not be loaded.");
+    /**
+     * YAMLパーサーを動的に読み込む。
+     *
+     * 外部scriptをHTML解析時に同期読み込みすると、CDNの応答が遅い場合に
+     * ページ全体が「読み込み中」のまま停止する。そのため、タイムアウト付きで
+     * jsDelivrを試し、失敗時はunpkgへ切り替える。
+     */
+    function loadScriptWithTimeout(source, timeoutMilliseconds = 5000) {
+      return new Promise((resolve, reject) => {
+        const scriptElement = document.createElement("script");
+        let settled = false;
+
+        const timeoutId = window.setTimeout(() => {
+          if (settled) {
+            return;
+          }
+
+          settled = true;
+          scriptElement.remove();
+          reject(new Error(`Script load timed out: ${source}`));
+        }, timeoutMilliseconds);
+
+        scriptElement.src = source;
+        scriptElement.async = true;
+
+        scriptElement.addEventListener("load", () => {
+          if (settled) {
+            return;
+          }
+
+          settled = true;
+          window.clearTimeout(timeoutId);
+          resolve();
+        });
+
+        scriptElement.addEventListener("error", () => {
+          if (settled) {
+            return;
+          }
+
+          settled = true;
+          window.clearTimeout(timeoutId);
+          scriptElement.remove();
+          reject(new Error(`Script load failed: ${source}`));
+        });
+
+        document.head.appendChild(scriptElement);
+      });
+    }
+
+
+    async function ensureYamlParser() {
+      if (typeof window.jsyaml?.load === "function") {
+        return;
       }
+
+      const parserSources = [
+        "https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js",
+        "https://unpkg.com/js-yaml@4.1.0/dist/js-yaml.min.js"
+      ];
+
+      let lastError = null;
+
+      for (const source of parserSources) {
+        try {
+          await loadScriptWithTimeout(source);
+
+          if (typeof window.jsyaml?.load === "function") {
+            return;
+          }
+        } catch (error) {
+          lastError = error;
+          console.warn("YAMLパーサーの読み込みに失敗しました。", error);
+        }
+      }
+
+      throw lastError ?? new Error("The YAML parser could not be loaded.");
+    }
+
+
+    async function loadCanonicalMetadata() {
+      await ensureYamlParser();
 
       const response = await fetch(canonicalMetadataPath, {
         cache: "no-cache"
