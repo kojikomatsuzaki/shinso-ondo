@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>制作・協力者 | 新荘音頭デジタルアーカイブ</title>
+
     <link rel="stylesheet" href="../style.css">
 </head>
 
@@ -16,30 +18,63 @@
 
 <main>
 
-<section>
-    <h2>制作委員会</h2>
-    <p>現在執筆中です。</p>
-</section>
+    <p id="loading-message">
+        制作・協力者情報を読み込んでいます。
+    </p>
 
-<section>
-    <h2>作詞・作曲・編曲</h2>
-    <p>現在執筆中です。</p>
-</section>
+    <div id="contributors-content" hidden>
 
-<section>
-    <h2>歌唱・演奏</h2>
-    <p>現在執筆中です。</p>
-</section>
+        <section>
+            <h2>制作・企画</h2>
+            <div id="planning-list"></div>
+        </section>
 
-<section>
-    <h2>音楽編集</h2>
-    <p>現在執筆中です。</p>
-</section>
+        <section>
+            <h2>作詞・作曲・編曲</h2>
+            <div id="music-creation-list"></div>
+        </section>
 
-<section>
-    <h2>パンフレット制作</h2>
-    <p>現在執筆中です。</p>
-</section>
+        <section>
+            <h2>振付</h2>
+            <div id="choreography-list"></div>
+        </section>
+
+        <section>
+            <h2>歌唱・演奏</h2>
+            <div id="performance-list"></div>
+        </section>
+
+        <section>
+            <h2>録音・音楽編集</h2>
+            <div id="audio-production-list"></div>
+        </section>
+
+        <section>
+            <h2>パンフレット制作</h2>
+            <div id="pamphlet-list"></div>
+        </section>
+
+        <section>
+            <h2>デジタルアーカイブ</h2>
+            <div id="archive-list"></div>
+        </section>
+
+    </div>
+
+    <div id="error-message" hidden>
+        <h2>情報を表示できませんでした</h2>
+
+        <p>
+            メタデータの読み込みまたは解析に失敗しました。
+            ページを再読み込みしてください。
+        </p>
+
+        <p>
+            <a href="../metadata/shinso-ondo.yaml">
+                メタデータを直接確認する
+            </a>
+        </p>
+    </div>
 
 </main>
 
@@ -54,6 +89,243 @@
         © Shinso Ondo Production Committee
     </p>
 </footer>
+
+<script src="../js/js-yaml.min.js"></script>
+
+<script>
+    "use strict";
+
+    const YAML_PATH = "../metadata/shinso-ondo.yaml";
+
+    const ROLE_LABELS = {
+        lyricist: "作詞",
+        composer: "作曲",
+        arranger: "編曲",
+        choreographer: "振付",
+        musician: "演奏",
+        singer: "歌唱",
+        conductor: "指揮",
+        project_director: "総監修",
+        originator: "発案",
+        recording_engineer: "音楽録音",
+        audio_editor: "音楽編集",
+        pamphlet_producer: "パンフレット制作",
+        archive_manager: "デジタルアーカイブ管理"
+    };
+
+    function createContributorElement(contributor) {
+        const article = document.createElement("article");
+
+        const heading = document.createElement("h3");
+        heading.textContent = contributor.name || "名称未記録";
+        article.appendChild(heading);
+
+        if (contributor.name_en) {
+            const englishName = document.createElement("p");
+            englishName.lang = "en";
+            englishName.textContent = contributor.name_en;
+            article.appendChild(englishName);
+        }
+
+        const role = document.createElement("p");
+
+        const roleLabel =
+            ROLE_LABELS[contributor.role]
+            || contributor.role
+            || "役割未記録";
+
+        role.textContent = `役割：${roleLabel}`;
+        article.appendChild(role);
+
+        if (contributor.note) {
+            const note = document.createElement("p");
+            note.textContent = contributor.note;
+            article.appendChild(note);
+        }
+
+        return article;
+    }
+
+    function appendContributors(containerId, contributors) {
+        const container = document.getElementById(containerId);
+
+        if (!contributors || contributors.length === 0) {
+            const emptyMessage = document.createElement("p");
+            emptyMessage.textContent =
+                "該当する情報は現在登録されていません。";
+
+            container.appendChild(emptyMessage);
+            return;
+        }
+
+        contributors.forEach((contributor) => {
+            container.appendChild(
+                createContributorElement(contributor)
+            );
+        });
+    }
+
+    function uniqueContributors(contributors) {
+        const seen = new Set();
+
+        return contributors.filter((contributor) => {
+            const key = [
+                contributor.role,
+                contributor.name,
+                contributor.note
+            ].join("|");
+
+            if (seen.has(key)) {
+                return false;
+            }
+
+            seen.add(key);
+            return true;
+        });
+    }
+
+    function collectPerformanceContributors(performances) {
+        const contributors = [];
+
+        performances.forEach((performance) => {
+            if (Array.isArray(performance.performers)) {
+                contributors.push(...performance.performers);
+            }
+
+            const manifestation =
+                performance.manifestation || {};
+
+            const credits =
+                Array.isArray(manifestation.credits)
+                    ? manifestation.credits
+                    : [];
+
+            contributors.push(...credits);
+        });
+
+        return uniqueContributors(contributors);
+    }
+
+    function byRoles(contributors, roles) {
+        return contributors.filter((contributor) =>
+            roles.includes(contributor.role)
+        );
+    }
+
+    async function loadContributors() {
+        const loadingMessage =
+            document.getElementById("loading-message");
+
+        const contributorsContent =
+            document.getElementById("contributors-content");
+
+        const errorMessage =
+            document.getElementById("error-message");
+
+        try {
+            if (typeof jsyaml === "undefined") {
+                throw new Error(
+                    "js-yamlライブラリを読み込めませんでした。"
+                );
+            }
+
+            const response = await fetch(YAML_PATH, {
+                cache: "no-cache"
+            });
+
+            if (!response.ok) {
+                throw new Error(
+                    `YAMLの取得に失敗しました: ${response.status}`
+                );
+            }
+
+            const yamlText = await response.text();
+            const metadata = jsyaml.load(yamlText);
+
+            const workContributors =
+                metadata
+                && metadata.work
+                && Array.isArray(metadata.work.contributors)
+                    ? metadata.work.contributors
+                    : [];
+
+            const performances =
+                metadata
+                && Array.isArray(metadata.performances)
+                    ? metadata.performances
+                    : [];
+
+            const performanceContributors =
+                collectPerformanceContributors(performances);
+
+            appendContributors(
+                "planning-list",
+                byRoles(workContributors, [
+                    "originator",
+                    "project_director"
+                ])
+            );
+
+            appendContributors(
+                "music-creation-list",
+                byRoles(workContributors, [
+                    "lyricist",
+                    "composer",
+                    "arranger"
+                ])
+            );
+
+            appendContributors(
+                "choreography-list",
+                byRoles(workContributors, [
+                    "choreographer"
+                ])
+            );
+
+            appendContributors(
+                "performance-list",
+                byRoles(performanceContributors, [
+                    "singer",
+                    "musician",
+                    "conductor"
+                ])
+            );
+
+            appendContributors(
+                "audio-production-list",
+                byRoles(workContributors, [
+                    "recording_engineer",
+                    "audio_editor"
+                ])
+            );
+
+            appendContributors(
+                "pamphlet-list",
+                byRoles(workContributors, [
+                    "pamphlet_producer"
+                ])
+            );
+
+            appendContributors(
+                "archive-list",
+                byRoles(workContributors, [
+                    "archive_manager"
+                ])
+            );
+
+            loadingMessage.hidden = true;
+            contributorsContent.hidden = false;
+
+        } catch (error) {
+            console.error(error);
+
+            loadingMessage.hidden = true;
+            errorMessage.hidden = false;
+        }
+    }
+
+    loadContributors();
+</script>
 
 </body>
 </html>
