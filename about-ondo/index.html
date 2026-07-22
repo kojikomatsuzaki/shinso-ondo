@@ -2,9 +2,25 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新荘音頭って？ | 新荘音頭デジタルアーカイブ</title>
-    <link rel="stylesheet" href="../style.css">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="茨城県水戸市新荘地区の新荘音頭について、作品、歌詞構成、制作者、公式音源、権利情報を紹介します。"
+    >
+
+    <title>
+        新荘音頭って？ | 新荘音頭デジタルアーカイブ
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
 </head>
 
 <body>
@@ -14,22 +30,98 @@
     <p>About Shinso Ondo</p>
 </header>
 
-<main>
+<main id="main-content">
 
-<section>
-    <h2>新荘音頭について</h2>
-    <p>現在執筆中です。</p>
-</section>
+    <!--
+        YAMLの読み込みが完了するまで表示するメッセージ
+    -->
+    <p
+        id="loading-message"
+        role="status"
+    >
+        「新荘音頭」の情報を読み込んでいます。
+    </p>
 
-<section>
-    <h2>制作の経緯</h2>
-    <p>現在執筆中です。</p>
-</section>
 
-<section>
-    <h2>音楽と踊り</h2>
-    <p>現在執筆中です。</p>
-</section>
+    <!--
+        YAMLの読み込みに失敗した場合に表示する領域
+    -->
+    <section
+        id="error-message"
+        hidden
+        aria-live="polite"
+    >
+        <h2>情報を表示できませんでした</h2>
+
+        <p>
+            メタデータの読み込み中に問題が発生しました。
+            時間をおいて、もう一度アクセスしてください。
+        </p>
+    </section>
+
+
+    <!--
+        JavaScriptによって生成される本文
+    -->
+    <div
+        id="about-ondo-content"
+        hidden
+    >
+
+        <section aria-labelledby="about-heading">
+            <h2 id="about-heading">
+                新荘音頭について
+            </h2>
+
+            <div id="work-overview"></div>
+        </section>
+
+
+        <section aria-labelledby="structure-heading">
+            <h2 id="structure-heading">
+                歌詞の構成
+            </h2>
+
+            <div id="lyrics-structure"></div>
+        </section>
+
+
+        <section aria-labelledby="creators-heading">
+            <h2 id="creators-heading">
+                作詞・作曲・編曲・振付
+            </h2>
+
+            <div id="principal-creators"></div>
+        </section>
+
+
+        <section aria-labelledby="performance-heading">
+            <h2 id="performance-heading">
+                音楽と歌唱
+            </h2>
+
+            <div id="performances"></div>
+        </section>
+
+
+        <section aria-labelledby="publication-heading">
+            <h2 id="publication-heading">
+                公開と利用
+            </h2>
+
+            <div id="publication-and-rights"></div>
+        </section>
+
+
+        <section aria-labelledby="source-heading">
+            <h2 id="source-heading">
+                情報の典拠
+            </h2>
+
+            <div id="source-information"></div>
+        </section>
+
+    </div>
 
 </main>
 
@@ -37,13 +129,1417 @@
     <hr>
 
     <p>
-        <a href="../index.html">トップページへ戻る</a>
+        <a href="../index.html">
+            トップページへ戻る
+        </a>
     </p>
 
     <p>
         © Shinso Ondo Production Committee
     </p>
 </footer>
+
+
+<!--
+    YAMLをJavaScriptオブジェクトへ変換するための
+    ローカル版 js-yaml
+-->
+<script src="../js/js-yaml.min.js"></script>
+
+<script>
+    "use strict";
+
+
+    /* ==========================================
+       Configuration
+    ========================================== */
+
+    const METADATA_URL =
+        "../metadata/shinso-ondo.yaml";
+
+    /*
+     * GitHub Pages上の公開サイト基準URL。
+     *
+     * JSON-LDでは、作品や音源を安定して識別できるよう、
+     * 原則として絶対URLを使用する。
+     */
+    const SITE_URL =
+        "https://kojikomatsuzaki.github.io/shinso-ondo";
+
+    /*
+     * 「新荘音頭」という作品そのものを識別するURI。
+     *
+     * #music-composition はページ内識別子として用いる。
+     */
+    const WORK_ID =
+        `${SITE_URL}/about-ondo/#music-composition`;
+
+
+    /* ==========================================
+       Role labels
+
+       YAMLでは機械可読な統制語彙を使用し、
+       Webページでは日本語表示名へ変換する。
+    ========================================== */
+
+    const ROLE_LABELS = {
+        lyricist: "作詞",
+        composer: "作曲",
+        arranger: "編曲",
+        choreographer: "振付",
+        musician: "演奏",
+        singer: "歌唱",
+        conductor: "指揮",
+        recording_engineer: "音楽録音",
+        audio_editor: "音楽編集"
+    };
+
+
+    /* ==========================================
+       DOM references
+    ========================================== */
+
+    const loadingMessage =
+        document.getElementById("loading-message");
+
+    const errorMessage =
+        document.getElementById("error-message");
+
+    const aboutOndoContent =
+        document.getElementById("about-ondo-content");
+
+    const workOverview =
+        document.getElementById("work-overview");
+
+    const lyricsStructure =
+        document.getElementById("lyrics-structure");
+
+    const principalCreators =
+        document.getElementById("principal-creators");
+
+    const performancesContainer =
+        document.getElementById("performances");
+
+    const publicationAndRights =
+        document.getElementById("publication-and-rights");
+
+    const sourceInformation =
+        document.getElementById("source-information");
+
+
+    /* ==========================================
+       General helper functions
+    ========================================== */
+
+    /**
+     * 値が表示可能な内容を持っているか確認する。
+     */
+    function hasValue(value) {
+        return (
+            value !== null &&
+            value !== undefined &&
+            value !== ""
+        );
+    }
+
+
+    /**
+     * 指定された要素名と文字列から
+     * 新しいHTML要素を生成する。
+     */
+    function createTextElement(
+        tagName,
+        text,
+        className = null
+    ) {
+        const element =
+            document.createElement(tagName);
+
+        element.textContent = text;
+
+        if (className) {
+            element.className = className;
+        }
+
+        return element;
+    }
+
+
+    /**
+     * 「日本語名（英語名）」の表示文字列を生成する。
+     */
+    function formatBilingualName(agent) {
+        if (!agent) {
+            return "";
+        }
+
+        if (
+            hasValue(agent.name) &&
+            hasValue(agent.name_en)
+        ) {
+            return `${agent.name}（${agent.name_en}）`;
+        }
+
+        return agent.name || agent.name_en || "";
+    }
+
+
+    /**
+     * YYYY-MM-DD形式の日付を
+     * 日本語の年月日表記へ変換する。
+     */
+    function formatJapaneseDate(dateString) {
+        if (!hasValue(dateString)) {
+            return "";
+        }
+
+        const dateParts =
+            String(dateString).split("-");
+
+        if (dateParts.length !== 3) {
+            return String(dateString);
+        }
+
+        const [year, month, day] = dateParts;
+
+        return (
+            `${Number(year)}年` +
+            `${Number(month)}月` +
+            `${Number(day)}日`
+        );
+    }
+
+
+    /**
+     * 人物情報を同一人物ごとにまとめる。
+     */
+    function groupPeopleByName(contributors) {
+        const groupedPeople = new Map();
+
+        contributors.forEach((contributor) => {
+            if (!hasValue(contributor.name)) {
+                return;
+            }
+
+            const personKey = [
+                contributor.name,
+                contributor.name_en || ""
+            ].join("::");
+
+            if (!groupedPeople.has(personKey)) {
+                groupedPeople.set(personKey, {
+                    name: contributor.name,
+                    name_en: contributor.name_en || "",
+                    roles: []
+                });
+            }
+
+            const person =
+                groupedPeople.get(personKey);
+
+            const roleLabel =
+                ROLE_LABELS[contributor.role] ||
+                contributor.role;
+
+            let roleDescription = roleLabel;
+
+            if (
+                hasValue(contributor.note) &&
+                contributor.note !== roleLabel
+            ) {
+                roleDescription +=
+                    ` — ${contributor.note}`;
+            }
+
+            if (
+                !person.roles.includes(roleDescription)
+            ) {
+                person.roles.push(roleDescription);
+            }
+        });
+
+        return Array.from(groupedPeople.values());
+    }
+
+
+    /**
+     * 相対パスを公開サイト上の絶対URLへ変換する。
+     */
+    function createAbsoluteUrl(path) {
+        if (!hasValue(path)) {
+            return null;
+        }
+
+        const stringPath =
+            String(path);
+
+        if (/^https?:\/\//i.test(stringPath)) {
+            return stringPath;
+        }
+
+        const normalizedPath =
+            stringPath.replace(/^\/+/, "");
+
+        return `${SITE_URL}/${normalizedPath}`;
+    }
+
+
+    /**
+     * MIMEタイプを生成する。
+     */
+    function createAudioMimeType(format) {
+        if (!hasValue(format)) {
+            return null;
+        }
+
+        const normalizedFormat =
+            String(format).toLowerCase();
+
+        const mimeTypes = {
+            wav: "audio/wav",
+            wave: "audio/wav",
+            mp3: "audio/mpeg",
+            m4a: "audio/mp4",
+            aac: "audio/aac",
+            ogg: "audio/ogg",
+            flac: "audio/flac"
+        };
+
+        return (
+            mimeTypes[normalizedFormat] ||
+            `audio/${normalizedFormat}`
+        );
+    }
+
+
+    /* ==========================================
+       JSON-LD helper functions
+    ========================================== */
+
+    /**
+     * YAMLの人物・団体情報を、
+     * Schema.orgのPersonまたはOrganizationへ変換する。
+     */
+    function createSchemaAgent(agent) {
+        if (!agent || !hasValue(agent.name)) {
+            return null;
+        }
+
+        /*
+         * agent_typeが明示されている場合は、その値を優先する。
+         * 旧データとの互換性のため、名称による補助判定も残す。
+         */
+        const organizationKeywords = [
+            "委員会",
+            "小学校",
+            "児童",
+            "会員",
+            "有志",
+            "制作委員"
+        ];
+
+        const isOrganization =
+            agent.agent_type === "organization" ||
+            (
+                agent.agent_type !== "person" &&
+                organizationKeywords.some(
+                    (keyword) =>
+                        String(agent.name).includes(keyword)
+                )
+            );
+
+        const schemaAgent = {
+            "@type": isOrganization
+                ? "Organization"
+                : "Person",
+            name: agent.name
+        };
+
+        if (hasValue(agent.name_en)) {
+            schemaAgent.alternateName =
+                agent.name_en;
+        }
+
+        if (hasValue(agent.affiliation)) {
+            schemaAgent.affiliation = {
+                "@type": "Organization",
+                name: agent.affiliation
+            };
+        }
+
+        return schemaAgent;
+    }
+
+
+    /**
+     * 同一人物・団体が複数回現れた場合に、
+     * JSON-LD上で重複しないよう整理する。
+     */
+    function createUniqueSchemaAgents(agents) {
+        const uniqueAgents = new Map();
+
+        agents.forEach((agent) => {
+            const schemaAgent =
+                createSchemaAgent(agent);
+
+            if (!schemaAgent) {
+                return;
+            }
+
+            const agentKey = [
+                schemaAgent["@type"],
+                schemaAgent.name
+            ].join("::");
+
+            if (!uniqueAgents.has(agentKey)) {
+                uniqueAgents.set(
+                    agentKey,
+                    schemaAgent
+                );
+            }
+        });
+
+        return Array.from(
+            uniqueAgents.values()
+        );
+    }
+
+
+    /**
+     * YAMLのライセンス情報から
+     * Creative CommonsライセンスURLを得る。
+     */
+    function getLicenseUrl(rights) {
+        const license =
+            rights?.license;
+
+        if (
+            license &&
+            typeof license === "object"
+        ) {
+            return (
+                license.url ||
+                license.deed_url_ja ||
+                license.deed_url_en ||
+                null
+            );
+        }
+
+        /*
+         * 旧形式との互換性を保つ。
+         */
+        if (license === "cc_by_nc_sa") {
+            return (
+                "https://creativecommons.org/" +
+                "licenses/by-nc-sa/4.0/"
+            );
+        }
+
+        return null;
+    }
+
+
+    /**
+     * YAMLの権利者情報をSchema.orgのcopyrightHolderへ変換する。
+     */
+    function createCopyrightHolders(rights) {
+        const rightsholders =
+            Array.isArray(rights?.rightsholder)
+                ? rights.rightsholder
+                : [];
+
+        return createUniqueSchemaAgents(
+            rightsholders.map((holder) => {
+                if (typeof holder === "string") {
+                    return {
+                        agent_type: "organization",
+                        name: holder
+                    };
+                }
+
+                return holder;
+            })
+        );
+    }
+
+
+    /* ==========================================
+       YAML to Schema.org crosswalk
+    ========================================== */
+
+    /**
+     * 内部メタデータであるYAMLを、
+     * Schema.orgのMusicCompositionを中心とする
+     * JSON-LDオブジェクトへ変換する。
+     *
+     * この関数が、
+     *
+     *   内部モデル
+     *       ↓
+     *   Schema.org
+     *
+     * のクロスウォークを担う。
+     */
+    function generateJsonLd(metadata) {
+        const work =
+            metadata.work || {};
+
+        const title =
+            work.title || {};
+
+        const place =
+            work.place || {};
+
+        const publication =
+            work.publication || {};
+
+        const expression =
+            metadata.expression || {};
+
+        const rights =
+            metadata.rights || {};
+
+        const contributors =
+            Array.isArray(work.contributors)
+                ? work.contributors
+                : [];
+
+        const performances =
+            Array.isArray(metadata.performances)
+                ? metadata.performances
+                : [];
+
+
+        /*
+         * 作詞者を抽出する。
+         */
+        const lyricists =
+            createUniqueSchemaAgents(
+                contributors.filter(
+                    (contributor) =>
+                        contributor.role ===
+                        "lyricist"
+                )
+            );
+
+
+        /*
+         * 作曲者を抽出する。
+         */
+        const composers =
+            createUniqueSchemaAgents(
+                contributors.filter(
+                    (contributor) =>
+                        contributor.role ===
+                        "composer"
+                )
+            );
+
+
+        /*
+         * 歌詞全体を一つの文字列へまとめる。
+         */
+        const verses =
+            Array.isArray(expression.verses)
+                ? expression.verses
+                : [];
+
+        const lyricsText =
+            verses
+                .filter(
+                    (verse) =>
+                        hasValue(verse.text)
+                )
+                .map(
+                    (verse) =>
+                        `第${verse.number}番\n` +
+                        verse.text
+                )
+                .join("\n\n");
+
+
+        /*
+         * 各公開音源をMusicRecordingへ変換する。
+         */
+        const recordings =
+            performances.map((performance) => {
+                const performers =
+                    Array.isArray(
+                        performance.performers
+                    )
+                        ? performance.performers
+                        : [];
+
+                const artists =
+                    createUniqueSchemaAgents(
+                        performers.filter(
+                            (performer) =>
+                                performer.role ===
+                                    "singer" ||
+                                performer.role ===
+                                    "musician"
+                        )
+                    );
+
+                const manifestation =
+                    performance.manifestation || {};
+
+                const files =
+                    Array.isArray(
+                        performance.item?.files
+                    )
+                        ? performance.item.files
+                        : [];
+
+                /*
+                 * 閲覧用コピーがあれば優先し、
+                 * なければ保存用マスターを使用する。
+                 */
+                const accessFile =
+                    files.find(
+                        (file) =>
+                            file.file_role ===
+                            "access"
+                    ) ||
+                    files.find(
+                        (file) =>
+                            file.file_role ===
+                            "master"
+                    ) ||
+                    files[0];
+
+                const recording = {
+                    "@type": "MusicRecording",
+
+                    "@id":
+                        `${SITE_URL}/audio/#` +
+                        encodeURIComponent(
+                            performance.id ||
+                            "recording"
+                        ),
+
+                    name:
+                        performance.version_title ||
+                        title.main ||
+                        "新荘音頭",
+
+                    recordingOf: {
+                        "@id": WORK_ID
+                    }
+                };
+
+
+                if (artists.length > 0) {
+                    recording.byArtist =
+                        artists;
+                }
+
+
+                const publicationDate =
+                    manifestation.publication_date ||
+                    publication.date;
+
+                if (hasValue(publicationDate)) {
+                    recording.datePublished =
+                        String(publicationDate);
+                }
+
+
+                if (
+                    accessFile &&
+                    hasValue(accessFile.file_name)
+                ) {
+                    const contentUrl =
+                        createAbsoluteUrl(
+                            accessFile.file_name
+                        );
+
+                    recording.url =
+                        contentUrl;
+
+                    recording.audio = {
+                        "@type": "AudioObject",
+                        contentUrl: contentUrl
+                    };
+
+                    const encodingFormat =
+                        createAudioMimeType(
+                            accessFile.format
+                        );
+
+                    if (hasValue(encodingFormat)) {
+                        recording.audio.encodingFormat =
+                            encodingFormat;
+                    }
+                }
+
+
+                return recording;
+            });
+
+
+        /*
+         * MusicCompositionを中心とするJSON-LDを生成する。
+         */
+        const jsonLd = {
+            "@context": "https://schema.org",
+
+            "@type": "MusicComposition",
+
+            "@id": WORK_ID,
+
+            name:
+                title.main ||
+                "新荘音頭",
+
+            url:
+                `${SITE_URL}/about-ondo/`,
+
+            inLanguage: "ja"
+        };
+
+
+        if (hasValue(title.subtitle)) {
+            jsonLd.alternateName =
+                title.subtitle;
+        }
+
+
+        if (lyricists.length > 0) {
+            jsonLd.lyricist =
+                lyricists;
+        }
+
+
+        if (composers.length > 0) {
+            jsonLd.composer =
+                composers;
+        }
+
+
+        if (hasValue(publication.publisher)) {
+            jsonLd.publisher = {
+                "@type": "Organization",
+                name: publication.publisher
+            };
+
+            if (hasValue(publication.publisher_en)) {
+                jsonLd.publisher.alternateName =
+                    publication.publisher_en;
+            }
+        }
+
+
+        if (hasValue(publication.date)) {
+            jsonLd.datePublished =
+                String(publication.date);
+        }
+
+
+        const placeNames = [
+            place.district,
+            place.city,
+            place.prefecture
+        ].filter(hasValue);
+
+        if (placeNames.length > 0) {
+            jsonLd.spatialCoverage = {
+                "@type": "Place",
+                name: placeNames.join("、"),
+
+                address: {
+                    "@type": "PostalAddress",
+
+                    addressRegion:
+                        place.prefecture || "",
+
+                    addressLocality:
+                        [
+                            place.city,
+                            place.district
+                        ]
+                            .filter(hasValue)
+                            .join("")
+                }
+            };
+        }
+
+
+        const licenseUrl =
+            getLicenseUrl(rights);
+
+        if (hasValue(licenseUrl)) {
+            jsonLd.license =
+                licenseUrl;
+        }
+
+
+        const copyrightHolders =
+            createCopyrightHolders(rights);
+
+        if (copyrightHolders.length === 1) {
+            jsonLd.copyrightHolder =
+                copyrightHolders[0];
+        } else if (copyrightHolders.length > 1) {
+            jsonLd.copyrightHolder =
+                copyrightHolders;
+        }
+
+
+        if (hasValue(lyricsText)) {
+            jsonLd.lyrics = {
+                "@type": "CreativeWork",
+                name:
+                    `${title.main || "新荘音頭"} 歌詞`,
+                text: lyricsText,
+                inLanguage: "ja"
+            };
+        }
+
+
+        if (recordings.length > 0) {
+            jsonLd.recordedAs =
+                recordings;
+        }
+
+
+        return jsonLd;
+    }
+
+
+    /**
+     * 生成したJSON-LDを、
+     * application/ld+json形式のscript要素として
+     * HTMLのheadへ挿入する。
+     */
+    function insertJsonLd(metadata) {
+        /*
+         * 再実行時に同じJSON-LDが重複しないよう、
+         * 既存の要素があれば削除する。
+         */
+        const existingJsonLd =
+            document.getElementById(
+                "shinso-ondo-json-ld"
+            );
+
+        if (existingJsonLd) {
+            existingJsonLd.remove();
+        }
+
+
+        const jsonLd =
+            generateJsonLd(metadata);
+
+        const script =
+            document.createElement("script");
+
+        script.id =
+            "shinso-ondo-json-ld";
+
+        script.type =
+            "application/ld+json";
+
+        script.textContent =
+            JSON.stringify(
+                jsonLd,
+                null,
+                2
+            );
+
+        document.head.appendChild(script);
+    }
+
+
+    /* ==========================================
+       Work overview
+    ========================================== */
+
+    /**
+     * 作品の基本情報を生成する。
+     */
+    function renderWorkOverview(metadata) {
+        const work = metadata.work || {};
+        const title = work.title || {};
+        const place = work.place || {};
+        const publication = work.publication || {};
+
+        const titleParagraph =
+            document.createElement("p");
+
+        const titleStrong =
+            createTextElement(
+                "strong",
+                title.main || "新荘音頭"
+            );
+
+        titleParagraph.appendChild(titleStrong);
+
+        if (hasValue(title.subtitle)) {
+            titleParagraph.appendChild(
+                document.createTextNode(
+                    ` ― ${title.subtitle} ―`
+                )
+            );
+        }
+
+        workOverview.appendChild(titleParagraph);
+
+
+        const placeNames = [
+            place.prefecture,
+            place.city,
+            place.district
+        ].filter(hasValue);
+
+        if (placeNames.length > 0) {
+            const placeText =
+                placeNames.join("");
+
+            workOverview.appendChild(
+                createTextElement(
+                    "p",
+                    `「新荘音頭」は、${placeText}を舞台とする地域の音頭です。`
+                )
+            );
+        }
+
+
+        if (
+            hasValue(publication.date) &&
+            hasValue(publication.publisher)
+        ) {
+            const publicationDate =
+                formatJapaneseDate(
+                    publication.date
+                );
+
+            workOverview.appendChild(
+                createTextElement(
+                    "p",
+                    `${publicationDate}に、${publication.publisher}から公開されました。`
+                )
+            );
+        }
+
+
+        if (hasValue(publication.note)) {
+            workOverview.appendChild(
+                createTextElement(
+                    "p",
+                    publication.note
+                )
+            );
+        }
+    }
+
+
+    /* ==========================================
+       Lyrics structure
+    ========================================== */
+
+    /**
+     * 歌詞全体の構成を生成する。
+     */
+    function renderLyricsStructure(metadata) {
+        const expression =
+            metadata.expression || {};
+
+        const structure =
+            expression.lyrics_structure || {};
+
+        const interlude =
+            structure.interlude || {};
+
+        if (hasValue(structure.total_verses)) {
+            lyricsStructure.appendChild(
+                createTextElement(
+                    "p",
+                    `歌詞は全${structure.total_verses}番で構成されています。`
+                )
+            );
+        }
+
+
+        if (
+            hasValue(interlude.after_verse) &&
+            hasValue(interlude.measures)
+        ) {
+            lyricsStructure.appendChild(
+                createTextElement(
+                    "p",
+                    `${interlude.after_verse}番の後には、${interlude.measures}小節の間奏が入ります。`
+                )
+            );
+        }
+
+
+        const verses =
+            Array.isArray(expression.verses)
+                ? expression.verses
+                : [];
+
+        const versesWithNotes =
+            verses.filter(
+                (verse) => hasValue(verse.note)
+            );
+
+        if (versesWithNotes.length > 0) {
+            const noteHeading =
+                createTextElement(
+                    "h3",
+                    "歌詞の読みと表記"
+                );
+
+            const noteList =
+                document.createElement("ul");
+
+            versesWithNotes.forEach((verse) => {
+                const noteItem =
+                    createTextElement(
+                        "li",
+                        `第${verse.number}番：${verse.note}`
+                    );
+
+                noteList.appendChild(noteItem);
+            });
+
+            lyricsStructure.appendChild(noteHeading);
+            lyricsStructure.appendChild(noteList);
+        }
+    }
+
+
+    /* ==========================================
+       Principal creators
+    ========================================== */
+
+    /**
+     * 作品そのものに関わる主要制作者を生成する。
+     */
+    function renderPrincipalCreators(metadata) {
+        const contributors =
+            metadata.work?.contributors || [];
+
+        const principalRoles = new Set([
+            "lyricist",
+            "composer",
+            "arranger",
+            "choreographer"
+        ]);
+
+        const principalContributors =
+            contributors.filter(
+                (contributor) =>
+                    principalRoles.has(
+                        contributor.role
+                    )
+            );
+
+        const groupedCreators =
+            groupPeopleByName(
+                principalContributors
+            );
+
+        const creatorList =
+            document.createElement("dl");
+
+        groupedCreators.forEach((creator) => {
+            const nameElement =
+                createTextElement(
+                    "dt",
+                    formatBilingualName(creator)
+                );
+
+            const rolesElement =
+                createTextElement(
+                    "dd",
+                    creator.roles.join("／")
+                );
+
+            creatorList.appendChild(nameElement);
+            creatorList.appendChild(rolesElement);
+        });
+
+        principalCreators.appendChild(creatorList);
+    }
+
+
+    /* ==========================================
+       Performances
+    ========================================== */
+
+    /**
+     * 公開されている各演奏・歌唱版を生成する。
+     */
+    function renderPerformances(metadata) {
+        const performances =
+            Array.isArray(metadata.performances)
+                ? metadata.performances
+                : [];
+
+        if (performances.length === 0) {
+            performancesContainer.appendChild(
+                createTextElement(
+                    "p",
+                    "公開中の演奏情報はありません。"
+                )
+            );
+
+            return;
+        }
+
+
+        performancesContainer.appendChild(
+            createTextElement(
+                "p",
+                `現在、次の${performances.length}種類の公式音源が公開されています。`
+            )
+        );
+
+
+        performances.forEach((performance) => {
+            const performanceArticle =
+                document.createElement("article");
+
+            performanceArticle.className =
+                "performance";
+
+            const performanceHeading =
+                createTextElement(
+                    "h3",
+                    performance.version_title ||
+                    "公式音源"
+                );
+
+            performanceArticle.appendChild(
+                performanceHeading
+            );
+
+
+            const performers =
+                Array.isArray(
+                    performance.performers
+                )
+                    ? performance.performers
+                    : [];
+
+            const manifestationCredits =
+                Array.isArray(
+                    performance.manifestation?.credits
+                )
+                    ? performance.manifestation.credits
+                    : [];
+
+            const credits = [
+                ...performers,
+                ...manifestationCredits
+            ];
+
+            const performerList =
+                document.createElement("ul");
+
+            credits.forEach((credit) => {
+                const roleLabel =
+                    ROLE_LABELS[credit.role] ||
+                    credit.role;
+
+                let performerText =
+                    `${roleLabel}：` +
+                    formatBilingualName(credit);
+
+                if (
+                    hasValue(credit.note) &&
+                    credit.note !== roleLabel
+                ) {
+                    performerText +=
+                        `（${credit.note}）`;
+                }
+
+                performerList.appendChild(
+                    createTextElement(
+                        "li",
+                        performerText
+                    )
+                );
+            });
+
+            performanceArticle.appendChild(
+                performerList
+            );
+
+            performancesContainer.appendChild(
+                performanceArticle
+            );
+        });
+    }
+
+
+    /* ==========================================
+       Publication and rights
+    ========================================== */
+
+    /**
+     * 公開状況とライセンス情報を生成する。
+     */
+    function renderPublicationAndRights(metadata) {
+        const rights = metadata.rights || {};
+        const license = rights.license || {};
+
+        if (
+            hasValue(license.name_ja) &&
+            hasValue(license.abbreviation)
+        ) {
+            const licenseParagraph =
+                document.createElement("p");
+
+            licenseParagraph.appendChild(
+                document.createTextNode(
+                    "本作品は、"
+                )
+            );
+
+            if (hasValue(license.deed_url_ja)) {
+                const licenseLink =
+                    createTextElement(
+                        "a",
+                        `${license.name_ja}（${license.abbreviation}）`
+                    );
+
+                licenseLink.href =
+                    license.deed_url_ja;
+
+                licenseLink.rel =
+                    "license";
+
+                licenseParagraph.appendChild(
+                    licenseLink
+                );
+            } else {
+                licenseParagraph.appendChild(
+                    document.createTextNode(
+                        `${license.name_ja}（${license.abbreviation}）`
+                    )
+                );
+            }
+
+            licenseParagraph.appendChild(
+                document.createTextNode(
+                    "で公開されています。"
+                )
+            );
+
+            publicationAndRights.appendChild(
+                licenseParagraph
+            );
+        }
+
+
+        const rightsholders =
+            Array.isArray(rights.rightsholder)
+                ? rights.rightsholder
+                : [];
+
+        if (rightsholders.length > 0) {
+            const holderNames =
+                rightsholders
+                    .map((holder) => {
+                        if (typeof holder === "string") {
+                            return holder;
+                        }
+
+                        return formatBilingualName(holder);
+                    })
+                    .filter(hasValue);
+
+            if (holderNames.length > 0) {
+                publicationAndRights.appendChild(
+                    createTextElement(
+                        "p",
+                        `著作権者・許諾者：${holderNames.join("、")}`
+                    )
+                );
+            }
+        }
+
+
+        if (hasValue(rights.note)) {
+            publicationAndRights.appendChild(
+                createTextElement(
+                    "p",
+                    rights.note
+                )
+            );
+        }
+    }
+
+
+    /* ==========================================
+       Source information
+    ========================================== */
+
+    /**
+     * 表示内容の典拠となる資料を生成する。
+     */
+    function renderSourceInformation(metadata) {
+        const source = metadata.source || {};
+
+        const bibliographicSource =
+            source.bibliographic_source || {};
+
+        if (hasValue(bibliographicSource.title)) {
+            const sourceList =
+                document.createElement("dl");
+
+            appendDefinition(
+                sourceList,
+                "資料名",
+                bibliographicSource.title
+            );
+
+            appendDefinition(
+                sourceList,
+                "発行者",
+                bibliographicSource.publisher
+            );
+
+            appendDefinition(
+                sourceList,
+                "発行日",
+                formatJapaneseDate(
+                    bibliographicSource.date
+                )
+            );
+
+            sourceInformation.appendChild(
+                sourceList
+            );
+        }
+
+
+        if (hasValue(metadata.notes)) {
+            sourceInformation.appendChild(
+                createTextElement(
+                    "p",
+                    metadata.notes
+                )
+            );
+        }
+    }
+
+
+    /**
+     * dl要素へdt・ddの組を追加する。
+     */
+    function appendDefinition(
+        definitionList,
+        term,
+        description
+    ) {
+        if (!hasValue(description)) {
+            return;
+        }
+
+        definitionList.appendChild(
+            createTextElement("dt", term)
+        );
+
+        definitionList.appendChild(
+            createTextElement(
+                "dd",
+                description
+            )
+        );
+    }
+
+
+    /* ==========================================
+       Page rendering
+    ========================================== */
+
+    /**
+     * YAMLから変換されたメタデータを使用し、
+     * ページ全体を生成する。
+     */
+    function renderPage(metadata) {
+        renderWorkOverview(metadata);
+        renderLyricsStructure(metadata);
+        renderPrincipalCreators(metadata);
+        renderPerformances(metadata);
+        renderPublicationAndRights(metadata);
+        renderSourceInformation(metadata);
+
+        /*
+         * 同じYAMLから、機械可読なSchema.org JSON-LDも生成する。
+         */
+        insertJsonLd(metadata);
+
+        loadingMessage.hidden = true;
+        aboutOndoContent.hidden = false;
+    }
+
+
+    /**
+     * 読み込みエラー時の表示へ切り替える。
+     */
+    function showError(error) {
+        console.error(
+            "新荘音頭メタデータの読み込みに失敗しました。",
+            error
+        );
+
+        loadingMessage.hidden = true;
+        aboutOndoContent.hidden = true;
+        errorMessage.hidden = false;
+    }
+
+
+    /* ==========================================
+       Metadata loading
+    ========================================== */
+
+    /**
+     * YAMLを取得し、JavaScriptオブジェクトへ変換する。
+     */
+    async function loadMetadata() {
+        try {
+            const response =
+                await fetch(METADATA_URL);
+
+            if (!response.ok) {
+                throw new Error(
+                    `HTTP error: ${response.status}`
+                );
+            }
+
+            const yamlText =
+                await response.text();
+
+            const metadata =
+                jsyaml.load(yamlText);
+
+            if (
+                !metadata ||
+                typeof metadata !== "object"
+            ) {
+                throw new Error(
+                    "YAMLをメタデータとして解釈できませんでした。"
+                );
+            }
+
+            renderPage(metadata);
+
+        } catch (error) {
+            showError(error);
+        }
+    }
+
+
+    /* ==========================================
+       Initialization
+    ========================================== */
+
+    loadMetadata();
+</script>
 
 </body>
 </html>
