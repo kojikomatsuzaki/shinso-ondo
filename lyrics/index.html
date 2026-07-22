@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>歌詞 | 新荘音頭 公式デジタルアーカイブ</title>
+  <meta
+    name="description"
+    content="新荘音頭の全七番の歌詞、よみがな、作詞者、注記、権利・ライセンス情報を掲載しています。"
+  >
+
+  <link rel="stylesheet" href="../style.css">
+
+  <style>
+    /* ==========================================
+       Lyrics page
+       このページ固有の表示だけを定義し、
+       共通デザインは ../style.css に委ねる。
+    ========================================== */
+
+    .page-navigation {
+      margin-bottom: 1.5rem;
+    }
+
+    .page-navigation a {
+      display: inline-block;
+    }
+
+    .lyrics-introduction {
+      margin-bottom: 2.5rem;
+    }
+
+    .title-kana {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .loading-message,
+    .error-message,
+    .noscript-message {
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+    }
+
+    .error-message {
+      border-left: 5px solid var(--accent);
+    }
+
+    .lyrics-list {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .verse {
+      padding: clamp(1.25rem, 3vw, 2rem);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .verse h2 {
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.55rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .lyric-lines,
+    .kana-lines {
+      margin-bottom: 1.25rem;
+    }
+
+    .lyric-line,
+    .kana-line {
+      margin-bottom: 0.25rem;
+    }
+
+    .lyricist {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .verse details {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .verse summary {
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .kana-lines {
+      margin-top: 1rem;
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .verse-note {
+      margin-top: 1.25rem;
+      margin-bottom: 0;
+      padding: 1rem 1.15rem;
+      border-left: 4px solid var(--accent);
+      background: var(--surface-soft);
+    }
+
+    .interlude {
+      padding: 1rem 1.25rem;
+      border: 1px dashed var(--accent);
+      border-radius: 10px;
+      background: var(--surface-soft);
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .metadata-list {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 0.55rem 1rem;
+      margin: 0;
+    }
+
+    .metadata-list dt {
+      font-weight: 700;
+    }
+
+    .metadata-list dd {
+      margin: 0;
+    }
+
+    @media (max-width: 600px) {
+      .metadata-list {
+        grid-template-columns: 1fr;
+        gap: 0.2rem;
+      }
+
+      .metadata-list dd {
+        margin-bottom: 0.8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">本文へ移動</a>
+
+  <header>
+    <p>Official Digital Archive</p>
+    <h1 id="page-title">新荘音頭</h1>
+    <p id="page-subtitle">歌詞</p>
+  </header>
+
+  <main id="main">
+    <nav class="page-navigation" aria-label="パンくずリスト">
+      <a href="../">新荘音頭 公式デジタルアーカイブへ戻る</a>
+    </nav>
+
+    <article aria-labelledby="lyrics-heading">
+      <section class="lyrics-introduction">
+        <h2 id="lyrics-heading">歌詞</h2>
+        <p id="title-kana" class="title-kana" hidden></p>
+        <p>
+          このページは、正本メタデータ
+          <a href="../metadata/shinso-ondo.yaml"><code>metadata/shinso-ondo.yaml</code></a>
+          を読み込み、歌詞を動的に表示しています。
+        </p>
+      </section>
+
+      <noscript>
+        <p class="noscript-message">
+          このページの歌詞表示にはJavaScriptが必要です。
+          正本データは
+          <a href="../metadata/shinso-ondo.yaml">YAMLファイル</a>
+          で確認できます。
+        </p>
+      </noscript>
+
+      <p id="loading-message" class="loading-message" role="status">
+        歌詞データを読み込んでいます。
+      </p>
+
+      <p
+        id="error-message"
+        class="error-message"
+        role="alert"
+        hidden
+      >
+        歌詞データを読み込めませんでした。時間をおいて再度お試しください。
+      </p>
+
+      <div id="lyrics-list" class="lyrics-list" hidden></div>
+
+      <section id="source-section" hidden>
+        <h2>典拠</h2>
+        <p id="source-description"></p>
+      </section>
+
+      <section id="rights-section" hidden>
+        <h2>権利・ライセンス</h2>
+        <dl class="metadata-list">
+          <dt>著作権者・ライセンサー</dt>
+          <dd id="rightsholder"></dd>
+
+          <dt>ライセンス</dt>
+          <dd>
+            <a id="license-link" href=""></a>
+          </dd>
+
+          <dt>アーカイブ管理者</dt>
+          <dd id="archive-manager"></dd>
+
+          <dt>リポジトリ</dt>
+          <dd>
+            <a id="repository-link" href="">GitHubリポジトリを見る</a>
+          </dd>
+        </dl>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <hr>
+    <p>
+      新荘音頭 公式デジタルアーカイブ
+    </p>
+    <p>
+      表示内容は
+      <a href="../metadata/shinso-ondo.yaml">正本メタデータ</a>
+      から生成しています。
+    </p>
+  </footer>
+
+  <!--
+    js-yaml 4.1.0
+    ブラウザはYAMLを直接解釈できないため、YAML解析に使用する。
+  -->
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+
+  <script>
+    "use strict";
+
+    /* ==========================================
+       Configuration
+    ========================================== */
+
+    const canonicalMetadataPath = "../metadata/shinso-ondo.yaml";
+
+    const japaneseVerseNumbers = new Map([
+      [1, "一番"],
+      [2, "二番"],
+      [3, "三番"],
+      [4, "四番"],
+      [5, "五番"],
+      [6, "六番"],
+      [7, "七番"]
+    ]);
+
+
+    /* ==========================================
+       DOM references
+    ========================================== */
+
+    const pageTitleElement = document.getElementById("page-title");
+    const pageSubtitleElement = document.getElementById("page-subtitle");
+    const titleKanaElement = document.getElementById("title-kana");
+
+    const loadingMessageElement = document.getElementById("loading-message");
+    const errorMessageElement = document.getElementById("error-message");
+    const lyricsListElement = document.getElementById("lyrics-list");
+
+    const sourceSectionElement = document.getElementById("source-section");
+    const sourceDescriptionElement = document.getElementById("source-description");
+
+    const rightsSectionElement = document.getElementById("rights-section");
+    const rightsholderElement = document.getElementById("rightsholder");
+    const licenseLinkElement = document.getElementById("license-link");
+    const archiveManagerElement = document.getElementById("archive-manager");
+    const repositoryLinkElement = document.getElementById("repository-link");
+
+
+    /* ==========================================
+       Small rendering helpers
+    ========================================== */
+
+    /**
+     * 複数行の文字列を、一行ずつ段落として安全に出力する。
+     * innerHTMLを使わず、YAML内の文字列をHTMLとして解釈させない。
+     */
+    function createLineGroup(multilineText, groupClassName, lineClassName) {
+      const groupElement = document.createElement("div");
+      groupElement.className = groupClassName;
+
+      multilineText.split(/\r?\n/).forEach((line) => {
+        const lineElement = document.createElement("p");
+        lineElement.className = lineClassName;
+        lineElement.textContent = line;
+        groupElement.appendChild(lineElement);
+      });
+
+      return groupElement;
+    }
+
+
+    /**
+     * 数値の番番号を、日本語の見出しへ変換する。
+     * 既知の範囲外でもページが壊れないよう、数値表記へ退避する。
+     */
+    function formatVerseNumber(verseNumber) {
+      return japaneseVerseNumbers.get(verseNumber) ?? `第${verseNumber}番`;
+    }
+
+
+    /* ==========================================
+       Metadata validation
+    ========================================== */
+
+    /**
+     * このページの生成に必要な最小限の構造だけを確認する。
+     * 正本全体を過剰に検証せず、表示責務の範囲に限定する。
+     */
+    function validateMetadata(metadata) {
+      if (!metadata || typeof metadata !== "object") {
+        throw new Error("Metadata root must be an object.");
+      }
+
+      if (!metadata.work?.title?.main) {
+        throw new Error("work.title.main is missing.");
+      }
+
+      if (!Array.isArray(metadata.expression?.verses)) {
+        throw new Error("expression.verses must be an array.");
+      }
+
+      if (metadata.expression.verses.length === 0) {
+        throw new Error("expression.verses is empty.");
+      }
+
+      metadata.expression.verses.forEach((verse) => {
+        if (
+          typeof verse.number !== "number" ||
+          typeof verse.lyricist !== "string" ||
+          typeof verse.text !== "string" ||
+          typeof verse.kana !== "string"
+        ) {
+          throw new Error("A verse has an unexpected structure.");
+        }
+      });
+    }
+
+
+    /* ==========================================
+       Page header
+    ========================================== */
+
+    function renderPageHeader(metadata) {
+      const title = metadata.work.title;
+      const subtitle = title.subtitle ?? "";
+      const kanaMain = title.kana?.main ?? "";
+      const kanaSubtitle = title.kana?.subtitle ?? "";
+
+      pageTitleElement.textContent = title.main;
+      pageSubtitleElement.textContent = subtitle || "歌詞";
+
+      document.title = `歌詞 | ${title.main} 公式デジタルアーカイブ`;
+
+      const kanaParts = [kanaMain, kanaSubtitle].filter(Boolean);
+
+      if (kanaParts.length > 0) {
+        titleKanaElement.textContent = `読み：${kanaParts.join("／")}`;
+        titleKanaElement.hidden = false;
+      }
+    }
+
+
+    /* ==========================================
+       Lyrics rendering
+    ========================================== */
+
+    function renderVerse(verse) {
+      const verseSectionElement = document.createElement("section");
+      verseSectionElement.className = "verse";
+      verseSectionElement.setAttribute(
+        "aria-labelledby",
+        `verse-${verse.number}-heading`
+      );
+
+      const headingElement = document.createElement("h2");
+      headingElement.id = `verse-${verse.number}-heading`;
+      headingElement.textContent = formatVerseNumber(verse.number);
+
+      verseSectionElement.appendChild(headingElement);
+      verseSectionElement.appendChild(
+        createLineGroup(verse.text, "lyric-lines", "lyric-line")
+      );
+
+      const lyricistElement = document.createElement("p");
+      lyricistElement.className = "lyricist";
+      lyricistElement.textContent = `作詞：${verse.lyricist}`;
+      verseSectionElement.appendChild(lyricistElement);
+
+      const kanaDetailsElement = document.createElement("details");
+      const kanaSummaryElement = document.createElement("summary");
+      kanaSummaryElement.textContent = "よみがな";
+
+      kanaDetailsElement.appendChild(kanaSummaryElement);
+      kanaDetailsElement.appendChild(
+        createLineGroup(verse.kana, "kana-lines", "kana-line")
+      );
+
+      verseSectionElement.appendChild(kanaDetailsElement);
+
+      if (typeof verse.note === "string" && verse.note.trim() !== "") {
+        const noteElement = document.createElement("p");
+        noteElement.className = "verse-note";
+        noteElement.textContent = verse.note;
+        verseSectionElement.appendChild(noteElement);
+      }
+
+      return verseSectionElement;
+    }
+
+
+    function renderInterlude(interlude) {
+      const interludeElement = document.createElement("aside");
+      interludeElement.className = "interlude";
+      interludeElement.setAttribute("aria-label", "間奏");
+      interludeElement.textContent = `間奏（${interlude.measures}小節）`;
+
+      return interludeElement;
+    }
+
+
+    function renderLyrics(metadata) {
+      const verses = metadata.expression.verses;
+      const interlude = metadata.expression.lyrics_structure?.interlude;
+
+      verses.forEach((verse) => {
+        lyricsListElement.appendChild(renderVerse(verse));
+
+        if (
+          interlude &&
+          verse.number === interlude.after_verse &&
+          typeof interlude.measures === "number"
+        ) {
+          lyricsListElement.appendChild(renderInterlude(interlude));
+        }
+      });
+
+      lyricsListElement.hidden = false;
+    }
+
+
+    /* ==========================================
+       Source and rights rendering
+    ========================================== */
+
+    function renderSource(metadata) {
+      const source = metadata.source?.bibliographic_source;
+      const sourceNote = metadata.notes;
+
+      if (!source?.title) {
+        return;
+      }
+
+      const sourceParts = [
+        source.date,
+        source.publisher,
+        `『${source.title}』`
+      ].filter(Boolean);
+
+      sourceDescriptionElement.textContent =
+        typeof sourceNote === "string" && sourceNote.trim() !== ""
+          ? sourceNote
+          : `${sourceParts.join(" ")}を典拠としています。`;
+
+      sourceSectionElement.hidden = false;
+    }
+
+
+    function renderRights(metadata) {
+      const rights = metadata.rights;
+      const repository = metadata.repository;
+
+      if (!rights || !repository) {
+        return;
+      }
+
+      const rightsholders = Array.isArray(rights.rightsholder)
+        ? rights.rightsholder
+            .map((agent) => agent.name)
+            .filter(Boolean)
+        : [];
+
+      const licensors = Array.isArray(rights.licensor)
+        ? rights.licensor
+            .map((agent) => agent.name)
+            .filter(Boolean)
+        : [];
+
+      const rightsAgents = [...new Set([...rightsholders, ...licensors])];
+
+      rightsholderElement.textContent =
+        rightsAgents.length > 0 ? rightsAgents.join("、") : "記載なし";
+
+      if (rights.license?.abbreviation && rights.license?.deed_url_ja) {
+        licenseLinkElement.textContent =
+          `${rights.license.abbreviation}（${rights.license.name_ja}）`;
+        licenseLinkElement.href = rights.license.deed_url_ja;
+      } else {
+        licenseLinkElement.textContent = "記載なし";
+        licenseLinkElement.removeAttribute("href");
+      }
+
+      const managerName = repository.owner?.name ?? "";
+      const managerNameEnglish = repository.owner?.name_en ?? "";
+
+      archiveManagerElement.textContent =
+        [managerName, managerNameEnglish && `（${managerNameEnglish}）`]
+          .filter(Boolean)
+          .join("");
+
+      if (repository.repository_url) {
+        repositoryLinkElement.href = repository.repository_url;
+      } else {
+        repositoryLinkElement.removeAttribute("href");
+      }
+
+      rightsSectionElement.hidden = false;
+    }
+
+
+    /* ==========================================
+       YAML data loading
+    ========================================== */
+
+    async function loadCanonicalMetadata() {
+      if (typeof window.jsyaml?.load !== "function") {
+        throw new Error("The YAML parser could not be loaded.");
+      }
+
+      const response = await fetch(canonicalMetadataPath, {
+        cache: "no-cache"
+      });
+
+      if (!response.ok) {
+        throw new Error(`Metadata request failed: ${response.status}`);
+      }
+
+      const yamlText = await response.text();
+      return window.jsyaml.load(yamlText);
+    }
+
+
+    /* ==========================================
+       Application startup
+    ========================================== */
+
+    async function initializeLyricsPage() {
+      try {
+        const metadata = await loadCanonicalMetadata();
+
+        validateMetadata(metadata);
+        renderPageHeader(metadata);
+        renderLyrics(metadata);
+        renderSource(metadata);
+        renderRights(metadata);
+
+        loadingMessageElement.hidden = true;
+      } catch (error) {
+        console.error("歌詞ページの生成に失敗しました。", error);
+
+        loadingMessageElement.hidden = true;
+        errorMessageElement.hidden = false;
+      }
+    }
+
+    initializeLyricsPage();
+  </script>
+</body>
+</html>
