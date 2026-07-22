@@ -1,6 +1,10 @@
 # 新荘音頭 メタデータ
-# 最終確定パンフレット、LICENSE、READMEおよび公開音源に基づく
-# updated: 2026-07-19
+# 正本（Canonical Metadata）
+#
+# このファイルを内部メタデータの正本とし、
+# HTML、Schema.org JSON-LD、README等の各形式へ変換する。
+#
+# updated: 2026-07-23
 
 work:
   title:
@@ -21,83 +25,66 @@ work:
   publication:
     status: published
     date: "2026-07-26"
-    publisher: "住みよいまちづくり新荘会"
-    note: "パンフレット、歌詞、クレジットおよび2種類の公式音源の公開日"
-
-  repository:
-    name: "Shinso Ondo Official Digital Archive"
-    platform: GitHub
-    url: "https://github.com/kojikomatsuzaki/shinso-ondo"
-    manager:
-      name: "小松崎 浩司"
-      name_en: "Hiroshi Komatsuzaki"
-    note: "小松崎浩司が管理する『新荘音頭』公式デジタルアーカイブ"
+    publisher: "新荘音頭制作委員会"
+    publisher_en: "Shinso Ondo Production Committee"
+    note: "パンフレット、歌詞、クレジットおよび2種類の音源の公開日"
 
   contributors:
     - role: lyricist
+      agent_type: person
       name: "川又 一郎"
       name_en: "Ichiro Kawamata"
       note: "第1番・第2番・第5番を作詞"
 
     - role: lyricist
+      agent_type: person
       name: "小網 昇"
       name_en: "Noboru Koami"
       note: "第3番・第6番・第7番を作詞"
 
     - role: lyricist
+      agent_type: person
       name: "椹沢 庸平"
-      name_en: "Yohei Kunugisawa"
+      name_en: "Yohei Kunugizawa"
       note: "第4番を作詞"
 
     - role: composer
+      agent_type: person
       name: "馬立 明美"
       name_en: "Akemi Umadate"
       note: null
 
     - role: arranger
+      agent_type: person
       name: "馬立 明美"
       name_en: "Akemi Umadate"
       note: null
 
     - role: choreographer
+      agent_type: person
       name: "国府田 はるか"
       name_en: "Haruka Koda"
       note: "振付"
 
-    - role: musician
-      name: "ツーウィー"
-      name_en: "Tsuwi"
-      note: "演奏"
-
     - role: project_director
+      agent_type: person
       name: "橋本 久雄"
       name_en: "Hisao Hashimoto"
-      note: "総監修"
+      affiliation: "新荘音頭制作委員会"
+      note: "総監修（新荘音頭制作委員会代表）"
 
     - role: originator
+      agent_type: person
       name: "橋本 久雄"
       name_en: "Hisao Hashimoto"
+      affiliation: "新荘音頭制作委員会"
       note: "『新荘音頭』制作の発案"
 
-    - role: recording_engineer
-      name: "小松崎 浩司"
-      name_en: "Hiroshi Komatsuzaki"
-      note: "音楽録音"
-
-    - role: audio_editor
-      name: "小松崎 浩司"
-      name_en: "Hiroshi Komatsuzaki"
-      note: "音楽編集"
-
     - role: pamphlet_producer
+      agent_type: person
       name: "小松崎 浩司"
       name_en: "Hiroshi Komatsuzaki"
       note: "パンフレット制作"
-
-    - role: archive_manager
-      name: "小松崎 浩司"
-      name_en: "Hiroshi Komatsuzaki"
-      note: "GitHub公式デジタルアーカイブの管理"
 
 expression:
   lyrics_structure:
@@ -222,23 +209,23 @@ performances:
 
     performers:
       - role: singer
+        agent_type: organization
         name: "新荘音頭制作委員"
-        name_en: "Members of the Shinso Ondo Production Committee"
-        performance_type: chorus
         note: "斉唱"
 
       - role: singer
+        agent_type: organization
         name: "新荘小学校管楽合奏部児童"
-        name_en: "Students of the Shinso Elementary School Wind Ensemble"
-        performance_type: chorus
         note: "斉唱"
 
       - role: musician
+        agent_type: organization
         name: "ツーウィー"
         name_en: "Tsuwi"
         note: "演奏"
 
       - role: conductor
+        agent_type: person
         name: "馬立 明美"
         name_en: "Akemi Umadate"
         note: "録音時の指揮"
@@ -246,14 +233,15 @@ performances:
     manifestation:
       type: audio_recording
       method: studio_recording
-
       credits:
         - role: recording_engineer
+          agent_type: person
           name: "小松崎 浩司"
           name_en: "Hiroshi Komatsuzaki"
           note: "音楽録音"
 
         - role: audio_editor
+          agent_type: person
           name: "小松崎 浩司"
           name_en: "Hiroshi Komatsuzaki"
           note: "音楽編集"
@@ -273,9 +261,7 @@ performances:
           bit_depth: null
           duration: null
           checksum: null
-          note: >-
-            公開リポジトリ上の音源ファイル。
-            ファイル名は旧歌唱者表記に基づく名称を維持している。
+          note: "公開リポジトリ上の保存用マスター音源"
 
   - id: "shinso-onndo-hanawa-aki"
     version_title: "塙亜樹 独唱版"
@@ -283,17 +269,19 @@ performances:
 
     performers:
       - role: singer
+        agent_type: person
         name: "塙 亜樹"
         name_en: "Aki Hanawa"
-        performance_type: solo
         note: "独唱"
 
       - role: musician
+        agent_type: organization
         name: "ツーウィー"
         name_en: "Tsuwi"
         note: "演奏"
 
       - role: conductor
+        agent_type: person
         name: "馬立 明美"
         name_en: "Akemi Umadate"
         note: "録音時の指揮"
@@ -301,14 +289,15 @@ performances:
     manifestation:
       type: audio_recording
       method: studio_recording
-
       credits:
         - role: recording_engineer
+          agent_type: person
           name: "小松崎 浩司"
           name_en: "Hiroshi Komatsuzaki"
           note: "音楽録音"
 
         - role: audio_editor
+          agent_type: person
           name: "小松崎 浩司"
           name_en: "Hiroshi Komatsuzaki"
           note: "音楽編集"
@@ -328,76 +317,64 @@ performances:
           bit_depth: null
           duration: null
           checksum: null
-          note: >-
-            公開リポジトリ上の音源ファイル。
-            ファイル名中の onndo は現行の公開ファイル名を維持している。
+          note: "公開リポジトリ上の保存用マスター音源。ファイル名の onndo は現行名を維持"
 
 rights:
   copyright_status: in_copyright
 
   rightsholder:
-    - name: "住みよいまちづくり新荘会"
-      name_en: "Shinsokai"
+    - agent_type: organization
+      name: "新荘音頭制作委員会"
+      name_en: "Shinso Ondo Production Committee"
+
+  licensor:
+    - agent_type: organization
+      name: "新荘音頭制作委員会"
+      name_en: "Shinso Ondo Production Committee"
 
   performer_rights:
-    - name: "新荘音頭制作委員"
-      name_en: "Members of the Shinso Ondo Production Committee"
-
-    - name: "新荘小学校管楽合奏部児童"
-      name_en: "Students of the Shinso Elementary School Wind Ensemble"
-
-    - name: "塙 亜樹"
-      name_en: "Aki Hanawa"
-
-    - name: "ツーウィー"
-      name_en: "Tsuwi"
+    - "新荘音頭制作委員"
+    - "新荘小学校管楽合奏部児童"
+    - "塙 亜樹"
+    - "ツーウィー"
 
   recording_rights_holder: null
-
   permission_status: permitted
   permission_scope: "公開およびライセンス条件に基づく利用"
-
   publication_status: published
-  publication_url: "https://github.com/kojikomatsuzaki/shinso-ondo"
-
-  license:
-    code: cc_by_nc_sa_4_0
-    name: "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
-    name_ja: "クリエイティブ・コモンズ 表示－非営利－継承 4.0 国際"
-    abbreviation: "CC BY-NC-SA 4.0"
-    deed_url: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
-    deed_url_ja: "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja"
-    legalcode_url: "https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode"
-    legalcode_url_ja: "https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.ja"
-
+  publication_url: "https://kojikomatsuzaki.github.io/shinso-ondo/"
   access_condition: open
   contact_for_rights: null
   publication_date: "2026-07-26"
 
+  license:
+    type: cc_by_nc_sa
+    abbreviation: "CC BY-NC-SA 4.0"
+    name_ja: "表示－非営利－継承 4.0 国際"
+    name_en: "Attribution-NonCommercial-ShareAlike 4.0 International"
+    url: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    deed_url_ja: "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja"
+    deed_url_en: "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"
+
   note: >-
-    歌詞、楽曲、編曲、振付、パンフレット、画像、楽譜および
-    公開する2種類の録音音源を、CC BY-NC-SA 4.0
-    （表示－非営利－継承 4.0 国際）で公開する。
-    非営利目的に限り、適切なクレジット表示および継承条件のもとで、
-    複製、再配布、翻案、演奏、演舞および再編曲を認める。
-    別途権利表示がある資料については、その表示を優先する。
+    歌詞、楽曲、編曲、振付、パンフレットおよび公開する2種類の録音音源を、
+    CC BY-NC-SA 4.0（表示－非営利－継承 4.0 国際）で公開する。
+    非営利目的に限り、適切なクレジット表示と継承条件の下で、
+    複製、再配布、補作、演奏、演舞、再編曲を認める。
 
 source:
   bibliographic_source:
     title: "新荘音頭―新荘よいとこ散歩道―"
-    publisher: "住みよいまちづくり新荘会"
+    publisher: "新荘音頭制作委員会"
     date: "2026-07-26"
     type: pamphlet
-    file_name: "publications/2026/shinso-ondo-pamphlet7-20260726-outlined.pdf"
 
   fieldnote_source: null
   authority_source: null
 
 notes: >-
   クレジットおよび歌詞は、関係者間の確認を経て確定した
-  2026年7月26日付の最終確定パンフレットを典拠とする。
-  公開ファイルの名称には、過去の表記または綴りを維持しているものがある。
-  本GitHubリポジトリは、小松崎浩司（Hiroshi Komatsuzaki）が管理する。
+  2026年7月26日付パンフレットを典拠とする。
 
 
 # ============================================
@@ -411,13 +388,16 @@ notes: >-
 #   choreographer: 振付者
 #   project_director: 制作全体の監修・統括
 #   originator: 企画・制作の発案者
-#   archive_manager: デジタルアーカイブ管理者
 #   pamphlet_producer: パンフレット制作者
 #   singer: 歌唱者
 #   musician: 演奏者
 #   conductor: 録音時・演奏時の指揮者
 #   recording_engineer: 音楽録音担当
 #   audio_editor: 音楽編集担当
+#
+# agent_types:
+#   person: 個人
+#   organization: 団体
 #
 # performance_types:
 #   chorus: 斉唱
@@ -446,4 +426,4 @@ notes: >-
 #   published: 公開
 #
 # license_types:
-#   cc_by_nc_sa_4_0: CC BY-NC-SA 4.0
+#   cc_by_nc_sa: CC BY-NC-SA 4.0

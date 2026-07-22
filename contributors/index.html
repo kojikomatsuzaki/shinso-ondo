@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <meta
+        name="description"
+        content="新荘音頭の制作、作詞、作曲、編曲、振付、歌唱、演奏、録音、音楽編集、パンフレット制作およびデジタルアーカイブに関わった人々を紹介します。"
+    >
+
     <title>制作・協力者 | 新荘音頭デジタルアーカイブ</title>
 
     <link rel="stylesheet" href="../style.css">
@@ -13,12 +18,12 @@
 
 <header>
     <h1>制作・協力者</h1>
-    <p>Contributors</p>
+    <p lang="en">Contributors</p>
 </header>
 
 <main>
 
-    <p id="loading-message">
+    <p id="loading-message" role="status">
         制作・協力者情報を読み込んでいます。
     </p>
 
@@ -61,7 +66,7 @@
 
     </div>
 
-    <div id="error-message" hidden>
+    <div id="error-message" role="alert" hidden>
         <h2>情報を表示できませんでした</h2>
 
         <p>
@@ -85,7 +90,7 @@
         <a href="../index.html">トップページへ戻る</a>
     </p>
 
-    <p>
+    <p lang="en">
         © Shinso Ondo Production Committee
     </p>
 </footer>
@@ -97,6 +102,10 @@
 
     const YAML_PATH = "../metadata/shinso-ondo.yaml";
 
+    /*
+     * YAMLで使用している役割名を、
+     * Webページに表示する日本語へ変換する。
+     */
     const ROLE_LABELS = {
         lyricist: "作詞",
         composer: "作曲",
@@ -113,44 +122,197 @@
         archive_manager: "デジタルアーカイブ管理"
     };
 
-    function createContributorElement(contributor) {
-        const article = document.createElement("article");
+    /*
+     * roleの表示名とnoteが同じ場合は、
+     * 同じ語を重ねて表示しない。
+     *
+     * 例：
+     * role: choreographer
+     * note: 振付
+     *
+     * 表示：
+     * ・振付
+     */
+    function isRedundantNote(role, note) {
+        if (!note) {
+            return true;
+        }
 
-        const heading = document.createElement("h3");
-        heading.textContent = contributor.name || "名称未記録";
+        const roleLabel =
+            ROLE_LABELS[role]
+            || role
+            || "";
+
+        return note.trim() === roleLabel.trim();
+    }
+
+    /*
+     * 同一人物の複数レコードを、
+     * Webページ上では一人分のデータにまとめる。
+     *
+     * YAMLでは役割ごとにレコードを分けて保持し、
+     * 表示時に人物単位へ再構成する。
+     */
+    function groupContributorsByPerson(contributors) {
+        const people = new Map();
+
+        contributors.forEach((contributor) => {
+            const name =
+                contributor.name
+                || "名称未記録";
+
+            const englishName =
+                contributor.name_en
+                || "";
+
+            /*
+             * 日本語名と英語名の組み合わせを
+             * 同一人物を判定するためのキーにする。
+             */
+            const personKey =
+                `${name}|${englishName}`;
+
+            if (!people.has(personKey)) {
+                people.set(personKey, {
+                    name: name,
+                    name_en: englishName,
+                    contributions: []
+                });
+            }
+
+            const person =
+                people.get(personKey);
+
+            const role =
+                contributor.role
+                || "";
+
+            const note =
+                contributor.note
+                || "";
+
+            /*
+             * 同じ人物について、
+             * 同一の役割と注記が複数の音源に現れる場合は、
+             * 一度だけ表示する。
+             */
+            const contributionKey =
+                `${role}|${note}`;
+
+            const alreadyExists =
+                person.contributions.some(
+                    (contribution) =>
+                        contribution.key === contributionKey
+                );
+
+            if (!alreadyExists) {
+                person.contributions.push({
+                    key: contributionKey,
+                    role: role,
+                    note: note
+                });
+            }
+        });
+
+        return Array.from(people.values());
+    }
+
+    /*
+     * 一人分の制作者・協力者情報を
+     * article要素として生成する。
+     */
+    function createContributorElement(person) {
+        const article =
+            document.createElement("article");
+
+        article.className = "contributor";
+
+        const heading =
+            document.createElement("h3");
+
+        heading.textContent = person.name;
         article.appendChild(heading);
 
-        if (contributor.name_en) {
-            const englishName = document.createElement("p");
+        if (person.name_en) {
+            const englishName =
+                document.createElement("p");
+
+            englishName.className =
+                "contributor-name-en";
+
             englishName.lang = "en";
-            englishName.textContent = contributor.name_en;
+            englishName.textContent =
+                person.name_en;
+
             article.appendChild(englishName);
         }
 
-        const role = document.createElement("p");
+        const roleList =
+            document.createElement("ul");
 
-        const roleLabel =
-            ROLE_LABELS[contributor.role]
-            || contributor.role
-            || "役割未記録";
+        roleList.className =
+            "contributor-roles";
 
-        role.textContent = `役割：${roleLabel}`;
-        article.appendChild(role);
+        person.contributions.forEach(
+            (contribution) => {
+                const listItem =
+                    document.createElement("li");
 
-        if (contributor.note) {
-            const note = document.createElement("p");
-            note.textContent = contributor.note;
-            article.appendChild(note);
-        }
+                const roleLabel =
+                    ROLE_LABELS[contribution.role]
+                    || contribution.role
+                    || "役割未記録";
+
+                listItem.textContent =
+                    roleLabel;
+
+                if (
+                    contribution.note
+                    && !isRedundantNote(
+                        contribution.role,
+                        contribution.note
+                    )
+                ) {
+                    listItem.append(
+                        document.createTextNode(
+                            ` — ${contribution.note}`
+                        )
+                    );
+                }
+
+                roleList.appendChild(listItem);
+            }
+        );
+
+        article.appendChild(roleList);
 
         return article;
     }
 
-    function appendContributors(containerId, contributors) {
-        const container = document.getElementById(containerId);
+    /*
+     * 指定されたセクションへ
+     * 制作者・協力者を追加する。
+     */
+    function appendContributors(
+        containerId,
+        contributors
+    ) {
+        const container =
+            document.getElementById(containerId);
 
-        if (!contributors || contributors.length === 0) {
-            const emptyMessage = document.createElement("p");
+        /*
+         * 再実行された場合に備えて、
+         * 既存の表示をいったん空にする。
+         */
+        container.replaceChildren();
+
+        if (
+            !Array.isArray(contributors)
+            || contributors.length === 0
+        ) {
+            const emptyMessage =
+                document.createElement("p");
+
             emptyMessage.textContent =
                 "該当する情報は現在登録されていません。";
 
@@ -158,69 +320,85 @@
             return;
         }
 
-        contributors.forEach((contributor) => {
+        const groupedContributors =
+            groupContributorsByPerson(contributors);
+
+        groupedContributors.forEach((person) => {
+            const contributorElement =
+                createContributorElement(person);
+
             container.appendChild(
-                createContributorElement(contributor)
+                contributorElement
             );
         });
     }
 
-    function uniqueContributors(contributors) {
-        const seen = new Set();
-
-        return contributors.filter((contributor) => {
-            const key = [
-                contributor.role,
-                contributor.name,
-                contributor.note
-            ].join("|");
-
-            if (seen.has(key)) {
-                return false;
-            }
-
-            seen.add(key);
-            return true;
-        });
-    }
-
-    function collectPerformanceContributors(performances) {
+    /*
+     * 各音源のperformersとmanifestation.creditsから、
+     * 歌唱、演奏、指揮、録音などの情報を収集する。
+     */
+    function collectPerformanceContributors(
+        performances
+    ) {
         const contributors = [];
 
         performances.forEach((performance) => {
-            if (Array.isArray(performance.performers)) {
-                contributors.push(...performance.performers);
+            if (
+                Array.isArray(
+                    performance.performers
+                )
+            ) {
+                contributors.push(
+                    ...performance.performers
+                );
             }
 
             const manifestation =
-                performance.manifestation || {};
+                performance.manifestation
+                || {};
 
             const credits =
-                Array.isArray(manifestation.credits)
+                Array.isArray(
+                    manifestation.credits
+                )
                     ? manifestation.credits
                     : [];
 
             contributors.push(...credits);
         });
 
-        return uniqueContributors(contributors);
+        return contributors;
     }
 
+    /*
+     * 指定した役割に該当するレコードだけを取り出す。
+     */
     function byRoles(contributors, roles) {
-        return contributors.filter((contributor) =>
-            roles.includes(contributor.role)
+        return contributors.filter(
+            (contributor) =>
+                roles.includes(contributor.role)
         );
     }
 
+    /*
+     * YAMLを読み込み、
+     * 各セクションの表示を生成する。
+     */
     async function loadContributors() {
         const loadingMessage =
-            document.getElementById("loading-message");
+            document.getElementById(
+                "loading-message"
+            );
 
         const contributorsContent =
-            document.getElementById("contributors-content");
+            document.getElementById(
+                "contributors-content"
+            );
 
         const errorMessage =
-            document.getElementById("error-message");
+            document.getElementById(
+                "error-message"
+            );
 
         try {
             if (typeof jsyaml === "undefined") {
@@ -229,9 +407,10 @@
                 );
             }
 
-            const response = await fetch(YAML_PATH, {
-                cache: "no-cache"
-            });
+            const response =
+                await fetch(YAML_PATH, {
+                    cache: "no-cache"
+                });
 
             if (!response.ok) {
                 throw new Error(
@@ -239,87 +418,146 @@
                 );
             }
 
-            const yamlText = await response.text();
-            const metadata = jsyaml.load(yamlText);
+            const yamlText =
+                await response.text();
+
+            const metadata =
+                jsyaml.load(yamlText);
 
             const workContributors =
                 metadata
                 && metadata.work
-                && Array.isArray(metadata.work.contributors)
+                && Array.isArray(
+                    metadata.work.contributors
+                )
                     ? metadata.work.contributors
                     : [];
 
             const performances =
                 metadata
-                && Array.isArray(metadata.performances)
+                && Array.isArray(
+                    metadata.performances
+                )
                     ? metadata.performances
                     : [];
 
             const performanceContributors =
-                collectPerformanceContributors(performances);
+                collectPerformanceContributors(
+                    performances
+                );
 
+            /*
+             * 制作・企画
+             *
+             * YAMLに記録された順序を保つため、
+             * 総監修、発案の順で表示される。
+             */
             appendContributors(
                 "planning-list",
-                byRoles(workContributors, [
-                    "originator",
-                    "project_director"
-                ])
+                byRoles(
+                    workContributors,
+                    [
+                        "project_director",
+                        "originator"
+                    ]
+                )
             );
 
+            /*
+             * 作詞・作曲・編曲
+             */
             appendContributors(
                 "music-creation-list",
-                byRoles(workContributors, [
-                    "lyricist",
-                    "composer",
-                    "arranger"
-                ])
+                byRoles(
+                    workContributors,
+                    [
+                        "lyricist",
+                        "composer",
+                        "arranger"
+                    ]
+                )
             );
 
+            /*
+             * 振付
+             */
             appendContributors(
                 "choreography-list",
-                byRoles(workContributors, [
-                    "choreographer"
-                ])
+                byRoles(
+                    workContributors,
+                    [
+                        "choreographer"
+                    ]
+                )
             );
 
+            /*
+             * 歌唱・演奏・指揮
+             */
             appendContributors(
                 "performance-list",
-                byRoles(performanceContributors, [
-                    "singer",
-                    "musician",
-                    "conductor"
-                ])
+                byRoles(
+                    performanceContributors,
+                    [
+                        "singer",
+                        "musician",
+                        "conductor"
+                    ]
+                )
             );
 
+            /*
+             * 録音・音楽編集
+             */
             appendContributors(
                 "audio-production-list",
-                byRoles(workContributors, [
-                    "recording_engineer",
-                    "audio_editor"
-                ])
+                byRoles(
+                    workContributors,
+                    [
+                        "recording_engineer",
+                        "audio_editor"
+                    ]
+                )
             );
 
+            /*
+             * パンフレット制作
+             */
             appendContributors(
                 "pamphlet-list",
-                byRoles(workContributors, [
-                    "pamphlet_producer"
-                ])
+                byRoles(
+                    workContributors,
+                    [
+                        "pamphlet_producer"
+                    ]
+                )
             );
 
+            /*
+             * デジタルアーカイブ
+             */
             appendContributors(
                 "archive-list",
-                byRoles(workContributors, [
-                    "archive_manager"
-                ])
+                byRoles(
+                    workContributors,
+                    [
+                        "archive_manager"
+                    ]
+                )
             );
 
             loadingMessage.hidden = true;
+            errorMessage.hidden = true;
             contributorsContent.hidden = false;
 
         } catch (error) {
-            console.error(error);
+            console.error(
+                "制作・協力者情報の表示に失敗しました。",
+                error
+            );
 
             loadingMessage.hidden = true;
+            contributorsContent.hidden = true;
             errorMessage.hidden = false;
         }
     }
