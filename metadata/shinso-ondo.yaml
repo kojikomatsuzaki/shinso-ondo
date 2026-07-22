@@ -1,10 +1,324 @@
-# 新荘音頭 メタデータ
-# 正本（Canonical Metadata）
+# ==========================================================
+# 新荘音頭 正本メタデータ
+# Shinso Ondo Canonical Metadata
 #
-# このファイルを内部メタデータの正本とし、
+# このファイルは、新荘音頭デジタルアーカイブにおける
+# 内部メタデータの正本（Canonical Metadata）である。
+#
+# 作品・表現形・体現形・個別ファイル、制作者、演奏者、
+# 権利、典拠等を一つの内部モデルとして管理し、
 # HTML、Schema.org JSON-LD、README等の各形式へ変換する。
 #
-# updated: 2026-07-23
+# Metadata Model Version: 2.0.0
+# Updated: 2026-07-23
+#
+# Design principle:
+#   One Source, Multi Use
+# ==========================================================
+
+metadata_model:
+  name:
+    ja: "新荘音頭 正本メタデータ"
+    en: "Shinso Ondo Canonical Metadata"
+
+  version: "2.0.0"
+  status: stable
+  updated: "2026-07-23"
+
+  canonical: true
+
+  purpose:
+    ja: >-
+      新荘音頭デジタルアーカイブにおける作品、歌詞、演奏、
+      録音、公開ファイル、制作者、権利および典拠を、
+      表示形式や外部メタデータ語彙から独立した内部モデルとして管理する。
+    en: >-
+      To manage the work, lyrics, performances, recordings, published files,
+      contributors, rights, and sources of the Shinso Ondo Digital Archive
+      as an internal model independent of presentation formats and external
+      metadata vocabularies.
+
+  description:
+    ja: >-
+      このYAMLを正本とし、人間向けのWebページと、
+      機械可読なSchema.org JSON-LD等を同一データから生成する。
+      将来、新たな表示形式やメタデータ語彙へ対応する場合も、
+      正本の構造を保持したままクロスウォークを追加する。
+    en: >-
+      This YAML serves as the canonical source from which both human-readable
+      web pages and machine-readable outputs such as Schema.org JSON-LD are
+      generated. Future presentation formats and metadata vocabularies can be
+      supported by adding crosswalks while retaining the canonical structure.
+
+  default_language: ja
+
+  supported_languages:
+    - ja
+    - en
+
+  versioning_policy:
+    scheme: semantic_versioning
+    description:
+      ja: >-
+        メタデータモデルの互換性に影響する変更はメジャー版、
+        後方互換性を保った項目追加はマイナー版、
+        誤記訂正や値の修正はパッチ版として管理する。
+      en: >-
+        Changes affecting metadata-model compatibility increment the major
+        version; backward-compatible additions increment the minor version;
+        corrections and value updates increment the patch version.
+
+repository:
+  platform: GitHub
+  owner:
+    name: "小松崎 浩司"
+    name_en: "Hiroshi Komatsuzaki"
+    account: "kojikomatsuzaki"
+
+  repository_name: "shinso-ondo"
+  default_branch: main
+  repository_url: "https://github.com/kojikomatsuzaki/shinso-ondo"
+  website_url: "https://kojikomatsuzaki.github.io/shinso-ondo/"
+  canonical_metadata_path: "metadata/shinso-ondo.yaml"
+
+design_principles:
+  - id: one_source_multi_use
+    name:
+      ja: "一つの正本から複数の用途へ"
+      en: "One Source, Multi Use"
+    description:
+      ja: >-
+        作品情報を複数のファイルへ重複して記述せず、
+        一つの正本メタデータからWebページ、構造化データ、
+        README等を生成する。
+      en: >-
+        Avoid duplicating descriptive data across files and generate web pages,
+        structured data, README files, and other outputs from one canonical source.
+
+  - id: canonical_metadata
+    name:
+      ja: "正本メタデータ"
+      en: "Canonical Metadata"
+    description:
+      ja: >-
+        このYAMLを情報更新の基準とし、派生する表示や外部形式は
+        正本から生成された表現として扱う。
+      en: >-
+        Treat this YAML as the authoritative source for updates and regard
+        derived displays and external formats as generated representations.
+
+  - id: separation_of_model_and_presentation
+    name:
+      ja: "内部モデルと表示の分離"
+      en: "Separation of Model and Presentation"
+    description:
+      ja: >-
+        HTMLの見た目や特定サービスの仕様を内部メタデータへ直接持ち込まず、
+        データ構造と表示処理を分離する。
+      en: >-
+        Keep presentation details and platform-specific requirements out of
+        the internal metadata model by separating data structure from rendering.
+
+  - id: human_and_machine_readability
+    name:
+      ja: "人間可読性と機械可読性の両立"
+      en: "Human and Machine Readability"
+    description:
+      ja: >-
+        地域住民や一般利用者が理解しやすい表示と、
+        検索エンジンや外部システムが処理できる構造化データを
+        同じ正本から提供する。
+      en: >-
+        Provide both accessible human-readable displays and structured data
+        processable by search engines and external systems from the same source.
+
+  - id: crosswalk_oriented_architecture
+    name:
+      ja: "クロスウォーク指向"
+      en: "Crosswalk-Oriented Architecture"
+    description:
+      ja: >-
+        内部モデルの項目を外部語彙へ直接置き換えるのではなく、
+        対応関係を定義するクロスウォーク層を介して変換する。
+      en: >-
+        Transform the internal model through explicit crosswalk mappings rather
+        than replacing internal fields with terms from an external vocabulary.
+
+  - id: standards_independence
+    name:
+      ja: "外部規格からの独立性"
+      en: "Independence from External Standards"
+    description:
+      ja: >-
+        Schema.org等の外部規格が改訂された場合でも、
+        内部モデルを維持し、クロスウォーク側の更新で対応できる構造とする。
+      en: >-
+        Preserve the internal model when external standards change and adapt
+        by updating the crosswalk layer.
+
+  - id: extensibility
+    name:
+      ja: "段階的拡張"
+      en: "Incremental Extensibility"
+    description:
+      ja: >-
+        音源、楽譜、歌詞、画像、映像等の追加や、
+        新たな外部形式への対応を段階的に行える構造とする。
+      en: >-
+        Support incremental addition of audio, scores, lyrics, images, video,
+        and mappings to further external formats.
+
+  - id: provenance_and_rights
+    name:
+      ja: "典拠と権利情報の明示"
+      en: "Explicit Provenance and Rights"
+    description:
+      ja: >-
+        記述内容の典拠、権利者、許諾範囲、ライセンスを記録し、
+        公開と再利用の根拠を確認できるようにする。
+      en: >-
+        Record sources, rights holders, permission scope, and licenses so that
+        the basis for publication and reuse remains verifiable.
+
+  - id: preservation_and_access
+    name:
+      ja: "保存用データと利用用データの区別"
+      en: "Distinction Between Preservation and Access"
+    description:
+      ja: >-
+        保存用マスターと閲覧・配信用コピーを役割によって区別し、
+        長期保存と利用の双方に対応する。
+      en: >-
+        Distinguish preservation masters from access copies by role to support
+        both long-term preservation and public use.
+
+  - id: open_and_reusable_infrastructure
+    name:
+      ja: "開かれた再利用可能な基盤"
+      en: "Open and Reusable Infrastructure"
+    description:
+      ja: >-
+        広く利用可能なオープンな基盤と可読なファイル形式を組み合わせ、
+        特定機関や専用システムだけに依存しない継続的な運用を目指す。
+      en: >-
+        Combine broadly available open infrastructure with readable file formats
+        to support sustainable operation without dependence on a single
+        institution or proprietary archive system.
+
+outputs:
+  html:
+    status: implemented
+    type: human_readable
+    generated_from: "metadata/shinso-ondo.yaml"
+    note: "GitHub Pages上の作品紹介・クレジット等の表示"
+
+  readme:
+    status: implemented
+    type: human_readable
+    generated_from: "metadata/shinso-ondo.yaml"
+    note: "リポジトリ内の案内・説明"
+
+  schema_org_jsonld:
+    status: implemented
+    type: machine_readable
+    generated_from: "metadata/shinso-ondo.yaml"
+    target_vocabulary: "Schema.org"
+    primary_type: "MusicComposition"
+    validation:
+      status: passed
+      validator: "Schema.org Markup Validator"
+      date: "2026-07-23"
+      errors: 0
+      warnings: 0
+
+  dublin_core:
+    status: planned
+    type: machine_readable
+    target_vocabulary: "Dublin Core Metadata Terms"
+
+  mods:
+    status: planned
+    type: machine_readable
+    target_vocabulary: "MODS"
+
+  marcxml:
+    status: planned
+    type: machine_readable
+    target_vocabulary: "MARCXML"
+
+  iiif_manifest:
+    status: under_consideration
+    type: machine_readable
+    target_vocabulary: "IIIF Presentation API"
+    note: "画像資料や楽譜等の提示に必要性が生じた場合に検討"
+
+  musicxml:
+    status: under_consideration
+    type: machine_readable
+    target_vocabulary: "MusicXML"
+    note: "楽譜の構造的記述と再利用に向けて検討"
+
+crosswalks:
+  schema_org:
+    status: implemented
+    source_model: "Shinso Ondo Canonical Metadata"
+    target_vocabulary: "Schema.org"
+    output_format: "JSON-LD"
+    implementation_location: "about-ondo/index.html"
+    mapping_function: "generateJsonLd"
+    validation_status: passed
+
+  dublin_core:
+    status: planned
+    source_model: "Shinso Ondo Canonical Metadata"
+    target_vocabulary: "Dublin Core Metadata Terms"
+
+  mods:
+    status: planned
+    source_model: "Shinso Ondo Canonical Metadata"
+    target_vocabulary: "MODS"
+
+  marcxml:
+    status: planned
+    source_model: "Shinso Ondo Canonical Metadata"
+    target_vocabulary: "MARCXML"
+
+  iiif_manifest:
+    status: under_consideration
+    source_model: "Shinso Ondo Canonical Metadata"
+    target_vocabulary: "IIIF Presentation API"
+
+  musicxml:
+    status: under_consideration
+    source_model: "Shinso Ondo Canonical Metadata"
+    target_vocabulary: "MusicXML"
+
+version_history:
+  - version: "2.0.0"
+    date: "2026-07-23"
+    changes:
+      ja:
+        - "正本メタデータ自身のバージョニングを導入"
+        - "metadata_modelセクションを追加"
+        - "repositoryセクションを追加"
+        - "design_principlesセクションを追加"
+        - "outputsおよびcrosswalksセクションを追加"
+        - "Schema.org JSON-LDへのクロスウォーク実装と検証結果を記録"
+      en:
+        - "Introduced versioning for the canonical metadata model"
+        - "Added the metadata_model section"
+        - "Added the repository section"
+        - "Added the design_principles section"
+        - "Added the outputs and crosswalks sections"
+        - "Recorded implementation and validation of the Schema.org JSON-LD crosswalk"
+
+  - version: "1.0.0"
+    date: "2026-07-17"
+    changes:
+      ja:
+        - "新荘音頭の作品、歌詞、演奏、権利、典拠を記述するYAMLを作成"
+      en:
+        - "Created the initial YAML description of the work, lyrics, performances, rights, and sources"
 
 work:
   title:
