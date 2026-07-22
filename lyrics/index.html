@@ -83,8 +83,9 @@
     }
 
     .lyric-line {
-      margin-bottom: 0.8rem;
-      line-height: 2.25;
+      margin-bottom: 1rem;
+      font-size: clamp(1.2rem, 1.8vw, 1.45rem);
+      line-height: 2.35;
     }
 
     .lyric-line ruby {
@@ -93,9 +94,9 @@
     }
 
     .lyric-line rt {
-      font-size: 0.52em;
-      line-height: 1.2;
-      letter-spacing: 0.04em;
+      font-size: 0.62em;
+      line-height: 1.25;
+      letter-spacing: 0.05em;
     }
 
     .lyricist {
@@ -136,6 +137,25 @@
       background: var(--surface-soft);
       text-align: center;
       font-weight: 700;
+    }
+
+
+    .generation-notice {
+      margin-top: 2.5rem;
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface-soft);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .generation-notice p {
+      margin-bottom: 0.5rem;
+    }
+
+    .generation-notice p:last-child {
+      margin-bottom: 0;
     }
 
     .metadata-list {
@@ -184,9 +204,7 @@
       <section class="lyrics-introduction">
         <h2 id="lyrics-heading">歌詞</h2>
         <p>
-          このページは、正本メタデータ
-          <a href="../metadata/shinso-ondo.yaml"><code>metadata/shinso-ondo.yaml</code></a>
-          を読み込み、歌詞を動的に表示しています。
+          このページでは、正本メタデータをもとに、歌詞をルビ付きで表示しています。
         </p>
       </section>
 
@@ -239,6 +257,17 @@
           </dd>
         </dl>
       </section>
+
+      <aside class="generation-notice" aria-label="このページの生成について">
+        <p>
+          このページは
+          <a href="../metadata/shinso-ondo.yaml"><code>metadata/shinso-ondo.yaml</code></a>
+          をもとに自動生成しています。
+        </p>
+        <p>
+          歌詞・読み・作詞者・典拠・権利情報は、共通の正本メタデータから表示しています。
+        </p>
+      </aside>
     </article>
   </main>
 
