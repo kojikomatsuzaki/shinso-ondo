@@ -886,7 +886,7 @@ th {
             rgba(247, 252, 252, 0.04) 64%,
             rgba(247, 244, 237, 0.72) 100%
         ),
-        url("images/hero-shinso-ondo.png") center 48% / cover no-repeat;
+        url("images/hero/hero-shinso-ondo.png") center 48% / cover no-repeat;
 
     color: var(--text);
 }
