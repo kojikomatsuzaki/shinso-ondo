@@ -1,57 +1,78 @@
 # Development Notes / 開発記録
 
-この文書には、「新荘音頭」公式デジタルアーカイブの構築・更新履歴を記録します。
+## 目次
 
-This document records the development and update history of the **Shinso Ondo Official Digital Archive**.
-
----
-
-## 2026-07-16
-
-### 日本語
-
-- リポジトリを作成した。
-- CC BY-SA 4.0を採用した。
-- 音源ファイルを追加した。
-- 楽譜画像を追加した。
-- `raw.githubusercontent.com` のURLに日本語ファイル名を含めた場合、一部のメールソフトでURLが途中で切れることが確認されたため、公開ファイル名をすべてASCII文字へ変更した。
-
-### English
-
-- Created the repository.
-- Adopted CC BY-SA 4.0.
-- Added audio recordings.
-- Added score images.
-- Renamed all public filenames to ASCII because some mail clients truncated URLs containing Japanese filenames on `raw.githubusercontent.com`.
+- [この文書の役割](#この文書の役割)
+- [記録方針](#記録方針)
+- [開発記録](#開発記録)
+- [English](#english)
 
 ---
 
-## 2026-07-19
+## この文書の役割
 
-### 日本語
+この文書では、「新荘音頭デジタルアーカイブ」の構築および保守に関する開発・更新履歴を時系列で記録します。
 
-- リポジトリ全体のREADMEを整理した。
-- ライセンスをCC BY-NC-SA 4.0へ変更した。
-- 著作者、演奏者、歌唱者、制作関係者のクレジットを更新した。
-- `lyrics/` ディレクトリを追加した。
-- 歌詞Markdownファイルを追加した。
-- `metadata/` ディレクトリを追加した。
-- YAML形式の構造化メタデータを追加した。
-- `development/` ディレクトリを追加した。
-- 設計方針、開発記録、研究ノートを分離して管理する構成に変更した。
-- 公開資料と構造化メタデータを分けて管理する方針を明文化した。
-- GitHub Pages、IIIF、RDF、DOI、機関リポジトリとの将来的な連携方針を整理した。
+設計上の判断は `design-decisions.md`、研究上の知見や課題は `research-notes.md` に記録します。
 
-### English
+---
 
-- Revised the repository documentation.
-- Changed the license to CC BY-NC-SA 4.0.
-- Updated credits for authors, performers, vocalists, and production contributors.
-- Added the `lyrics/` directory.
-- Added a Markdown lyrics file.
-- Added the `metadata/` directory.
-- Added structured metadata in YAML format.
-- Added the `development/` directory.
-- Separated design decisions, development records, and research notes into individual documents.
-- Documented the policy of managing public materials separately from structured metadata.
-- Organized future plans for GitHub Pages, IIIF, RDF, DOI assignment, and institutional repository deposit.
+## 記録方針
+
+この文書には、次のような内容を記録します。
+
+- リポジトリ構成の変更
+- ディレクトリやファイル構成の変更
+- 機能追加および仕様変更
+- メタデータ構造の変更
+- 保守作業に関する重要な更新
+
+現在の運用方針や設計理由については記録しません。
+
+---
+
+## 開発記録
+
+（ここから下は、これまでの開発履歴をそのまま残します。）
+
+※ 既存の開発履歴は変更せず、この位置へ配置してください。
+
+---
+
+# English
+
+## Table of Contents
+
+- [Role of This Document](#role-of-this-document)
+- [Documentation Policy](#documentation-policy)
+- [Development History](#development-history)
+
+---
+
+## Role of This Document
+
+This document records the chronological development and maintenance history of the **Shinsō Ondo Digital Archive**.
+
+Design decisions are recorded in `design-decisions.md`, while research observations and issues are recorded in `research-notes.md`.
+
+---
+
+## Documentation Policy
+
+This document records:
+
+- changes to the repository structure;
+- changes to directories and files;
+- new features and specification changes;
+- revisions to structured metadata;
+- major maintenance activities.
+
+Repository-wide operating policies and design rationale are documented elsewhere.
+
+---
+
+## Development History
+
+(The existing development history follows below without modification.)
+
+Place the existing chronological records here unchanged.
