@@ -1,0 +1,150 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://kojikomatsuzaki.github.io/shinso-ondo/metadata/schema/shinso-ondo.schema.yaml
+title: Shinso Ondo Canonical Metadata Schema
+description: Validation schema for metadata/shinso-ondo.yaml
+type: object
+required:
+  - metadata_model
+  - repository
+  - work
+  - expression
+  - performances
+  - rights
+additionalProperties: true
+$defs:
+  langString:
+    type: object
+    required:
+      - ja
+    properties:
+      ja:
+        type: string
+      en:
+        type: string
+    additionalProperties: false
+  agent:
+    type: object
+    required:
+      - agent_type
+      - name
+    properties:
+      agent_type:
+        type: string
+        enum:
+          - person
+          - organization
+      name:
+        type: string
+      name_en:
+        type:
+          - string
+          - 'null'
+      affiliation:
+        type:
+          - string
+          - 'null'
+      note:
+        type:
+          - string
+          - 'null'
+    additionalProperties: true
+  externalBase:
+    type: object
+    required:
+      - id
+      - title
+      - url
+      - accessed
+      - confirmed
+    properties:
+      id:
+        type: string
+        pattern: ^[a-z0-9][a-z0-9_-]*$
+      title:
+        $ref: '#/$defs/langString'
+      url:
+        type: string
+        format: uri
+      managed_by:
+        $ref: '#/$defs/langString'
+      accessed:
+        type: string
+        format: date
+      confirmed:
+        type: string
+        format: date
+      note:
+        $ref: '#/$defs/langString'
+    additionalProperties: true
+properties:
+  metadata_model:
+    type: object
+    required:
+      - name
+      - version
+      - updated
+      - canonical
+      - references
+    properties:
+      version:
+        type: string
+        pattern: ^\d+\.\d+\.\d+$
+      updated:
+        type: string
+        format: date
+      canonical:
+        const: true
+      references:
+        type: object
+        required:
+          - schema
+          - vocabularies
+        properties:
+          schema:
+            type: string
+          vocabularies:
+            type: object
+            required:
+              - roles
+              - values
+    additionalProperties: true
+  work:
+    type: object
+    required:
+      - title
+      - credits
+    properties:
+      credits:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            $ref: '#/$defs/agent'
+    additionalProperties: true
+  related_resources:
+    type: array
+    items:
+      allOf:
+        - $ref: '#/$defs/externalBase'
+        - type: object
+          required:
+            - relation
+          properties:
+            relation:
+              type: string
+              enum:
+                - related_site
+                - related_resource
+  external_resources:
+    type: array
+    items:
+      allOf:
+        - $ref: '#/$defs/externalBase'
+        - type: object
+          required:
+            - type
+          properties:
+            type:
+              type: string
+              enum:
+                - external_audio

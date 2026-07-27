@@ -1,0 +1,186 @@
+vocabulary:
+  id: shinso-ondo-roles
+  title:
+    ja: 新荘音頭 制作・創作・実演役割語彙
+    en: Shinso Ondo Production, Creative, and Performance Role Vocabulary
+  version: 1.0.0
+  updated: '2026-07-27'
+  language:
+    - ja
+    - en
+  description:
+    ja: 新荘音頭正本メタデータで用いる役割キーの優先語、定義、階層および関連を管理する統制語彙。
+    en: A controlled vocabulary defining preferred labels, definitions, hierarchy, and relations for
+      role keys used in the canonical metadata.
+concepts:
+  producer:
+    pref_label:
+      ja: プロデューサー
+      en: Producer
+    definition:
+      ja: 作品制作の企画、調整および全体的な制作進行を担う役割。
+      en: Responsibility for planning, coordinating, and overseeing the overall production of the 
+        work.
+    broader: production_role
+    related:
+      - general_supervision
+      - originator
+  general_supervision:
+    pref_label:
+      ja: 総監修
+      en: General Supervision
+    definition:
+      ja: 作品制作全体を監修し、最終的な方向性を統括する役割。
+      en: Responsibility for supervising the production as a whole and directing its final course.
+    broader: production_role
+    related:
+      - producer
+      - originator
+  originator:
+    pref_label:
+      ja: 発案
+      en: Originator
+    definition:
+      ja: 作品または事業の構想を最初に提案した役割。
+      en: The role responsible for first proposing the concept of the work or project.
+    broader: production_role
+    related:
+      - producer
+      - general_supervision
+  lyricist:
+    pref_label:
+      ja: 作詞
+      en: Lyrics
+    definition:
+      ja: 歌詞を創作した役割。
+      en: The role responsible for creating the lyrics.
+    broader: creative_role
+  composer:
+    pref_label:
+      ja: 作曲
+      en: Music
+    definition:
+      ja: 楽曲を作曲した役割。
+      en: The role responsible for composing the music.
+    broader: creative_role
+    related:
+      - arranger
+  arranger:
+    pref_label:
+      ja: 編曲
+      en: Arrangement
+    definition:
+      ja: 楽曲の編成、構成、伴奏等を編曲した役割。
+      en: The role responsible for arranging the instrumentation, structure, and accompaniment of 
+        the music.
+    broader: creative_role
+    related:
+      - composer
+  choreographer:
+    pref_label:
+      ja: 振付
+      en: Choreography
+    definition:
+      ja: 楽曲に対応する踊りの振付を創作した役割。
+      en: The role responsible for creating the choreography for the music.
+    broader: creative_role
+  vocals:
+    pref_label:
+      ja: 歌唱
+      en: Vocals
+    definition:
+      ja: 録音または上演において歌唱を担当した個人または団体。
+      en: A person or organization responsible for singing in a recording or performance.
+    broader: performance_role
+    related:
+      - musician
+      - conductor
+  musician:
+    pref_label:
+      ja: 演奏
+      en: Performance
+    definition:
+      ja: 録音または上演において器楽演奏を担当した役割。
+      en: The role responsible for instrumental performance in a recording or live presentation.
+    broader: performance_role
+    related:
+      - vocals
+      - conductor
+  conductor:
+    pref_label:
+      ja: 指揮
+      en: Conductor
+    definition:
+      ja: 録音または上演において演奏を指揮した役割。
+      en: The role responsible for conducting a recording or performance.
+    broader: performance_role
+    related:
+      - vocals
+      - musician
+  audio_production:
+    pref_label:
+      ja: 音源制作
+      en: Audio Production
+    definition:
+      ja: 録音、編集、調整および完成音源の取りまとめを担う役割。
+      en: Responsibility for recording, editing, adjustment, and preparation of the completed audio 
+        master.
+    broader: production_role
+    related:
+      - producer
+  pamphlet_production:
+    pref_label:
+      ja: パンフレット制作
+      en: Pamphlet Production
+    definition:
+      ja: パンフレットの編集、構成、レイアウトおよび制作を担う役割。
+      en: Responsibility for editing, structuring, laying out, and producing the pamphlet.
+    broader: production_role
+  cd_jacket_design:
+    pref_label:
+      ja: CDジャケットデザイン
+      en: CD Jacket Design
+    definition:
+      ja: CDジャケットの視覚的デザインを担う役割。
+      en: Responsibility for the visual design of the CD jacket.
+    broader: design_role
+    related:
+      - cd_production
+  cd_production:
+    pref_label:
+      ja: CD制作
+      en: CD Production
+    definition:
+      ja: CDの作成、複製およびパッケージ化を担う役割。
+      en: Responsibility for creating, duplicating, and packaging the CD.
+    broader: production_role
+    related:
+      - cd_jacket_design
+  production_role:
+    pref_label:
+      ja: 制作役割
+      en: Production Role
+    definition:
+      ja: 作品または媒体の制作工程に関する役割の上位概念。
+      en: A broader concept for roles related to production processes for a work or medium.
+  creative_role:
+    pref_label:
+      ja: 創作役割
+      en: Creative Role
+    definition:
+      ja: 作品の内容または表現を創作する役割の上位概念。
+      en: A broader concept for roles that create the content or expression of a work.
+  performance_role:
+    pref_label:
+      ja: 実演役割
+      en: Performance Role
+    definition:
+      ja: 録音または上演における実演に関する役割の上位概念。
+      en: A broader concept for roles related to performance in recordings or live presentations.
+  design_role:
+    pref_label:
+      ja: デザイン役割
+      en: Design Role
+    definition:
+      ja: 視覚的または造形的なデザインに関する役割の上位概念。
+      en: A broader concept for roles related to visual or material design.

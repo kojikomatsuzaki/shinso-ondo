@@ -1,0 +1,78 @@
+vocabulary:
+  id: shinso-ondo-values
+  title:
+    ja: 新荘音頭 メタデータ値語彙
+    en: Shinso Ondo Metadata Value Vocabulary
+  version: 1.0.0
+  updated: '2026-07-27'
+  description:
+    ja: 役割以外の列挙値を管理する統制語彙。
+    en: A controlled vocabulary for enumerated metadata values other than roles.
+values:
+  agent_types:
+    - id: person
+      label:
+        ja: 個人
+        en: Person
+    - id: organization
+      label:
+        ja: 団体
+        en: Organization
+  relations:
+    - id: related_site
+      label:
+        ja: 関連サイト
+        en: Related Site
+    - id: related_resource
+      label:
+        ja: 関連資料
+        en: Related Resource
+  resource_types:
+    - id: external_audio
+      label:
+        ja: 外部公開音源
+        en: External Audio
+  file_roles:
+    - id: master
+      label:
+        ja: 保存用マスター
+        en: Preservation Master
+    - id: access
+      label:
+        ja: 閲覧用コピー
+        en: Access Copy
+  manifestation_types:
+    - id: audio_recording
+      label:
+        ja: 音声記録
+        en: Audio Recording
+  recording_methods:
+    - id: studio_recording
+      label:
+        ja: スタジオ収録
+        en: Studio Recording
+  publication_statuses:
+    - id: published
+      label:
+        ja: 公開
+        en: Published
+  permission_statuses:
+    - id: permitted
+      label:
+        ja: 許諾済み
+        en: Permitted
+  rights_statuses:
+    - id: in_copyright
+      label:
+        ja: 著作権保護期間内
+        en: In Copyright
+  license_types:
+    - id: cc_by_nc_sa
+      label:
+        ja: CC BY-NC-SA 4.0
+        en: CC BY-NC-SA 4.0
+  genres:
+    - id: ondo
+      label:
+        ja: 音頭
+        en: Ondo

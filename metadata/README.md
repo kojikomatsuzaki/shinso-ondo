@@ -1,147 +1,165 @@
 # Metadata
 
-## 日本語
+このディレクトリは、「新荘音頭デジタルアーカイブ」の正本メタデータ（Canonical
+Metadata）を管理します。
 
-このフォルダには、「新荘音頭」に関する構造化メタデータを収録しています。
+**本ディレクトリは、地域文化資料を継続的かつ再利用可能な形で管理するために、実データ・構造・統制語彙を分離したメタデータモデルを提供します。**
 
-メタデータは、人間が読むための解説ではなく、作品や公開資料に関する情報を機械可読な形で記録・管理することを目的としています。
+本メタデータモデルは、次の設計原則に基づいています。
 
-現在公開しているメタデータは次のとおりです。
+-   One Source, Multi Use
+-   Single Source of Truth（正本管理）
+-   実データ・構造・統制語彙の分離
+-   人間にも機械にも理解しやすい記述
 
-| ファイル | 内容 |
-|----------|------|
-| `shinso-ondo.yaml` | 新荘音頭の作品情報、歌詞、制作クレジット、演奏、公開音源、権利情報などを記録した構造化メタデータ |
+------------------------------------------------------------------------
 
-## メタデータに含まれる情報
+# ディレクトリ構成
 
-- 作品情報
-- 地域情報
-- 公開情報
-- 制作者・クレジット
-- 歌詞
-- 演奏・録音
-- 音源ファイル
-- 権利情報
-- ライセンス
-- 典拠資料
+``` text
+metadata/
+├── README.md
+├── shinso-ondo.yaml
+├── schema/
+│   └── shinso-ondo.schema.yaml
+└── vocabularies/
+    ├── roles.yaml
+    └── values.yaml
+```
 
-## なぜYAMLを採用したのか
+------------------------------------------------------------------------
 
-本アーカイブでは、メタデータの記述形式として **YAML** を採用しています。
+# 各ファイルの役割
 
-YAMLを選択した理由は、単に人が読みやすいからではなく、デジタルアーカイブの運用や長期保存、将来的なデータ利活用を考慮したためです。
+## `shinso-ondo.yaml`
 
-### 人にも読みやすい
+新荘音頭デジタルアーカイブの**正本メタデータ**です。
 
-YAMLはプレーンテキストで記述できるため、専用ソフトウェアがなくても内容を確認できます。作品情報やクレジット、権利情報などを、そのまま文書として読むことができます。
+作品、表現、実演、権利、公開情報など、新荘音頭そのものに関する実データを管理します。
 
-### Gitによる履歴管理に適している
+このファイルのみが作品データの正本（Canonical Metadata）です。
 
-本アーカイブはGitHubで管理しています。
+------------------------------------------------------------------------
 
-YAMLは変更箇所が分かりやすく、Gitによる差分管理との相性が良いため、
+## `schema/shinso-ondo.schema.yaml`
 
-- 誰が
-- いつ
-- 何を
-- なぜ変更したのか
+メタデータ構造を定義するスキーマです。
 
-という履歴を継続的に管理できます。
+主に次の内容を定義します。
 
-### 他形式への変換が容易
+-   キー名
+-   必須項目
+-   データ型
+-   日付形式
+-   URI形式
+-   配列構造
+-   列挙値
+-   バリデーション規則
 
-YAMLはJSONとの親和性が高く、多くのプログラミング言語で利用されています。
+このファイルは、メタデータの機械的検証（Validation）のために利用します。
 
-そのため、将来的には必要に応じて
+------------------------------------------------------------------------
 
-- JSON
-- RDF
-- Linked Open Data (LOD)
-- IIIF関連データ
+## `vocabularies/roles.yaml`
 
-などへの変換や連携にも対応しやすい構成となっています。
+制作・創作・実演などに関する役割（Role）の統制語彙です。
 
-### 人間向け資料との役割分担
+各役割について、
 
-パンフレットやREADMEは、人が閲覧するための資料です。
+-   優先語（Preferred Label）
+-   定義（Definition）
+-   上位概念
+-   関連概念
 
-一方、このYAMLは、
+を管理します。
 
-- コンピュータが扱うための構造化データ
-- 他システムとのデータ交換
-- 将来的な再利用
+------------------------------------------------------------------------
 
-を目的として整備しています。
+## `vocabularies/values.yaml`
 
-同じ作品を扱っていても、それぞれ異なる役割を担っています。
+役割以外の統制語彙を管理します。
 
-### 長期保存を考慮した設計
+例
 
-文化資料のデジタルアーカイブでは、特定のソフトウェアやデータベースに依存しないことも重要です。
+-   agent_type
+-   relation
+-   resource_type
+-   manifestation_type
+-   file_role
+-   publication_status
+-   permission_status
+-   rights_status
+-   genre
 
-YAMLはオープンなテキスト形式であり、将来利用環境が変化しても比較的容易に読み取りや変換が可能です。
+など。
 
-本アーカイブでは、公開資料（音源・楽譜・パンフレット等）と、それらを説明する構造化メタデータを分離して管理しています。この構成により、人が閲覧する資料と機械が処理する情報の双方を維持しながら、継続的な更新と長期保存、さらに将来的な再利用性の向上を目指しています。
+------------------------------------------------------------------------
 
----
+# 設計方針
 
-# English
+本メタデータモデルでは、
 
-This directory contains structured metadata describing **Shinso Ondo**.
+-   **実データ（Instance）**
+-   **構造（Schema）**
+-   **統制語彙（Controlled Vocabulary）**
 
-The metadata is intended for machine-readable description and long-term preservation rather than human-readable documentation.
+を明確に分離しています。
 
-## Contents
+``` text
+Controlled Vocabulary
+          │
+          ▼
+       Schema
+          │
+          ▼
+ Canonical Metadata
+```
 
-| File | Description |
-|------|-------------|
-| `shinso-ondo.yaml` | Structured metadata describing the work, lyrics, contributors, performances, recordings, publication, rights, and related resources. |
+この三層構造により、
 
-## Metadata includes
+-   保守性
+-   再利用性
+-   機械可読性
+-   拡張性
 
-- Work description
-- Geographic information
-- Publication information
-- Contributors
-- Lyrics
-- Performances
-- Audio recordings
-- Rights information
-- License
-- Bibliographic sources
+を確保しています。
 
-## Why YAML?
+------------------------------------------------------------------------
 
-This archive adopts **YAML** as its metadata format.
+# One Source, Multi Use
 
-YAML was selected not only because it is human-readable, but also because it supports sustainable digital archiving, long-term preservation, and future data interoperability.
+本ディレクトリでは、**役割ごとに正本を一つだけ管理する**ことを原則としています。
 
-### Human-readable
+  役割         正本
+  ------------ ----------------------------------
+  作品データ   `shinso-ondo.yaml`
+  構造定義     `schema/shinso-ondo.schema.yaml`
+  役割語彙     `vocabularies/roles.yaml`
+  統制値       `vocabularies/values.yaml`
 
-YAML is plain text and can be read without specialized software.
+これは One Source, Multi Use
+の原則を維持したまま、それぞれの責務を分離した設計です。
 
-### Version-control friendly
+------------------------------------------------------------------------
 
-The archive is maintained on GitHub.
+# 将来の拡張
 
-YAML works well with Git, making it easy to record who changed what, when, and why.
+本メタデータモデルは、将来的に次のような形式への展開を想定しています。
 
-### Easy interoperability
+-   JSON-LD
+-   Schema.org
+-   IIIF Manifest
+-   RDF
+-   SKOS
+-   SHACL
+-   Linked Open Data (LOD)
 
-YAML can be readily converted into JSON and processed by many programming languages.
+データとメタデータモデルを分離することで、将来の変換や相互運用性に対応できる設計としています。
 
-Future interoperability with technologies such as **RDF**, **Linked Open Data (LOD)**, and **IIIF** is also envisioned.
+------------------------------------------------------------------------
 
-### Separation of roles
+# ライセンス
 
-The pamphlet and README files are intended for human readers.
+本メタデータモデルは、「新荘音頭デジタルアーカイブ」の一部として公開しています。
 
-The YAML metadata is intended for machine-readable description, data exchange, and future reuse.
-
-Together they provide complementary views of the same cultural resource.
-
-### Designed for long-term preservation
-
-Digital archives should not depend on proprietary software or database systems.
-
-By separating public-facing materials from structured metadata, this repository aims to improve long-term preservation, maintainability, and future reuse while keeping both human-readable documentation and machine-readable metadata in sync.
+ライセンスについては、リポジトリルートの `LICENSE` を参照してください。
