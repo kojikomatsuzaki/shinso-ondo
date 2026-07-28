@@ -8,7 +8,6 @@ from mutagen.id3 import (
     APIC,
     COMM,
     ID3,
-    ID3NoHeaderError,
     TALB,
     TCOM,
     TCOP,
@@ -170,7 +169,7 @@ def _set_common_id3_tags(
         )
     )
 
-    tags.delall("APIC:")
+    tags.delall("APIC")
     if cover_art_file_path and cover_art_file_path.exists():
         mime_type = (
             "image/png"
@@ -202,11 +201,7 @@ def write_audio_tags(
         )
 
     if extension == ".mp3":
-        try:
-            audio = MP3(audio_file_path, ID3=ID3)
-        except ID3NoHeaderError:
-            audio = MP3(audio_file_path)
-            audio.add_tags()
+        audio = MP3(audio_file_path, ID3=ID3)
         if audio.tags is None:
             audio.add_tags()
         assert audio.tags is not None
