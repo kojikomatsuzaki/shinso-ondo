@@ -6,11 +6,11 @@
   <title>新荘音頭 公式デジタルアーカイブ</title>
   <meta name="description" content="茨城県水戸市新荘地区の新荘音頭に関する音源、歌詞、楽譜、パンフレット、メタデータを公開する公式デジタルアーカイブです。">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="homepage-v2.css">
+  <script src="main.js" defer></script>
 </head>
-
 <body class="top-page">
-
-  <a class="skip-link" href="#main">本文へ移動</a>
+  <a class="skip-link" href="#main" data-i18n="skip">本文へ移動</a>
 
   <header class="site-header">
     <div class="container header-inner">
@@ -18,33 +18,66 @@
         <p class="eyebrow">Official Digital Archive</p>
         <h1>新荘音頭</h1>
         <p class="subtitle">Shinsō Ondo</p>
+        <p class="work-subtitle" data-i18n="workSubtitle">新荘よいとこ散歩道</p>
       </div>
 
-      <button
-        class="language-button"
-        id="language-toggle"
-        type="button"
-        aria-label="英語表示は現在準備中です"
-        aria-disabled="true"
-        disabled>
-        English
-      </button>
+      <div class="header-actions">
+        <button class="language-button" id="language-toggle" type="button" aria-label="Switch to English">English</button>
+        <button class="menu-button" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+          <span class="menu-icon" aria-hidden="true">☰</span>
+          <span class="menu-label" data-i18n="menu">メニュー</span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <main id="main">
+  <div class="menu-backdrop" id="menu-backdrop" hidden></div>
 
+  <nav class="site-menu" id="site-menu" aria-label="サイト内メニュー" aria-hidden="true" tabindex="-1">
+    <div class="site-menu-inner">
+      <div class="site-menu-header">
+        <strong data-i18n="menu">メニュー</strong>
+        <button class="menu-close" id="menu-close" type="button" aria-label="メニューを閉じる">×</button>
+      </div>
+
+      <section class="menu-section" aria-labelledby="menu-materials-title">
+        <h2 id="menu-materials-title" data-i18n="materials">公開資料</h2>
+        <ul>
+          <li><a href="audio/"><span aria-hidden="true">🎵</span><span data-i18n="audio">音源</span></a></li>
+          <li><a href="lyrics/"><span aria-hidden="true">📝</span><span data-i18n="lyrics">歌詞</span></a></li>
+          <li><a href="scores/"><span aria-hidden="true">🎼</span><span data-i18n="scores">楽譜</span></a></li>
+          <li><a href="publications/"><span aria-hidden="true">📖</span><span data-i18n="pamphlet">パンフレット</span></a></li>
+        </ul>
+      </section>
+
+      <section class="menu-section" aria-labelledby="menu-guide-title">
+        <h2 id="menu-guide-title" data-i18n="guide">案内</h2>
+        <ul>
+          <li><a href="about-shinso/"><span aria-hidden="true">🏘</span><span data-i18n="aboutShinso">新荘地区について</span></a></li>
+          <li><a href="about-ondo/"><span aria-hidden="true">🎶</span><span data-i18n="aboutOndo">新荘音頭について</span></a></li>
+          <li><a href="contributors/"><span aria-hidden="true">👥</span><span data-i18n="contributors">制作・協力者</span></a></li>
+          <li><a href="rights/"><span aria-hidden="true">⚖</span><span data-i18n="rights">権利・利用条件</span></a></li>
+          <li><a href="metadata/"><span aria-hidden="true">🗂</span><span data-i18n="metadata">メタデータ</span></a></li>
+        </ul>
+      </section>
+
+      <div class="menu-repository">
+        <a href="https://github.com/kojikomatsuzaki/shinso-ondo" target="_blank" rel="external noopener noreferrer">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="24" height="24" alt="GitHub">
+          <span>GitHub Repository</span><span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
     <section class="development-notice" aria-labelledby="development-notice-title">
       <div class="container">
         <div class="development-notice-panel">
           <p class="development-notice-label">Archive in Progress</p>
-
           <div>
-            <h2 id="development-notice-title">このデジタルアーカイブは現在整備中です</h2>
-            <p>
-              一部のページや資料は、現在作成または確認を進めています。
-              内容は今後も順次追加・更新していきます。
-            </p>
+            <h2 id="development-notice-title" data-i18n="noticeTitle">このデジタルアーカイブは現在整備中です</h2>
+            <p data-i18n="noticeText">一部のページや資料は、現在作成または確認を進めています。内容は今後も順次追加・更新していきます。</p>
           </div>
         </div>
       </div>
@@ -52,12 +85,8 @@
 
     <section class="intro">
       <div class="container intro-inner">
-        <p class="lead">
-          「新荘音頭」は、茨城県水戸市新荘地区の「新荘夏まつり」で踊るために制作された音頭です。
-        </p>
-        <p>
-          このサイトでは、公式音源、歌詞、楽譜、パンフレット、制作・協力者情報などを公開しています。
-        </p>
+        <p class="lead" data-i18n="introLead">「新荘音頭」は、茨城県水戸市新荘地区の風景を歌にし、地域のイベントを象徴するものとして制作した音頭です。2026（令和8）年7月26日、水戸市立新荘小学校校庭で催された「第25回新荘夏まつり」において初演されました。</p>
+        <p data-i18n="introText">このサイトでは、「新荘音頭」の公式音源、歌詞、楽譜、パンフレット、制作・協力者情報などをデジタルアーカイブとして収集・保存し、公開しています。</p>
       </div>
     </section>
 
@@ -65,59 +94,17 @@
       <div class="container">
         <div class="section-heading">
           <p class="eyebrow">For Everyone</p>
-          <h2 id="public-title">新荘音頭を知る・楽しむ</h2>
-          <p>新荘地区や新荘音頭について知り、音源や歌詞、楽譜などの公開資料をご覧いただけます。</p>
+          <h2 id="public-title" data-i18n="publicTitle">新荘音頭を知る・楽しむ</h2>
+          <p data-i18n="publicText">新荘地区や新荘音頭について知り、音源や歌詞、楽譜などの公開資料をご覧いただけます。</p>
         </div>
-
         <div class="card-grid">
-          <a class="card" href="about-shinso/">
-            <span class="card-kicker">About Shinsō District</span>
-            <h3>新荘って？</h3>
-            <p>新荘地区の歴史や地域の概要を紹介します。</p>
-            <span class="card-link">ページを見る →</span>
-          </a>
-
-          <a class="card" href="about-ondo/">
-            <span class="card-kicker">About Shinsō Ondo</span>
-            <h3>新荘音頭って？</h3>
-            <p>新荘音頭が制作された経緯や作品の概要を紹介します。</p>
-            <span class="card-link">ページを見る →</span>
-          </a>
-
-          <a class="card" href="audio/">
-            <span class="card-kicker">Audio</span>
-            <h3>音源</h3>
-            <p>新荘音頭の公式音源と関連情報を掲載しています。</p>
-            <span class="card-link">音源を聴く →</span>
-          </a>
-
-          <a class="card" href="lyrics/">
-            <span class="card-kicker">Lyrics</span>
-            <h3>歌詞</h3>
-            <p>全七番の歌詞、読み方、クレジットを掲載しています。</p>
-            <span class="card-link">歌詞を見る →</span>
-          </a>
-
-          <a class="card" href="scores/">
-            <span class="card-kicker">Scores</span>
-            <h3>楽譜</h3>
-            <p>新荘音頭の楽譜画像と関連情報を掲載しています。</p>
-            <span class="card-link">楽譜を見る →</span>
-          </a>
-
-          <a class="card" href="publications/">
-            <span class="card-kicker">Publications</span>
-            <h3>刊行物</h3>
-            <p>パンフレットなど、公開用に制作された資料を掲載しています。</p>
-            <span class="card-link">刊行物を見る →</span>
-          </a>
-
-          <a class="card" href="contributors/">
-            <span class="card-kicker">Contributors</span>
-            <h3>制作・協力者</h3>
-            <p>新荘音頭の制作・演奏・運営に携わった方々を紹介します。</p>
-            <span class="card-link">制作・協力者を見る →</span>
-          </a>
+          <a class="card" href="about-shinso/"><span class="card-kicker">About Shinsō District</span><h3 data-i18n="aboutShinsoCard">新荘って？</h3><p data-i18n="aboutShinsoText">新荘地区の歴史や地域の概要を紹介します。</p><span class="card-link" data-i18n="viewPage">ページを見る →</span></a>
+          <a class="card" href="about-ondo/"><span class="card-kicker">About Shinsō Ondo</span><h3 data-i18n="aboutOndoCard">新荘音頭って？</h3><p data-i18n="aboutOndoText">新荘音頭が制作された経緯や作品の概要を紹介します。</p><span class="card-link" data-i18n="viewPage">ページを見る →</span></a>
+          <a class="card" href="audio/"><span class="card-kicker">Audio</span><h3 data-i18n="audio">音源</h3><p data-i18n="audioText">新荘音頭の公式音源と関連情報を掲載しています。</p><span class="card-link" data-i18n="listenAudio">音源を聴く →</span></a>
+          <a class="card" href="lyrics/"><span class="card-kicker">Lyrics</span><h3 data-i18n="lyrics">歌詞</h3><p data-i18n="lyricsText">全七番の歌詞、読み方、クレジットを掲載しています。</p><span class="card-link" data-i18n="viewLyrics">歌詞を見る →</span></a>
+          <a class="card" href="scores/"><span class="card-kicker">Scores</span><h3 data-i18n="scores">楽譜</h3><p data-i18n="scoresText">新荘音頭の楽譜画像と関連情報を掲載しています。</p><span class="card-link" data-i18n="viewScores">楽譜を見る →</span></a>
+          <a class="card" href="publications/"><span class="card-kicker">Publications</span><h3 data-i18n="pamphlet">パンフレット</h3><p data-i18n="publicationsText">パンフレットなど、公開用に制作された資料を掲載しています。</p><span class="card-link" data-i18n="viewPublications">刊行物を見る →</span></a>
+          <a class="card" href="contributors/"><span class="card-kicker">Contributors</span><h3 data-i18n="contributors">制作・協力者</h3><p data-i18n="contributorsText">新荘音頭の制作・演奏・運営に携わった方々を紹介します。</p><span class="card-link" data-i18n="viewContributors">制作・協力者を見る →</span></a>
         </div>
       </div>
     </section>
@@ -126,74 +113,24 @@
       <div class="container">
         <div class="section-heading">
           <p class="eyebrow">For Researchers and Developers</p>
-          <h2 id="research-title">技術者・研究者の方へ</h2>
-          <p>構造化メタデータ、編集方針、設計・開発記録、権利情報などを公開しています。</p>
+          <h2 id="research-title" data-i18n="researchTitle">技術者・研究者の方へ</h2>
+          <p data-i18n="researchText">構造化メタデータ、編集方針、設計・開発記録、権利情報などを公開しています。</p>
         </div>
-
         <div class="card-grid">
-          <a class="card" href="metadata/">
-            <span class="card-kicker">Metadata</span>
-            <h3>構造化メタデータ</h3>
-            <p>YAML形式の正本メタデータと、その設計・利用方法を掲載しています。</p>
-            <span class="card-link">メタデータを見る →</span>
-          </a>
-
-          <a class="card" href="editorial-policy/">
-            <span class="card-kicker">Editorial Policy</span>
-            <h3>編集方針</h3>
-            <p>資料の選定、記述、更新、訂正に関する基本方針を掲載しています。</p>
-            <span class="card-link">編集方針を見る →</span>
-          </a>
-
-          <a class="card" href="development/">
-            <span class="card-kicker">Development</span>
-            <h3>設計・開発・研究記録</h3>
-            <p>設計判断、開発履歴、研究上の記録をまとめています。</p>
-            <span class="card-link">記録を見る →</span>
-          </a>
-
-          <a class="card" href="rights/">
-            <span class="card-kicker">Rights &amp; License</span>
-            <h3>権利・ライセンス</h3>
-            <p>著作権、クレジット、利用条件に関する情報を掲載しています。</p>
-            <span class="card-link">権利情報を見る →</span>
-          </a>
-        </div>
-
-        <div class="repository-link-panel">
-          <div>
-            <p class="eyebrow">Source and History</p>
-            <h3>GitHubでソースと変更履歴を見る</h3>
-            <p>
-              リポジトリの構成、原データ、コミット履歴、リリース情報を確認できます。
-            </p>
-          </div>
-
-          <a
-            class="button repository-button"
-            href="https://github.com/kojikomatsuzaki/shinso-ondo"
-            rel="external">
-            GitHubリポジトリを見る
-          </a>
+          <a class="card" href="metadata/"><span class="card-kicker">Metadata</span><h3 data-i18n="structuredMetadata">構造化メタデータ</h3><p data-i18n="metadataText">YAML形式の正本メタデータと、その設計・利用方法を掲載しています。</p><span class="card-link" data-i18n="viewMetadata">メタデータを見る →</span></a>
+          <a class="card" href="editorial-policy/"><span class="card-kicker">Editorial Policy</span><h3 data-i18n="editorialPolicy">編集方針</h3><p data-i18n="editorialText">資料の選定、記述、更新、訂正に関する基本方針を掲載しています。</p><span class="card-link" data-i18n="viewPolicy">編集方針を見る →</span></a>
+          <a class="card" href="development/"><span class="card-kicker">Development</span><h3 data-i18n="development">設計・開発・研究記録</h3><p data-i18n="developmentText">設計判断、開発履歴、研究上の記録をまとめています。</p><span class="card-link" data-i18n="viewRecords">記録を見る →</span></a>
+          <a class="card" href="rights/"><span class="card-kicker">Rights &amp; License</span><h3 data-i18n="rightsLicense">権利・ライセンス</h3><p data-i18n="rightsText">著作権、クレジット、利用条件に関する情報を掲載しています。</p><span class="card-link" data-i18n="viewRights">権利情報を見る →</span></a>
         </div>
       </div>
     </section>
-
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div>
-        <strong>新荘音頭 公式デジタルアーカイブ</strong>
-        <p>管理：小松崎浩司（Hiroshi Komatsuzaki）</p>
-      </div>
-
-      <div class="footer-meta">
-        <p>Copyright © 新荘音頭制作委員会</p>
-        <p>CC BY-NC-SA 4.0</p>
-      </div>
+      <div><strong data-i18n="footerTitle">新荘音頭 公式デジタルアーカイブ</strong><p><span data-i18n="managedBy">管理：</span>小松崎浩司（Hiroshi Komatsuzaki）</p></div>
+      <div class="footer-meta"><p>Copyright © 新荘音頭制作委員会</p><p>CC BY-NC-SA 4.0</p></div>
     </div>
   </footer>
-
 </body>
 </html>
