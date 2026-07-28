@@ -1,73 +1,34 @@
-# ==========================================================
-# 新荘音頭 正本メタデータ
-# Shinso Ondo Canonical Metadata
-#
-# このファイルは、新荘音頭デジタルアーカイブにおける
-# 内部メタデータの正本（Canonical Metadata）である。
-#
-# 作品・表現形・体現形・個別ファイル、制作者、演奏者、
-# 権利、典拠等を一つの内部モデルとして管理し、
-# HTML、Schema.org JSON-LD、README等の各形式へ変換する。
-#
-# Metadata Model Version: 3.0.0
-# Updated: 2026-07-27
-#
-# Design principle:
-#   One Source, Multi Use
-# ==========================================================
-
 metadata_model:
   name:
-    ja: "新荘音頭 正本メタデータ"
-    en: "Shinso Ondo Canonical Metadata"
-
-  version: "3.1.0"
+    ja: 新荘音頭 正本メタデータ
+    en: Shinso Ondo Canonical Metadata
+  version: 3.1.0
   status: stable
-  updated: "2026-07-27"
-
+  updated: '2026-07-27'
   canonical: true
-
   purpose:
-    ja: >-
-      新荘音頭デジタルアーカイブにおける作品、歌詞、演奏、
-      録音、公開ファイル、制作者、権利および典拠を、
-      表示形式や外部メタデータ語彙から独立した内部モデルとして管理する。
-    en: >-
-      To manage the work, lyrics, performances, recordings, published files,
-      contributors, rights, and sources of the Shinso Ondo Digital Archive
-      as an internal model independent of presentation formats and external
-      metadata vocabularies.
-
+    ja: 新荘音頭デジタルアーカイブにおける作品、歌詞、演奏、 録音、公開ファイル、制作者、権利および典拠を、 表示形式や外部メタデータ語彙から独立した内部モデルとして管理する。
+    en: To manage the work, lyrics, performances, recordings, published files, contributors,
+      rights, and sources of the Shinso Ondo Digital Archive as an internal model
+      independent of presentation formats and external metadata vocabularies.
   description:
-    ja: >-
-      このYAMLを正本とし、人間向けのWebページと、
-      機械可読なSchema.org JSON-LD等を同一データから生成する。
-      将来、新たな表示形式やメタデータ語彙へ対応する場合も、
+    ja: このYAMLを正本とし、人間向けのWebページと、 機械可読なSchema.org JSON-LD等を同一データから生成する。 将来、新たな表示形式やメタデータ語彙へ対応する場合も、
       正本の構造を保持したままクロスウォークを追加する。
-    en: >-
-      This YAML serves as the canonical source from which both human-readable
-      web pages and machine-readable outputs such as Schema.org JSON-LD are
-      generated. Future presentation formats and metadata vocabularies can be
-      supported by adding crosswalks while retaining the canonical structure.
-
+    en: This YAML serves as the canonical source from which both human-readable web
+      pages and machine-readable outputs such as Schema.org JSON-LD are generated.
+      Future presentation formats and metadata vocabularies can be supported by adding
+      crosswalks while retaining the canonical structure.
   default_language: ja
-
   supported_languages:
-    - ja
-    - en
-
+  - ja
+  - en
   versioning_policy:
     scheme: semantic_versioning
     description:
-      ja: >-
-        メタデータモデルの互換性に影響する変更はメジャー版、
-        後方互換性を保った項目追加はマイナー版、
-        誤記訂正や値の修正はパッチ版として管理する。
-      en: >-
-        Changes affecting metadata-model compatibility increment the major
-        version; backward-compatible additions increment the minor version;
-        corrections and value updates increment the patch version.
-
+      ja: メタデータモデルの互換性に影響する変更はメジャー版、 後方互換性を保った項目追加はマイナー版、 誤記訂正や値の修正はパッチ版として管理する。
+      en: Changes affecting metadata-model compatibility increment the major version;
+        backward-compatible additions increment the minor version; corrections and
+        value updates increment the patch version.
   references:
     schema: schema/shinso-ondo.schema.yaml
     vocabularies:
@@ -76,795 +37,758 @@ metadata_model:
 repository:
   platform: GitHub
   owner:
-    name: "小松崎 浩司"
-    name_en: "Hiroshi Komatsuzaki"
-    account: "kojikomatsuzaki"
-
-  repository_name: "shinso-ondo"
+    name: 小松崎 浩司
+    name_en: Hiroshi Komatsuzaki
+    account: kojikomatsuzaki
+  repository_name: shinso-ondo
   default_branch: main
-  repository_url: "https://github.com/kojikomatsuzaki/shinso-ondo"
-  website_url: "https://kojikomatsuzaki.github.io/shinso-ondo/"
-  canonical_metadata_path: "metadata/shinso-ondo.yaml"
-
+  repository_url: https://github.com/kojikomatsuzaki/shinso-ondo
+  website_url: https://kojikomatsuzaki.github.io/shinso-ondo/
+  canonical_metadata_path: metadata/shinso-ondo.yaml
 design_principles:
-  - id: one_source_multi_use
-    name:
-      ja: "一つの正本から複数の用途へ"
-      en: "One Source, Multi Use"
-    description:
-      ja: >-
-        作品情報を複数のファイルへ重複して記述せず、
-        一つの正本メタデータからWebページ、構造化データ、
-        README等を生成する。
-      en: >-
-        Avoid duplicating descriptive data across files and generate web pages,
-        structured data, README files, and other outputs from one canonical source.
-
-  - id: canonical_metadata
-    name:
-      ja: "正本メタデータ"
-      en: "Canonical Metadata"
-    description:
-      ja: >-
-        このYAMLを情報更新の基準とし、派生する表示や外部形式は
-        正本から生成された表現として扱う。
-      en: >-
-        Treat this YAML as the authoritative source for updates and regard
-        derived displays and external formats as generated representations.
-
-  - id: separation_of_model_and_presentation
-    name:
-      ja: "内部モデルと表示の分離"
-      en: "Separation of Model and Presentation"
-    description:
-      ja: >-
-        HTMLの見た目や特定サービスの仕様を内部メタデータへ直接持ち込まず、
-        データ構造と表示処理を分離する。
-      en: >-
-        Keep presentation details and platform-specific requirements out of
-        the internal metadata model by separating data structure from rendering.
-
-  - id: human_and_machine_readability
-    name:
-      ja: "人間可読性と機械可読性の両立"
-      en: "Human and Machine Readability"
-    description:
-      ja: >-
-        地域住民や一般利用者が理解しやすい表示と、
-        検索エンジンや外部システムが処理できる構造化データを
-        同じ正本から提供する。
-      en: >-
-        Provide both accessible human-readable displays and structured data
-        processable by search engines and external systems from the same source.
-
-  - id: crosswalk_oriented_architecture
-    name:
-      ja: "クロスウォーク指向"
-      en: "Crosswalk-Oriented Architecture"
-    description:
-      ja: >-
-        内部モデルの項目を外部語彙へ直接置き換えるのではなく、
-        対応関係を定義するクロスウォーク層を介して変換する。
-      en: >-
-        Transform the internal model through explicit crosswalk mappings rather
-        than replacing internal fields with terms from an external vocabulary.
-
-  - id: standards_independence
-    name:
-      ja: "外部規格からの独立性"
-      en: "Independence from External Standards"
-    description:
-      ja: >-
-        Schema.org等の外部規格が改訂された場合でも、
-        内部モデルを維持し、クロスウォーク側の更新で対応できる構造とする。
-      en: >-
-        Preserve the internal model when external standards change and adapt
-        by updating the crosswalk layer.
-
-  - id: extensibility
-    name:
-      ja: "段階的拡張"
-      en: "Incremental Extensibility"
-    description:
-      ja: >-
-        音源、楽譜、歌詞、画像、映像等の追加や、
-        新たな外部形式への対応を段階的に行える構造とする。
-      en: >-
-        Support incremental addition of audio, scores, lyrics, images, video,
-        and mappings to further external formats.
-
-  - id: provenance_and_rights
-    name:
-      ja: "典拠と権利情報の明示"
-      en: "Explicit Provenance and Rights"
-    description:
-      ja: >-
-        記述内容の典拠、権利者、許諾範囲、ライセンスを記録し、
-        公開と再利用の根拠を確認できるようにする。
-      en: >-
-        Record sources, rights holders, permission scope, and licenses so that
-        the basis for publication and reuse remains verifiable.
-
-  - id: preservation_and_access
-    name:
-      ja: "保存用データと利用用データの区別"
-      en: "Distinction Between Preservation and Access"
-    description:
-      ja: >-
-        保存用マスターと閲覧・配信用コピーを役割によって区別し、
-        長期保存と利用の双方に対応する。
-      en: >-
-        Distinguish preservation masters from access copies by role to support
-        both long-term preservation and public use.
-
-  - id: open_and_reusable_infrastructure
-    name:
-      ja: "開かれた再利用可能な基盤"
-      en: "Open and Reusable Infrastructure"
-    description:
-      ja: >-
-        広く利用可能なオープンな基盤と可読なファイル形式を組み合わせ、
-        特定機関や専用システムだけに依存しない継続的な運用を目指す。
-      en: >-
-        Combine broadly available open infrastructure with readable file formats
-        to support sustainable operation without dependence on a single
-        institution or proprietary archive system.
-
+- id: one_source_multi_use
+  name:
+    ja: 一つの正本から複数の用途へ
+    en: One Source, Multi Use
+  description:
+    ja: 作品情報を複数のファイルへ重複して記述せず、 一つの正本メタデータからWebページ、構造化データ、 README等を生成する。
+    en: Avoid duplicating descriptive data across files and generate web pages, structured
+      data, README files, and other outputs from one canonical source.
+- id: canonical_metadata
+  name:
+    ja: 正本メタデータ
+    en: Canonical Metadata
+  description:
+    ja: このYAMLを情報更新の基準とし、派生する表示や外部形式は 正本から生成された表現として扱う。
+    en: Treat this YAML as the authoritative source for updates and regard derived
+      displays and external formats as generated representations.
+- id: separation_of_model_and_presentation
+  name:
+    ja: 内部モデルと表示の分離
+    en: Separation of Model and Presentation
+  description:
+    ja: HTMLの見た目や特定サービスの仕様を内部メタデータへ直接持ち込まず、 データ構造と表示処理を分離する。
+    en: Keep presentation details and platform-specific requirements out of the internal
+      metadata model by separating data structure from rendering.
+- id: human_and_machine_readability
+  name:
+    ja: 人間可読性と機械可読性の両立
+    en: Human and Machine Readability
+  description:
+    ja: 地域住民や一般利用者が理解しやすい表示と、 検索エンジンや外部システムが処理できる構造化データを 同じ正本から提供する。
+    en: Provide both accessible human-readable displays and structured data processable
+      by search engines and external systems from the same source.
+- id: crosswalk_oriented_architecture
+  name:
+    ja: クロスウォーク指向
+    en: Crosswalk-Oriented Architecture
+  description:
+    ja: 内部モデルの項目を外部語彙へ直接置き換えるのではなく、 対応関係を定義するクロスウォーク層を介して変換する。
+    en: Transform the internal model through explicit crosswalk mappings rather than
+      replacing internal fields with terms from an external vocabulary.
+- id: standards_independence
+  name:
+    ja: 外部規格からの独立性
+    en: Independence from External Standards
+  description:
+    ja: Schema.org等の外部規格が改訂された場合でも、 内部モデルを維持し、クロスウォーク側の更新で対応できる構造とする。
+    en: Preserve the internal model when external standards change and adapt by updating
+      the crosswalk layer.
+- id: extensibility
+  name:
+    ja: 段階的拡張
+    en: Incremental Extensibility
+  description:
+    ja: 音源、楽譜、歌詞、画像、映像等の追加や、 新たな外部形式への対応を段階的に行える構造とする。
+    en: Support incremental addition of audio, scores, lyrics, images, video, and
+      mappings to further external formats.
+- id: provenance_and_rights
+  name:
+    ja: 典拠と権利情報の明示
+    en: Explicit Provenance and Rights
+  description:
+    ja: 記述内容の典拠、権利者、許諾範囲、ライセンスを記録し、 公開と再利用の根拠を確認できるようにする。
+    en: Record sources, rights holders, permission scope, and licenses so that the
+      basis for publication and reuse remains verifiable.
+- id: preservation_and_access
+  name:
+    ja: 保存用データと利用用データの区別
+    en: Distinction Between Preservation and Access
+  description:
+    ja: 保存用マスターと閲覧・配信用コピーを役割によって区別し、 長期保存と利用の双方に対応する。
+    en: Distinguish preservation masters from access copies by role to support both
+      long-term preservation and public use.
+- id: open_and_reusable_infrastructure
+  name:
+    ja: 開かれた再利用可能な基盤
+    en: Open and Reusable Infrastructure
+  description:
+    ja: 広く利用可能なオープンな基盤と可読なファイル形式を組み合わせ、 特定機関や専用システムだけに依存しない継続的な運用を目指す。
+    en: Combine broadly available open infrastructure with readable file formats to
+      support sustainable operation without dependence on a single institution or
+      proprietary archive system.
 outputs:
   html:
     status: implemented
     type: human_readable
-    generated_from: "metadata/shinso-ondo.yaml"
-    note: "GitHub Pages上の作品紹介・クレジット等の表示"
-
+    generated_from: metadata/shinso-ondo.yaml
+    note: GitHub Pages上の作品紹介・クレジット等の表示
   readme:
     status: implemented
     type: human_readable
-    generated_from: "metadata/shinso-ondo.yaml"
-    note: "リポジトリ内の案内・説明"
-
+    generated_from: metadata/shinso-ondo.yaml
+    note: リポジトリ内の案内・説明
   schema_org_jsonld:
     status: implemented
     type: machine_readable
-    generated_from: "metadata/shinso-ondo.yaml"
-    target_vocabulary: "Schema.org"
-    primary_type: "MusicComposition"
+    generated_from: metadata/shinso-ondo.yaml
+    target_vocabulary: Schema.org
+    primary_type: MusicComposition
     validation:
       status: passed
-      validator: "Schema.org Markup Validator"
-      date: "2026-07-23"
+      validator: Schema.org Markup Validator
+      date: '2026-07-23'
       errors: 0
       warnings: 0
-
   dublin_core:
     status: planned
     type: machine_readable
-    target_vocabulary: "Dublin Core Metadata Terms"
-
+    target_vocabulary: Dublin Core Metadata Terms
   mods:
     status: planned
     type: machine_readable
-    target_vocabulary: "MODS"
-
+    target_vocabulary: MODS
   marcxml:
     status: planned
     type: machine_readable
-    target_vocabulary: "MARCXML"
-
+    target_vocabulary: MARCXML
   iiif_manifest:
     status: under_consideration
     type: machine_readable
-    target_vocabulary: "IIIF Presentation API"
-    note: "画像資料や楽譜等の提示に必要性が生じた場合に検討"
-
+    target_vocabulary: IIIF Presentation API
+    note: 画像資料や楽譜等の提示に必要性が生じた場合に検討
   musicxml:
     status: under_consideration
     type: machine_readable
-    target_vocabulary: "MusicXML"
-    note: "楽譜の構造的記述と再利用に向けて検討"
-
+    target_vocabulary: MusicXML
+    note: 楽譜の構造的記述と再利用に向けて検討
 crosswalks:
   schema_org:
     status: implemented
-    source_model: "Shinso Ondo Canonical Metadata"
-    target_vocabulary: "Schema.org"
-    output_format: "JSON-LD"
-    implementation_location: "about-ondo/index.html"
-    mapping_function: "generateJsonLd"
+    source_model: Shinso Ondo Canonical Metadata
+    target_vocabulary: Schema.org
+    output_format: JSON-LD
+    implementation_location: about-ondo/index.html
+    mapping_function: generateJsonLd
     validation_status: passed
-
   dublin_core:
     status: planned
-    source_model: "Shinso Ondo Canonical Metadata"
-    target_vocabulary: "Dublin Core Metadata Terms"
-
+    source_model: Shinso Ondo Canonical Metadata
+    target_vocabulary: Dublin Core Metadata Terms
   mods:
     status: planned
-    source_model: "Shinso Ondo Canonical Metadata"
-    target_vocabulary: "MODS"
-
+    source_model: Shinso Ondo Canonical Metadata
+    target_vocabulary: MODS
   marcxml:
     status: planned
-    source_model: "Shinso Ondo Canonical Metadata"
-    target_vocabulary: "MARCXML"
-
+    source_model: Shinso Ondo Canonical Metadata
+    target_vocabulary: MARCXML
   iiif_manifest:
     status: under_consideration
-    source_model: "Shinso Ondo Canonical Metadata"
-    target_vocabulary: "IIIF Presentation API"
-
+    source_model: Shinso Ondo Canonical Metadata
+    target_vocabulary: IIIF Presentation API
   musicxml:
     status: under_consideration
-    source_model: "Shinso Ondo Canonical Metadata"
-    target_vocabulary: "MusicXML"
-
+    source_model: Shinso Ondo Canonical Metadata
+    target_vocabulary: MusicXML
 version_history:
-  - version: 3.1.0
-    date: '2026-07-27'
-    changes:
-      ja:
-        - スキーマおよび統制語彙を別ファイルへ分離
-        - metadata_model.referencesを追加
-        - 新荘会Webサイトをrelated_resourcesへ追加
-        - 新荘会Webサイト上の2音源をexternal_resourcesへ追加
-        - 外部リソースのaccessedおよびconfirmedを記録
-      en:
-        - Separated the schema and controlled vocabularies into dedicated files
-        - Added metadata_model.references
-        - Added the Shinso-kai website to related_resources
-        - Added two externally hosted audio files to external_resources
-        - Recorded accessed and confirmed dates for external resources
-  - version: 3.0.0
-    date: '2026-07-27'
-    changes:
-      ja:
-        - 制作役割を固定キーとするcreditsセクションを導入
-        - 役割名、定義、上位語・関連語を管理するrole_vocabularyセクションを導入
-        - プロデューサー、音源制作、CDジャケットデザイン、CD制作のクレジットを追加
-        - 歌唱者表記を新荘音頭制作委員、新荘小学校管楽合奏部児童、塙亜樹に統一
-        - CDの収録順と制作クレジットをphysical_releasesセクションへ追加
-        - 塙亜樹独唱版の識別子およびファイル名のonndoをondoへ訂正
-        - 旧contributors配列を役割キー中心の構造へ再編
-      en:
-        - Introduced a credits section using fixed role identifiers as metadata keys
-        - Introduced a role_vocabulary section for preferred labels, definitions, and semantic 
-          relations
-        - Added credits for producer, audio production, CD jacket design, and CD production
-        - Standardized vocalist names as the Shinso Ondo Production Committee, pupils of the Shinso 
-          Elementary School Brass Band, and Aki Hanawa
-        - Added CD track order and production credits in a physical_releases section
-        - Corrected onndo to ondo in the identifier and file name of the Aki Hanawa solo version
-        - Reorganized the former contributors array into a role-keyed structure
-  - version: "2.0.0"
-    date: "2026-07-23"
-    changes:
-      ja:
-        - "正本メタデータ自身のバージョニングを導入"
-        - "metadata_modelセクションを追加"
-        - "repositoryセクションを追加"
-        - "design_principlesセクションを追加"
-        - "outputsおよびcrosswalksセクションを追加"
-        - "Schema.org JSON-LDへのクロスウォーク実装と検証結果を記録"
-      en:
-        - "Introduced versioning for the canonical metadata model"
-        - "Added the metadata_model section"
-        - "Added the repository section"
-        - "Added the design_principles section"
-        - "Added the outputs and crosswalks sections"
-        - "Recorded implementation and validation of the Schema.org JSON-LD crosswalk"
-
-  - version: "1.0.0"
-    date: "2026-07-17"
-    changes:
-      ja:
-        - "新荘音頭の作品、歌詞、演奏、権利、典拠を記述するYAMLを作成"
-      en:
-        - "Created the initial YAML description of the work, lyrics, performances, rights, and sources"
-
+- version: 3.1.0
+  date: '2026-07-27'
+  changes:
+    ja:
+    - スキーマおよび統制語彙を別ファイルへ分離
+    - metadata_model.referencesを追加
+    - 新荘会Webサイトをrelated_resourcesへ追加
+    - 新荘会Webサイト上の2音源をexternal_resourcesへ追加
+    - 外部リソースのaccessedおよびconfirmedを記録
+    en:
+    - Separated the schema and controlled vocabularies into dedicated files
+    - Added metadata_model.references
+    - Added the Shinso-kai website to related_resources
+    - Added two externally hosted audio files to external_resources
+    - Recorded accessed and confirmed dates for external resources
+- version: 3.0.0
+  date: '2026-07-27'
+  changes:
+    ja:
+    - 制作役割を固定キーとするcreditsセクションを導入
+    - 役割名、定義、上位語・関連語を管理するrole_vocabularyセクションを導入
+    - プロデューサー、音源制作、CDジャケットデザイン、CD制作のクレジットを追加
+    - 歌唱者表記を新荘音頭制作委員、新荘小学校管楽合奏部児童、塙亜樹に統一
+    - CDの収録順と制作クレジットをphysical_releasesセクションへ追加
+    - 塙亜樹独唱版の識別子およびファイル名のonndoをondoへ訂正
+    - 旧contributors配列を役割キー中心の構造へ再編
+    en:
+    - Introduced a credits section using fixed role identifiers as metadata keys
+    - Introduced a role_vocabulary section for preferred labels, definitions, and
+      semantic relations
+    - Added credits for producer, audio production, CD jacket design, and CD production
+    - Standardized vocalist names as the Shinso Ondo Production Committee, pupils
+      of the Shinso Elementary School Brass Band, and Aki Hanawa
+    - Added CD track order and production credits in a physical_releases section
+    - Corrected onndo to ondo in the identifier and file name of the Aki Hanawa solo
+      version
+    - Reorganized the former contributors array into a role-keyed structure
+- version: 2.0.0
+  date: '2026-07-23'
+  changes:
+    ja:
+    - 正本メタデータ自身のバージョニングを導入
+    - metadata_modelセクションを追加
+    - repositoryセクションを追加
+    - design_principlesセクションを追加
+    - outputsおよびcrosswalksセクションを追加
+    - Schema.org JSON-LDへのクロスウォーク実装と検証結果を記録
+    en:
+    - Introduced versioning for the canonical metadata model
+    - Added the metadata_model section
+    - Added the repository section
+    - Added the design_principles section
+    - Added the outputs and crosswalks sections
+    - Recorded implementation and validation of the Schema.org JSON-LD crosswalk
+- version: 1.0.0
+  date: '2026-07-17'
+  changes:
+    ja:
+    - 新荘音頭の作品、歌詞、演奏、権利、典拠を記述するYAMLを作成
+    en:
+    - Created the initial YAML description of the work, lyrics, performances, rights,
+      and sources
 work:
   title:
-    main: "新荘音頭"
-    subtitle: "新荘よいとこ散歩道"
+    main: 新荘音頭
+    subtitle: 新荘よいとこ散歩道
     kana:
-      main: "しんそうおんど"
-      subtitle: "しんそうよいとこさんぽみち"
-
+      main: しんそうおんど
+      subtitle: しんそうよいとこさんぽみち
   genre:
-    - ondo
-
+  - ondo
   place:
-    prefecture: "茨城県"
-    city: "水戸市"
-    district: "新荘地区"
-
+    prefecture: 茨城県
+    city: 水戸市
+    district: 新荘地区
   publication:
     status: published
-    date: "2026-07-26"
-    publisher: "新荘音頭制作委員会"
-    publisher_en: "Shinso Ondo Production Committee"
-    note: "パンフレット、歌詞、クレジット、2種類の音源およびCDの公開日"
-
+    date: '2026-07-26'
+    publisher: 新荘音頭制作委員会
+    publisher_en: Shinso Ondo Production Committee
+    note: パンフレット、歌詞、クレジット、2種類の音源およびCDの公開日
   credits:
     producer:
-      - agent_type: person
-        name: 小松崎 浩司
-        name_en: Hiroshi Komatsuzaki
+    - agent_type: person
+      name: 小松崎 浩司
+      name_en: Hiroshi Komatsuzaki
     general_supervision:
-      - agent_type: person
-        name: 橋本 久雄
-        name_en: Hisao Hashimoto
-        affiliation: 新荘音頭制作委員会
-        note: 新荘音頭制作委員会代表
+    - agent_type: person
+      name: 橋本 久雄
+      name_en: Hisao Hashimoto
+      affiliation: 新荘音頭制作委員会
+      note: 新荘音頭制作委員会代表
     originator:
-      - agent_type: person
-        name: 橋本 久雄
-        name_en: Hisao Hashimoto
-        affiliation: 新荘音頭制作委員会
-        note: 『新荘音頭』制作の発案
+    - agent_type: person
+      name: 橋本 久雄
+      name_en: Hisao Hashimoto
+      affiliation: 新荘音頭制作委員会
+      note: 『新荘音頭』制作の発案
     lyricist:
-      - agent_type: person
-        name: 川又 一郎
-        name_en: Ichiro Kawamata
-        note: 第1番・第2番・第5番
-      - agent_type: person
-        name: 小網 昇
-        name_en: Noboru Koami
-        note: 第3番・第6番・第7番
-      - agent_type: person
-        name: 椹沢 庸平
-        name_en: Yohei Kunugizawa
-        note: 第4番
+    - agent_type: person
+      name: 川又 一郎
+      name_en: Ichiro Kawamata
+      note: 第1番・第2番・第5番
+    - agent_type: person
+      name: 小網 昇
+      name_en: Noboru Koami
+      note: 第3番・第6番・第7番
+    - agent_type: person
+      name: 椹沢 庸平
+      name_en: Yohei Kunugizawa
+      note: 第4番
     composer:
-      - agent_type: person
-        name: 馬立 明美
-        name_en: Akemi Umadate
+    - agent_type: person
+      name: 馬立 明美
+      name_en: Akemi Umadate
     arranger:
-      - agent_type: person
-        name: 馬立 明美
-        name_en: Akemi Umadate
+    - agent_type: person
+      name: 馬立 明美
+      name_en: Akemi Umadate
     choreographer:
-      - agent_type: person
-        name: 国府田 はるか
-        name_en: Haruka Koda
+    - agent_type: person
+      name: 国府田 はるか
+      name_en: Haruka Koda
     vocals:
-      - agent_type: organization
-        name: 新荘音頭制作委員
-        name_en: Shinso Ondo Production Committee
-      - agent_type: organization
-        name: 新荘小学校管楽合奏部児童
-        name_en: Pupils of the Shinso Elementary School Brass Band
-      - agent_type: person
-        name: 塙 亜樹
-        name_en: Aki Hanawa
+    - agent_type: organization
+      name: 新荘音頭制作委員
+      name_en: Shinso Ondo Production Committee
+    - agent_type: organization
+      name: 新荘小学校管楽合奏部児童
+      name_en: Pupils of the Shinso Elementary School Brass Band
+    - agent_type: person
+      name: 塙 亜樹
+      name_en: Aki Hanawa
     musician:
-      - agent_type: organization
-        name: ツーウィー
-        name_en: Tsuwi
+    - agent_type: organization
+      name: ツーウィー
+      name_en: Tsuwi
     conductor:
-      - agent_type: person
-        name: 馬立 明美
-        name_en: Akemi Umadate
-        note: 録音時の指揮
+    - agent_type: person
+      name: 馬立 明美
+      name_en: Akemi Umadate
+      note: 録音時の指揮
     audio_production:
-      - agent_type: person
-        name: 小松崎 浩司
-        name_en: Hiroshi Komatsuzaki
+    - agent_type: person
+      name: 小松崎 浩司
+      name_en: Hiroshi Komatsuzaki
     pamphlet_production:
-      - agent_type: person
-        name: 小松崎 浩司
-        name_en: Hiroshi Komatsuzaki
+    - agent_type: person
+      name: 小松崎 浩司
+      name_en: Hiroshi Komatsuzaki
     cd_jacket_design:
-      - agent_type: person
-        name: 川又 健志
-        name_en: Kenji Kawamata
+    - agent_type: person
+      name: 川又 健志
+      name_en: Kenji Kawamata
     cd_production:
-      - agent_type: person
-        name: 川又 健志
-        name_en: Kenji Kawamata
+    - agent_type: person
+      name: 川又 健志
+      name_en: Kenji Kawamata
 expression:
   lyrics_structure:
     total_verses: 7
     interlude:
       after_verse: 4
       measures: 4
-
   variants:
-    - name: "確定版"
-      verses: [1, 2, 3, 4, 5, 6, 7]
-      note: "2026年7月26日付パンフレット掲載歌詞"
-
+  - name: 確定版
+    verses:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    note: 2026年7月26日付パンフレット掲載歌詞
   verses:
-    - number: 1
-      lyricist: "川又 一郎"
-      text: |-
-        水戸の歴史に　ふれる新屋敷
-        十の小径を　歩いてみれば
-        かえでの子たちの　笑い声
-        今日も元気だ　この街は
-      kana: |-
-        みとのれきしに　ふれるしんやしき
-        とおのこみちを　あるいてみれば
-        かえでのこたちの　わらいごえ
-        きょうもげんきだ　このまちは
-      note:
+  - number: 1
+    lyricist: 川又 一郎
+    text: '水戸の歴史に　ふれる新屋敷
 
-    - number: 2
-      lyricist: "川又 一郎"
-      text: |-
-        初夏をいろどる　あじさいの保和苑
-        しぼりの浴衣が　よく似合う
-        そぞろ歩きで　風感じ
-        みなもにうつる　青あじさい
-      kana: |-
-        しょかをいろどる　あじさいのほわえん
-        しぼりのゆかたが　よくにあう
-        そぞろあるきで　かぜかんじ
-        みなもにうつる　あおあじさい
-      note:
+      十の小径を　歩いてみれば
 
-    - number: 3
-      lyricist: "小網 昇"
-      text: |-
-        水戸で名高い　銀杏の名所
-        道をたどれば　歴史館
-        学ぶ心を　いつまでも
-        もって歩けば　あふれる笑顔
-      kana: |-
-        みとでなだかい　いちょうのめいしょ
-        みちをたどれば　れきしかん
-        まなぶこころを　いつまでも
-        もってあるけば　あふれるえがお
-      note:
+      かえでの子たちの　笑い声
 
-    - number: 4
-      lyricist: "椹沢 庸平"
-      text: |-
-        道にあふれる　あじさいの花
-        シンボルツリーが　のぞみるは
-        昔呼ばれた　馬口労町
-        今は末広　あじさい通り
-      kana: |-
-        みちにあふれる　あじさいのはな
-        シンボルツリーが　のぞみるは
-        むかしよばれた　ばくろちょう
-        いまはすえひろ　あじさいどおり
-      note: >-
-        第2行はパンフレットの表記をそのまま転記。
-        「馬口労町」は行政上の読み「ばくろうちょう」ではなく、
-        歌詞では地域で実際に用いられていた発音「ばくろちょう」を採用。
+      今日も元気だ　この街は'
+    kana: 'みとのれきしに　ふれるしんやしき
 
-    - number: 5
-      lyricist: "川又 一郎"
-      text: |-
-        路面電車の　跡道を
-        昔を偲んで　歩いてみれば
-        あのとき乗った　車内のにおい
-        窓辺に見える　新荘小
-      kana: |-
-        ろめんでんしゃの　あとみちを
-        むかしをしのんで　あるいてみれば
-        あのときのった　しゃないのにおい
-        まどべにみえる　しんそうしょう
-      note:
+      とおのこみちを　あるいてみれば
 
-    - number: 6
-      lyricist: "小網 昇"
-      text: |-
-        急な坂道　登っていけば
-        いつか来た道　七曲坂
-        上がればながめ　広がるよ
-        一歩一歩を　大切に
-      kana: |-
-        きゅうなさかみち　のぼっていけば
-        いつかきたみち　ななまがり
-        あがればながめ　ひろがるよ
-        いっぽいっぽを　たいせつに
-      note: >-
-        「七曲坂」の読みは、歌詞およびパンフレットのルビに基づき
-        「ななまがり」とする。
+      かえでのこたちの　わらいごえ
 
-    - number: 7
-      lyricist: "小網 昇"
-      text: |-
-        三味の音色に　浮かれ出て
-        そぞろ歩きの　大工町
-        集う所は　いつものところ
-        あ～あ人生は　楽しいな
-      kana: |-
-        しゃみのねいろに　うかれでて
-        そぞろあるきの　だいくまち
-        つどうところは　いつものところ
-        あーあじんせいは　たのしいな
-      note:
+      きょうもげんきだ　このまちは'
+    note: null
+  - number: 2
+    lyricist: 川又 一郎
+    text: '初夏をいろどる　あじさいの保和苑
 
+      しぼりの浴衣が　よく似合う
+
+      そぞろ歩きで　風感じ
+
+      みなもにうつる　青あじさい'
+    kana: 'しょかをいろどる　あじさいのほわえん
+
+      しぼりのゆかたが　よくにあう
+
+      そぞろあるきで　かぜかんじ
+
+      みなもにうつる　あおあじさい'
+    note: null
+  - number: 3
+    lyricist: 小網 昇
+    text: '水戸で名高い　銀杏の名所
+
+      道をたどれば　歴史館
+
+      学ぶ心を　いつまでも
+
+      もって歩けば　あふれる笑顔'
+    kana: 'みとでなだかい　いちょうのめいしょ
+
+      みちをたどれば　れきしかん
+
+      まなぶこころを　いつまでも
+
+      もってあるけば　あふれるえがお'
+    note: null
+  - number: 4
+    lyricist: 椹沢 庸平
+    text: '道にあふれる　あじさいの花
+
+      シンボルツリーが　のぞみるは
+
+      昔呼ばれた　馬口労町
+
+      今は末広　あじさい通り'
+    kana: 'みちにあふれる　あじさいのはな
+
+      シンボルツリーが　のぞみるは
+
+      むかしよばれた　ばくろちょう
+
+      いまはすえひろ　あじさいどおり'
+    note: 第2行はパンフレットの表記をそのまま転記。 「馬口労町」は行政上の読み「ばくろうちょう」ではなく、 歌詞では地域で実際に用いられていた発音「ばくろちょう」を採用。
+  - number: 5
+    lyricist: 川又 一郎
+    text: '路面電車の　跡道を
+
+      昔を偲んで　歩いてみれば
+
+      あのとき乗った　車内のにおい
+
+      窓辺に見える　新荘小'
+    kana: 'ろめんでんしゃの　あとみちを
+
+      むかしをしのんで　あるいてみれば
+
+      あのときのった　しゃないのにおい
+
+      まどべにみえる　しんそうしょう'
+    note: null
+  - number: 6
+    lyricist: 小網 昇
+    text: '急な坂道　登っていけば
+
+      いつか来た道　七曲坂
+
+      上がればながめ　広がるよ
+
+      一歩一歩を　大切に'
+    kana: 'きゅうなさかみち　のぼっていけば
+
+      いつかきたみち　ななまがり
+
+      あがればながめ　ひろがるよ
+
+      いっぽいっぽを　たいせつに'
+    note: 「七曲坂」の読みは、歌詞およびパンフレットのルビに基づき 「ななまがり」とする。
+  - number: 7
+    lyricist: 小網 昇
+    text: '三味の音色に　浮かれ出て
+
+      そぞろ歩きの　大工町
+
+      集う所は　いつものところ
+
+      あ～あ人生は　楽しいな'
+    kana: 'しゃみのねいろに　うかれでて
+
+      そぞろあるきの　だいくまち
+
+      つどうところは　いつものところ
+
+      あーあじんせいは　たのしいな'
+    note: null
 performances:
-  - id: "shinso-ondo-shinsokai-shinsoelem"
-    version_title: "新荘音頭制作委員・新荘小学校管楽合奏部児童 斉唱版"
-    performed_verses: [1, 2, 3, 4, 5, 6, 7]
-
-    performers:
-      - role: vocals
-        agent_type: organization
-        name: "新荘音頭制作委員"
-        note: "斉唱"
-
-      - role: vocals
-        agent_type: organization
-        name: "新荘小学校管楽合奏部児童"
-        note: "斉唱"
-
-      - role: musician
-        agent_type: organization
-        name: "ツーウィー"
-        name_en: "Tsuwi"
-        note: "演奏"
-
-      - role: conductor
-        agent_type: person
-        name: "馬立 明美"
-        name_en: "Akemi Umadate"
-        note: "録音時の指揮"
-
-    manifestation:
-      type: audio_recording
-      method: studio_recording
-      credits:
-        - role: audio_production
-          agent_type: person
-          name: 小松崎 浩司
-          name_en: Hiroshi Komatsuzaki
-      recording_date: 2026
-      publication_date: "2026-07-26"
-      place:
-      equipment:
-      note:
-
-    item:
-      files:
-        - file_name: "audio/shinso-ondo-shinsokai-shinsoelem.wav"
-          file_role: master
-          format: wav
-          samplerate:
-          bit_depth:
-          duration:
-          checksum:
-          note: "公開リポジトリ上の保存用マスター音源"
-
-  - id: "shinso-ondo-hanawa-aki"
-    version_title: "塙亜樹 独唱版"
-    performed_verses: [1, 2, 3, 4, 5, 6, 7]
-
-    performers:
-      - role: vocals
-        agent_type: person
-        name: "塙 亜樹"
-        name_en: "Aki Hanawa"
-        note: "独唱"
-
-      - role: musician
-        agent_type: organization
-        name: "ツーウィー"
-        name_en: "Tsuwi"
-        note: "演奏"
-
-      - role: conductor
-        agent_type: person
-        name: "馬立 明美"
-        name_en: "Akemi Umadate"
-        note: "録音時の指揮"
-
-    manifestation:
-      type: audio_recording
-      method: studio_recording
-      credits:
-        - role: audio_production
-          agent_type: person
-          name: 小松崎 浩司
-          name_en: Hiroshi Komatsuzaki
-      recording_date: 2026
-      publication_date: "2026-07-26"
-      place:
-      equipment:
-      note:
-
-    item:
-      files:
-        - file_name: "audio/shinso-ondo-hanawa-aki.wav"
-          file_role: master
-          format: wav
-          samplerate:
-          bit_depth:
-          duration:
-          checksum:
-          note: "公開リポジトリ上の保存用マスター音源"
-
-physical_releases:
-  - id: shinso-ondo-cd-2026
-    type: compact_disc
-    title:
-      ja: 新荘音頭
-      en: Shinso Ondo
-    publication_date: '2026-07-26'
-    publisher:
-      ja: 新荘音頭制作委員会
-      en: Shinso Ondo Production Committee
+- id: shinso-ondo-shinsokai-shinsoelem
+  version_title: 新荘音頭制作委員・新荘小学校管楽合奏部児童 斉唱版
+  performed_verses:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  performers:
+  - role: vocals
+    agent_type: organization
+    name: 新荘音頭制作委員
+    note: 斉唱
+  - role: vocals
+    agent_type: organization
+    name: 新荘小学校管楽合奏部児童
+    note: 斉唱
+  - role: musician
+    agent_type: organization
+    name: ツーウィー
+    name_en: Tsuwi
+    note: 演奏
+  - role: conductor
+    agent_type: person
+    name: 馬立 明美
+    name_en: Akemi Umadate
+    note: 録音時の指揮
+  manifestation:
+    type: audio_recording
+    method: studio_recording
     credits:
-      - cd_jacket_design
-      - cd_production
-    tracks:
-      - track_number: 1
-        performance_ref: shinso-ondo-shinsokai-shinsoelem
-        file_name: audio/shinso-ondo-shinsokai-shinsoelem.wav
-        title:
-          ja: 新荘音頭制作委員・新荘小学校管楽合奏部児童 斉唱版
-          en: Committee and Shinso Elementary School Brass Band Pupils Version
-      - track_number: 2
-        performance_ref: shinso-ondo-hanawa-aki
-        file_name: audio/shinso-ondo-hanawa-aki.wav
-        title:
-          ja: 塙亜樹 独唱版
-          en: Aki Hanawa Solo Version
+    - role: audio_production
+      agent_type: person
+      name: 小松崎 浩司
+      name_en: Hiroshi Komatsuzaki
+    recording_date: 2026
+    publication_date: '2026-07-26'
+    place: null
+    equipment: null
+    note: null
+  item:
+    files:
+    - file_name: audio/shinso-ondo-shinsokai-shinsoelem.wav
+      file_role: master
+      format: wav
+      samplerate: null
+      bit_depth: null
+      duration: null
+      checksum: null
+      note: 公開リポジトリ上の保存用マスター音源
+    - file_name: audio/shinso-ondo-shinsokai-shinsoelem.mp3
+      file_role: access
+      format: mp3
+      duration: null
+      checksum: null
+      note: 閲覧・配信用音源
+- id: shinso-ondo-shinsoelem
+  version_title: 新荘小学校管楽合奏部児童 斉唱版
+  performed_verses:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  performers:
+  - role: vocals
+    agent_type: organization
+    name: 新荘小学校管楽合奏部児童
+    name_en: Pupils of the Shinso Elementary School Brass Band
+    note: 斉唱
+  - role: musician
+    agent_type: organization
+    name: ツーウィー
+    name_en: Tsuwi
+    note: 演奏
+  - role: conductor
+    agent_type: person
+    name: 馬立 明美
+    name_en: Akemi Umadate
+    note: 録音時の指揮
+  manifestation:
+    type: audio_recording
+    method: studio_recording
+    credits:
+    - role: audio_production
+      agent_type: person
+      name: 小松崎 浩司
+      name_en: Hiroshi Komatsuzaki
+    recording_date: 2026
+    publication_date: '2026-07-26'
+    place: null
+    equipment: null
+    note: null
+  item:
+    files:
+    - file_name: audio/shinso-ondo-shinsoelem.wav
+      file_role: master
+      format: wav
+      samplerate: null
+      bit_depth: null
+      duration: null
+      checksum: null
+      note: 公開リポジトリ上の保存用マスター音源
+    - file_name: audio/shinso-ondo-shinsoelem.mp3
+      file_role: access
+      format: mp3
+      duration: null
+      checksum: null
+      note: 閲覧・配信用音源
+- id: shinso-ondo-hanawa-aki
+  version_title: 塙亜樹 独唱版
+  performed_verses:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  performers:
+  - role: vocals
+    agent_type: person
+    name: 塙 亜樹
+    name_en: Aki Hanawa
+    note: 独唱
+  - role: musician
+    agent_type: organization
+    name: ツーウィー
+    name_en: Tsuwi
+    note: 演奏
+  - role: conductor
+    agent_type: person
+    name: 馬立 明美
+    name_en: Akemi Umadate
+    note: 録音時の指揮
+  manifestation:
+    type: audio_recording
+    method: studio_recording
+    credits:
+    - role: audio_production
+      agent_type: person
+      name: 小松崎 浩司
+      name_en: Hiroshi Komatsuzaki
+    recording_date: 2026
+    publication_date: '2026-07-26'
+    place: null
+    equipment: null
+    note: null
+  item:
+    files:
+    - file_name: audio/shinso-ondo-hanawa-aki.wav
+      file_role: master
+      format: wav
+      samplerate: null
+      bit_depth: null
+      duration: null
+      checksum: null
+      note: 公開リポジトリ上の保存用マスター音源
+    - file_name: audio/shinso-ondo-hanawa-aki.mp3
+      file_role: access
+      format: mp3
+      duration: null
+      checksum: null
+      note: 閲覧・配信用音源
+physical_releases:
+- id: shinso-ondo-cd-2026
+  type: compact_disc
+  title:
+    ja: 新荘音頭
+    en: Shinso Ondo
+  publication_date: '2026-07-26'
+  publisher:
+    ja: 新荘音頭制作委員会
+    en: Shinso Ondo Production Committee
+  credits:
+  - cd_jacket_design
+  - cd_production
+  tracks:
+  - track_number: 1
+    performance_ref: shinso-ondo-shinsokai-shinsoelem
+    file_name: audio/shinso-ondo-shinsokai-shinsoelem.wav
+    title:
+      ja: 新荘音頭制作委員・新荘小学校管楽合奏部児童 斉唱版
+      en: Committee and Shinso Elementary School Brass Band Pupils Version
+  - track_number: 2
+    performance_ref: shinso-ondo-hanawa-aki
+    file_name: audio/shinso-ondo-hanawa-aki.wav
+    title:
+      ja: 塙亜樹 独唱版
+      en: Aki Hanawa Solo Version
 related_resources:
-  - id: shinsokai_website
-    title:
-      ja: 新荘会Webサイト
-      en: Shinso-kai Website
-    relation: related_site
-    url: https://sinsokai.la.coocan.jp/
-    managed_by:
-      ja: 新荘会
-      en: Shinso-kai
-    accessed: '2026-07-27'
-    confirmed: '2026-07-27'
-    note:
-      ja: 新荘会の活動を紹介するWebサイト。
-      en: A website introducing the activities of the Shinso-kai.
-  - id: shinsokai_shinso_ondo_page
-    title:
-      ja: 新荘音頭紹介ページ
-      en: Shinso Ondo Page
-    relation: related_resource
-    url: https://sinsokai.la.coocan.jp/page7.html
-    managed_by:
-      ja: 新荘会
-      en: Shinso-kai
-    accessed: '2026-07-27'
-    confirmed: '2026-07-27'
-    note:
-      ja: 新荘会Webサイト内の新荘音頭紹介ページ。
-      en: The Shinso Ondo introduction page on the Shinso-kai website.
+- id: shinsokai_website
+  title:
+    ja: 新荘会Webサイト
+    en: Shinso-kai Website
+  relation: related_site
+  url: https://sinsokai.la.coocan.jp/
+  managed_by:
+    ja: 新荘会
+    en: Shinso-kai
+  accessed: '2026-07-27'
+  confirmed: '2026-07-27'
+  note:
+    ja: 新荘会の活動を紹介するWebサイト。
+    en: A website introducing the activities of the Shinso-kai.
+- id: shinsokai_shinso_ondo_page
+  title:
+    ja: 新荘音頭紹介ページ
+    en: Shinso Ondo Page
+  relation: related_resource
+  url: https://sinsokai.la.coocan.jp/page7.html
+  managed_by:
+    ja: 新荘会
+    en: Shinso-kai
+  accessed: '2026-07-27'
+  confirmed: '2026-07-27'
+  note:
+    ja: 新荘会Webサイト内の新荘音頭紹介ページ。
+    en: The Shinso Ondo introduction page on the Shinso-kai website.
 external_resources:
-  - id: shinsokai_unison_audio
-    type: external_audio
-    title:
-      ja: 新荘音頭（新荘よいとこ散歩道）合唱版
-      en: Shinso Ondo Chorus Version
-    url: https://sinsokai.la.coocan.jp/shinsoondogasho.mp3
-    managed_by:
-      ja: 新荘会
-      en: Shinso-kai
-    accessed: '2026-07-27'
-    confirmed: '2026-07-27'
-    note:
-      ja: 新荘会Webサイト上の表記は「合唱版」。本アーカイブでは演奏実態に基づき「斉唱版」と記述する。
-      en: The external site labels this recording as a chorus version; this archive describes it as 
-        a unison version based on the performance practice.
-  - id: shinsokai_solo_audio
-    type: external_audio
-    title:
-      ja: 新荘音頭（新荘よいとこ散歩道）独唱版
-      en: Shinso Ondo Solo Version
-    url: https://sinsokai.la.coocan.jp/shinsoondodokusho.mp3
-    managed_by:
-      ja: 新荘会
-      en: Shinso-kai
-    accessed: '2026-07-27'
-    confirmed: '2026-07-27'
-    note:
-      ja: 新荘会Webサイト上で公開されている外部音源。
-      en: An external audio file published on the Shinso-kai website.
+- id: shinsokai_unison_audio
+  type: external_audio
+  title:
+    ja: 新荘音頭（新荘よいとこ散歩道）合唱版
+    en: Shinso Ondo Chorus Version
+  url: https://sinsokai.la.coocan.jp/shinsoondogasho.mp3
+  managed_by:
+    ja: 新荘会
+    en: Shinso-kai
+  accessed: '2026-07-27'
+  confirmed: '2026-07-27'
+  note:
+    ja: 新荘会Webサイト上の表記は「合唱版」。本アーカイブでは演奏実態に基づき「斉唱版」と記述する。
+    en: The external site labels this recording as a chorus version; this archive
+      describes it as a unison version based on the performance practice.
+- id: shinsokai_solo_audio
+  type: external_audio
+  title:
+    ja: 新荘音頭（新荘よいとこ散歩道）独唱版
+    en: Shinso Ondo Solo Version
+  url: https://sinsokai.la.coocan.jp/shinsoondodokusho.mp3
+  managed_by:
+    ja: 新荘会
+    en: Shinso-kai
+  accessed: '2026-07-27'
+  confirmed: '2026-07-27'
+  note:
+    ja: 新荘会Webサイト上で公開されている外部音源。
+    en: An external audio file published on the Shinso-kai website.
 rights:
   copyright_status: in_copyright
-
   rightsholder:
-    - agent_type: organization
-      name: "新荘音頭制作委員会"
-      name_en: "Shinso Ondo Production Committee"
-
+  - agent_type: organization
+    name: 新荘音頭制作委員会
+    name_en: Shinso Ondo Production Committee
   licensor:
-    - agent_type: organization
-      name: "新荘音頭制作委員会"
-      name_en: "Shinso Ondo Production Committee"
-
+  - agent_type: organization
+    name: 新荘音頭制作委員会
+    name_en: Shinso Ondo Production Committee
   performer_rights:
-    - "新荘音頭制作委員"
-    - "新荘小学校管楽合奏部児童"
-    - "塙 亜樹"
-    - "ツーウィー"
-
-  recording_rights_holder:
+  - 新荘音頭制作委員
+  - 新荘小学校管楽合奏部児童
+  - 塙 亜樹
+  - ツーウィー
+  recording_rights_holder: null
   permission_status: permitted
-  permission_scope: "公開およびライセンス条件に基づく利用"
+  permission_scope: 公開およびライセンス条件に基づく利用
   publication_status: published
-  publication_url: "https://kojikomatsuzaki.github.io/shinso-ondo/"
+  publication_url: https://kojikomatsuzaki.github.io/shinso-ondo/
   access_condition: open
-  contact_for_rights:
-  publication_date: "2026-07-26"
-
+  contact_for_rights: null
+  publication_date: '2026-07-26'
   license:
     type: cc_by_nc_sa
-    abbreviation: "CC BY-NC-SA 4.0"
-    name_ja: "表示－非営利－継承 4.0 国際"
-    name_en: "Attribution-NonCommercial-ShareAlike 4.0 International"
-    url: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
-    deed_url_ja: "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja"
-    deed_url_en: "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"
-
-  note: >-
-    歌詞、楽曲、編曲、振付、パンフレット、CDジャケットおよび公開する2種類の録音音源を、CC BY-NC-SA 4.0（表示－非営利－継承 4.0 国際）で公開する。非営利目的に限り、適切なクレジット表示と継承条件の下で、複製、再配布、補作、演奏、演舞、再編曲を認める。
-
+    abbreviation: CC BY-NC-SA 4.0
+    name_ja: 表示－非営利－継承 4.0 国際
+    name_en: Attribution-NonCommercial-ShareAlike 4.0 International
+    url: https://creativecommons.org/licenses/by-nc-sa/4.0/
+    deed_url_ja: https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja
+    deed_url_en: https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en
+  note: 歌詞、楽曲、編曲、振付、パンフレット、CDジャケットおよび公開する2種類の録音音源を、CC BY-NC-SA 4.0（表示－非営利－継承 4.0 国際）で公開する。非営利目的に限り、適切なクレジット表示と継承条件の下で、複製、再配布、補作、演奏、演舞、再編曲を認める。
 source:
   bibliographic_source:
-    title: "新荘音頭―新荘よいとこ散歩道―"
-    publisher: "新荘音頭制作委員会"
-    date: "2026-07-26"
+    title: 新荘音頭―新荘よいとこ散歩道―
+    publisher: 新荘音頭制作委員会
+    date: '2026-07-26'
     type: pamphlet
-
-  fieldnote_source:
-  authority_source:
-
-notes: >-
-  クレジットおよび歌詞は、関係者間の確認を経て確定した
-  2026年7月26日付パンフレットを典拠とする。
-
-
-# ============================================
-# 語彙定義（Controlled Vocabulary）
-# ============================================
-
-# roles:
-#   lyricist: 作詞者
-#   composer: 作曲者
-#   arranger: 編曲者
-#   choreographer: 振付者
-#   project_director: 制作全体の監修・統括
-#   originator: 企画・制作の発案者
-#   pamphlet_producer: パンフレット制作者
-#   singer: 歌唱者
-#   musician: 演奏者
-#   conductor: 録音時・演奏時の指揮者
-#   recording_engineer: 音楽録音担当
-#   audio_editor: 音楽編集担当
-#
-# agent_types:
-#   person: 個人
-#   organization: 団体
-#
-# performance_types:
-#   chorus: 斉唱
-#   solo: 独唱
-#
-# genres:
-#   ondo: 音頭
-#
-# manifestation_types:
-#   audio_recording: 音声記録
-#
-# recording_methods:
-#   studio_recording: スタジオ収録
-#
-# file_roles:
-#   master: 保存用マスター
-#   access: 閲覧用コピー
-#
-# rights_status:
-#   in_copyright: 著作権保護期間内
-#
-# permission_status:
-#   permitted: 許諾済み
-#
-# publication_status:
-#   published: 公開
-#
-# license_types:
-#   cc_by_nc_sa: CC BY-NC-SA 4.0
+  fieldnote_source: null
+  authority_source: null
+notes: クレジットおよび歌詞は、関係者間の確認を経て確定した 2026年7月26日付パンフレットを典拠とする。
