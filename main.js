@@ -4,7 +4,7 @@
   const STORAGE_KEY = "shinso-ondo-language";
   const translations = {
     ja: {
-      skip: "本文へ移動", workSubtitle: "新荘よいとこ散歩道", menu: "メニュー", materials: "公開資料", guide: "案内",
+      skip: "本文へ移動", workSubtitle: "新荘よいとこ散歩道", menu: "メニュー", home: "トップページ", materials: "公開資料", guide: "案内",
       audio: "音源", lyrics: "歌詞", scores: "楽譜", pamphlet: "パンフレット", aboutShinso: "新荘地区について",
       aboutOndo: "新荘音頭について", contributors: "制作・協力者", rights: "権利・利用条件", metadata: "メタデータ",
       noticeTitle: "このデジタルアーカイブは現在整備中です",
@@ -27,7 +27,7 @@
       footerTitle: "新荘音頭 公式デジタルアーカイブ", managedBy: "管理："
     },
     en: {
-      skip: "Skip to main content", workSubtitle: "Shinsō Yoi Toko Sanpomichi", menu: "Menu", materials: "Public Materials", guide: "Guide",
+      skip: "Skip to main content", workSubtitle: "Shinsō Yoi Toko Sanpomichi", menu: "Menu", home: "Home", materials: "Public Materials", guide: "Guide",
       audio: "Audio", lyrics: "Lyrics", scores: "Scores", pamphlet: "Pamphlet", aboutShinso: "About the Shinsō District",
       aboutOndo: "About Shinsō Ondo", contributors: "Contributors", rights: "Rights and Terms of Use", metadata: "Metadata",
       noticeTitle: "This digital archive is currently under development",
@@ -61,6 +61,34 @@
   const saved = localStorage.getItem(STORAGE_KEY);
   const browserIsJapanese = (navigator.languages || [navigator.language]).some((lang) => String(lang).toLowerCase().startsWith("ja"));
   let currentLanguage = saved === "ja" || saved === "en" ? saved : browserIsJapanese ? "ja" : "en";
+
+  function normalizePath(pathname) {
+    const siteRoot = "/shinso-ondo";
+    let normalized = pathname.replace(/\/index\.html$/, "/");
+
+    if (normalized.startsWith(siteRoot)) {
+      normalized = normalized.slice(siteRoot.length) || "/";
+    }
+
+    if (!normalized.startsWith("/")) normalized = `/${normalized}`;
+    if (normalized !== "/" && !normalized.endsWith("/")) normalized += "/";
+
+    return normalized;
+  }
+
+  function markCurrentPage() {
+    const currentPath = normalizePath(window.location.pathname);
+
+    menu.querySelectorAll("[data-nav-path]").forEach((link) => {
+      const isCurrent = normalizePath(link.dataset.navPath) === currentPath;
+
+      if (isCurrent) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+  }
 
   function applyLanguage(language) {
     currentLanguage = language;
@@ -104,5 +132,6 @@
     if (event.key === "Escape" && menu.classList.contains("is-open")) closeMenu();
   });
 
+  markCurrentPage();
   applyLanguage(currentLanguage);
 })();
