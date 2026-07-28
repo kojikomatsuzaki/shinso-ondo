@@ -1,2 +1,6 @@
 # macOS対策
 .DS_Store
+
+# Python生成物
+__pycache__/
+*.py[cod]
