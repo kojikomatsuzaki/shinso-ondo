@@ -630,6 +630,67 @@ performances:
           checksum:
           note: "公開リポジトリ上の保存用マスター音源"
 
+        - file_name: "audio/shinso-ondo-shinsokai-shinsoelem.mp3"
+          file_role: access
+          format: mp3
+          duration:
+          checksum:
+          note: "閲覧・配信用音源"
+
+  - id: "shinso-ondo-shinsoelem"
+    version_title: "新荘小学校管楽合奏部児童 斉唱版"
+    performed_verses: [1, 2, 3, 4, 5, 6, 7]
+
+    performers:
+      - role: vocals
+        agent_type: organization
+        name: "新荘小学校管楽合奏部児童"
+        note: "斉唱"
+
+      - role: musician
+        agent_type: organization
+        name: "ツーウィー"
+        name_en: "Tsuwi"
+        note: "演奏"
+
+      - role: conductor
+        agent_type: person
+        name: "馬立 明美"
+        name_en: "Akemi Umadate"
+        note: "録音時の指揮"
+
+    manifestation:
+      type: audio_recording
+      method: studio_recording
+      credits:
+        - role: audio_production
+          agent_type: person
+          name: 小松崎 浩司
+          name_en: Hiroshi Komatsuzaki
+      recording_date: 2026
+      publication_date: "2026-07-26"
+      place:
+      equipment:
+      note:
+
+    item:
+      files:
+        - file_name: "audio/shinso-ondo-shinsoelem.wav"
+          file_role: master
+          format: wav
+          samplerate:
+          bit_depth:
+          duration:
+          checksum:
+          note: "公開リポジトリ上の保存用マスター音源"
+
+        - file_name: "audio/shinso-ondo-shinsoelem.mp3"
+          file_role: access
+          format: mp3
+          duration:
+          checksum:
+          note: "閲覧・配信用音源"
+
   - id: "shinso-ondo-hanawa-aki"
     version_title: "塙亜樹 独唱版"
     performed_verses: [1, 2, 3, 4, 5, 6, 7]
@@ -677,6 +738,13 @@ performances:
           duration:
           checksum:
           note: "公開リポジトリ上の保存用マスター音源"
+
+        - file_name: "audio/shinso-ondo-hanawa-aki.mp3"
+          file_role: access
+          format: mp3
+          duration:
+          checksum:
+          note: "閲覧・配信用音源"
 
 physical_releases:
   - id: shinso-ondo-cd-2026
