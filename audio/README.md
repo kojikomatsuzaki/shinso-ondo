@@ -1,237 +1,100 @@
 # Audio
 
-「新荘音頭」（副題：「新荘よいとこ散歩道」）の公式音源を収録するディレクトリです。
+「新荘音頭」（副題：「新荘よいとこ散歩道」）の公式公開音源を収録するディレクトリです。
 
-本ディレクトリでは、演奏・視聴・保存のための公式公開音源を提供します。
+一般利用者向けの音源ページ：
 
----
+- [`index.html`](index.html)
+- 公開サイト：<https://kojikomatsuzaki.github.io/shinso-ondo/audio/>
 
-## Table of Contents
-
-### 日本語
-
-- [クイックアクセス](#クイックアクセス)
-- [このディレクトリの役割](#このディレクトリの役割)
-- [ディレクトリ構成](#ディレクトリ構成)
-- [公式公開音源](#公式公開音源)
-- [正本メタデータとの関係](#正本メタデータとの関係)
-- [版管理・保存方針](#版管理保存方針)
-- [利用・更新方針](#利用更新方針)
-- [関連ディレクトリ](#関連ディレクトリ)
-- [ライセンス](#ライセンス)
-
-### English
-
-- [Quick Access](#quick-access)
-- [Role of This Directory](#role-of-this-directory)
-- [Directory Structure](#directory-structure)
-- [Official Audio Recordings](#official-audio-recordings)
-- [Relationship to the Canonical Metadata](#relationship-to-the-canonical-metadata)
-- [Versioning and Preservation Policy](#versioning-and-preservation-policy)
-- [Use and Maintenance Policy](#use-and-maintenance-policy)
-- [Related Directories](#related-directories)
-- [License](#license)
+本ディレクトリでは、3種類の公式公開音源を、試聴・配信用のMP3形式と保存用のWAV形式で提供します。
 
 ---
 
-# 日本語
+## 収録音源
 
-## クイックアクセス
+| 版 | MP3 | WAV |
+|---|---|---|
+| 新荘音頭制作委員・新荘小学校管楽合奏部児童 斉唱版 | `shinso-ondo-shinsokai-shinsoelem.mp3` | `shinso-ondo-shinsokai-shinsoelem.wav` |
+| 新荘小学校管楽合奏部児童 斉唱版 | `shinso-ondo-shinsoelem.mp3` | `shinso-ondo-shinsoelem.wav` |
+| 塙亜樹 独唱版 | `shinso-ondo-hanawa-aki.mp3` | `shinso-ondo-hanawa-aki.wav` |
 
-| 内容 | ファイル |
-|------|---------|
-| 公式音源（新荘音頭制作委員） | `shinso-ondo-shinsokai-shinsoelem.wav` |
-| 公式音源（塙亜樹） | `shinso-ondo-hanawa-aki.wav` |
-| 正本メタデータ | [`../metadata/shinso-ondo.yaml`](../metadata/shinso-ondo.yaml) |
-| メタデータ設計 | [`../metadata/README.md`](../metadata/README.md) |
-| リポジトリ概要 | [`../README.md`](../README.md) |
+### ファイルの役割
 
----
-
-## このディレクトリの役割
-
-`audio/` は、「新荘音頭」の公式公開音源を収録するディレクトリです。
-
-現在公開している音源は、作品の公式公開音源として位置付けています。
+- **MP3**：Web上での試聴および一般的な再生環境での利用に向けた配信用ファイル
+- **WAV**：音質を保った保存用マスターファイル
 
 ---
 
-## ディレクトリ構成
+## 主なクレジット
 
-```text
-audio/
-├── README.md
-├── shinso-ondo-shinsokai-shinsoelem.wav
-└── shinso-ondo-hanawa-aki.wav
-```
+- 歌唱：新荘音頭制作委員
+- 歌唱：新荘小学校管楽合奏部児童
+- 歌唱：塙 亜樹
+- 演奏：ツーウィー
+- 録音時の指揮：馬立 明美
+- 音源制作：小松崎 浩司
 
-| ファイル | 内容 |
-|----------|------|
-| `README.md` | このディレクトリの構成・利用方法・更新方針を示します。 |
-| `shinso-ondo-shinsokai-shinsoelem.wav` | 新荘音頭制作委員および新荘小学校管楽合奏部児童による公式公開音源 |
-| `shinso-ondo-hanawa-aki.wav` | 民謡歌手・塙亜樹氏による公式公開音源 |
-
----
-
-## 公式公開音源
-
-本ディレクトリでは、異なる歌唱・演奏による複数の公式公開音源を収録しています。
-
-利用目的に応じて、それぞれの公式公開音源を利用してください。
+各音源に対応する出演者と制作情報の詳細は、正本メタデータを参照してください。
 
 ---
 
 ## 正本メタデータとの関係
 
-作品名、クレジット、権利情報などの構造化された作品情報は、
+作品名、演奏者、制作クレジット、公開ファイル、権利情報などの構造化された作品情報は、
 
-[`../metadata/shinso-ondo.yaml`](../metadata/shinso-ondo.yaml)
+- [`../metadata/shinso-ondo.yaml`](../metadata/shinso-ondo.yaml)
 
 を正本（Single Source of Truth）として管理しています。
 
-詳細な設計方針については、
-
-- [`../metadata/README.md`](../metadata/README.md)
-- [`../README.md`](../README.md)
-
-を参照してください。
+`audio/index.html` は一般利用者向けの表示ページ、`README.md` はリポジトリ利用者・保守担当者向けの説明文書として役割を分けています。
 
 ---
 
-## 版管理・保存方針
+## 更新方針
 
-音源の版管理および保存方針は、リポジトリルートの
+- 本ディレクトリには公式公開音源のみを収録します。
+- 音源を追加または差し替える場合は、正本メタデータも同時に更新します。
+- MP3・WAV内部のメタデータは、正本YAMLを参照して更新します。
+- 保存用ファイルと配信用ファイルを役割によって区別します。
 
-[`../README.md`](../README.md)
+音源メタデータの確認・書き込みには、リポジトリルートの`Makefile`から次のコマンドを利用できます。
 
-で定義しています。
-
-将来、新たな公式公開音源や改訂版を公開する場合は、その方針に従って管理します。
-
----
-
-## 利用・更新方針
-
-音源を追加・更新する場合は、リポジトリルートREADMEで定める版管理・保存方針に従います。
-
-本ディレクトリでは、公式公開音源のみを収録します。
+```bash
+make metadata
+make verify
+make write
+```
 
 ---
 
-## 関連ディレクトリ
+## 関連ページ・ディレクトリ
 
-| ディレクトリ | 内容 |
-|--------------|------|
-| [`../metadata/`](../metadata/) | 作品情報の正本 |
-| [`../lyrics/`](../lyrics/) | 歌詞 |
-| [`../scores/`](../scores/) | 楽譜 |
-| [`../publications/`](../publications/) | パンフレット等の典拠資料 |
-| [`../README.md`](../README.md) | リポジトリ全体の入口 |
+- [`../lyrics/`](../lyrics/)：歌詞
+- [`../scores/`](../scores/)：楽譜
+- [`../contributors/`](../contributors/)：制作・協力者
+- [`../metadata/`](../metadata/)：正本メタデータ
+- [`../rights/`](../rights/)：権利とライセンス
+- [`../publications/`](../publications/)：パンフレット等
 
 ---
 
 ## ライセンス
 
-別途記載がある場合を除き、本ディレクトリ内の資料は
+別途記載がある場合を除き、本ディレクトリ内の資料は、
 
 **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International（CC BY-NC-SA 4.0）**
 
 の条件で公開しています。
 
-詳細は [`../LICENSE`](../LICENSE) を参照してください。
+詳細は、[`../rights/`](../rights/)および[`../LICENSE`](../LICENSE)を参照してください。
 
 ---
 
-# English
+# English Summary
 
-## Quick Access
+The `audio/` directory contains three official recordings of **Shinsō Ondo**, provided in MP3 format for online listening and access, and WAV format as preservation-quality master files.
 
-| Content | File |
-|---------|------|
-| Official recording (Production Committee) | `shinso-ondo-shinsokai-shinsoelem.wav` |
-| Official recording (Aki Hanawa) | `shinso-ondo-hanawa-aki.wav` |
-| Canonical metadata | [`../metadata/shinso-ondo.yaml`](../metadata/shinso-ondo.yaml) |
-| Metadata documentation | [`../metadata/README.md`](../metadata/README.md) |
-| Repository overview | [`../README.md`](../README.md) |
+The public-facing page is [`index.html`](index.html). Structured information about the recordings, performers, files, credits, and rights is maintained in [`../metadata/shinso-ondo.yaml`](../metadata/shinso-ondo.yaml) as the canonical metadata source.
 
----
-
-## Role of This Directory
-
-The `audio/` directory contains the official published audio recordings of **Shinsō Ondo**.
-
-The recordings are provided as official published materials for listening, preservation, and reuse.
-
----
-
-## Directory Structure
-
-```text
-audio/
-├── README.md
-├── shinso-ondo-shinsokai-shinsoelem.wav
-└── shinso-ondo-hanawa-aki.wav
-```
-
----
-
-## Official Audio Recordings
-
-This directory contains multiple official published recordings performed by different singers and performers.
-
-Users may select the appropriate recording according to their intended use.
-
----
-
-## Relationship to the Canonical Metadata
-
-Structured work information—including title, credits, and rights—is maintained in
-
-[`../metadata/shinso-ondo.yaml`](../metadata/shinso-ondo.yaml)
-
-as the Single Source of Truth.
-
-For the overall design policy, see:
-
-- [`../metadata/README.md`](../metadata/README.md)
-- [`../README.md`](../README.md)
-
----
-
-## Versioning and Preservation Policy
-
-The versioning and preservation policy for audio recordings is defined in the repository root:
-
-[`../README.md`](../README.md)
-
-Future official recordings and revised editions will follow that policy.
-
----
-
-## Use and Maintenance Policy
-
-Only official published recordings are maintained in this directory.
-
-Updates and additions follow the versioning and preservation policy defined in the repository root.
-
----
-
-## Related Directories
-
-| Directory | Description |
-|-----------|-------------|
-| [`../metadata/`](../metadata/) | Canonical metadata |
-| [`../lyrics/`](../lyrics/) | Lyrics |
-| [`../scores/`](../scores/) | Musical scores |
-| [`../publications/`](../publications/) | Source publications |
-| [`../README.md`](../README.md) | Repository overview |
-
----
-
-## License
-
-Unless otherwise noted, the materials in this directory are licensed under the
-
-**Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0).**
-
-For details, see [`../LICENSE`](../LICENSE).
+Unless otherwise noted, the materials are licensed under the **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)**.
