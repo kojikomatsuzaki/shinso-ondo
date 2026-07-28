@@ -118,6 +118,65 @@
   color: var(--accent);
 }
 
+.menu-home {
+  margin-bottom: 26px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.menu-home a,
+.menu-section a {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 11px 10px;
+  border-radius: 10px;
+  color: var(--text);
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.menu-home a:hover,
+.menu-home a:focus-visible,
+.menu-section a:hover,
+.menu-section a:focus-visible {
+  background: var(--accent);
+  color: #fff;
+  transform: translateX(3px);
+}
+
+.menu-home a[aria-current="page"],
+.menu-section a[aria-current="page"] {
+  background: rgba(61, 115, 120, 0.12);
+  color: #315f64;
+  box-shadow: inset 3px 0 0 #315f64;
+}
+
+.menu-home a[aria-current="page"]::after,
+.menu-section a[aria-current="page"]::after {
+  margin-left: auto;
+  color: var(--muted);
+  content: "●";
+  font-size: 0.65rem;
+}
+
+.menu-home a[aria-current="page"]:hover,
+.menu-home a[aria-current="page"]:focus-visible,
+.menu-section a[aria-current="page"]:hover,
+.menu-section a[aria-current="page"]:focus-visible {
+  background: rgba(61, 115, 120, 0.18);
+  color: #244d51;
+  transform: none;
+}
+
+.menu-home a span:first-child,
+.menu-section a span:first-child {
+  width: 1.6rem;
+  flex: 0 0 auto;
+  text-align: center;
+}
+
 .menu-section + .menu-section {
   margin-top: 30px;
 }
@@ -139,31 +198,6 @@
 
 .menu-section li + li {
   margin-top: 4px;
-}
-
-.menu-section a {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 11px 10px;
-  border-radius: 10px;
-  color: var(--text);
-  font-weight: 700;
-  text-decoration: none;
-  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
-}
-
-.menu-section a:hover,
-.menu-section a:focus-visible {
-  background: var(--accent);
-  color: #fff;
-  transform: translateX(3px);
-}
-
-.menu-section a span:first-child {
-  width: 1.6rem;
-  flex: 0 0 auto;
-  text-align: center;
 }
 
 .menu-repository {
@@ -245,6 +279,7 @@ body.menu-open {
 @media (prefers-reduced-motion: reduce) {
   .site-menu,
   .menu-button,
+  .menu-home a,
   .menu-section a,
   .menu-repository a {
     transition: none;
