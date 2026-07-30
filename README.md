@@ -117,7 +117,7 @@ GitHubのバージョン管理機能を活用し、次のことを目的とし�
 metadata/shinso-ondo.yaml
 ```
 
-歌詞ページや制作・協力者ページなどの公開ページは、この正本メタデータを読み込み、用途に応じた形で表示します。
+公開ページや構造化データは、可能な限りこの正本メタデータを参照または利用し、用途に応じた形で表示・生成します。
 
 ```text
 metadata/shinso-ondo.yaml
@@ -127,9 +127,11 @@ metadata/shinso-ondo.yaml
         └── その他の公開・再利用形式
 ```
 
-同じ情報を複数のファイルへ個別に転記して管理するのではなく、一つの正本から複数の公開形式を生成・表示する **One Source, Multi Use** を基本方針としています。
+同じ意味を持つ作品メタデータを複数のファイルへ個別に転記して管理するのではなく、一つの正本から複数の公開形式を生成・表示する **One Source, Multi Use** を基本方針としています。これは、すべての情報を一つのファイルに集約するという意味ではありません。
 
-情報の追加・修正・削除を行う場合は、表示先のHTMLを直接書き換えるのではなく、原則として `metadata/shinso-ondo.yaml` を更新します。
+作品メタデータの追加・修正・削除は、原則として `metadata/shinso-ondo.yaml` を更新します。現在は一部の公開ページや文書に静的な記述もあるため、正本の変更時には該当する表示を確認します。
+
+`LICENSE` はライセンス条件、権利関係および法的情報を、`README.md` はリポジトリとプロジェクトの説明を、それぞれ独立して管理する文書です。編集方針、運用ガイド、各ディレクトリの `README.md` なども、作品の記述メタデータとは異なる説明・運用文書として扱います。これらの独立文書に人物名・団体名などが記載されている場合は、正式名称の変更時に個別に整合性を確認します。
 
 ---
 
@@ -359,7 +361,7 @@ Structured data concerning the work, lyrics, contributors, recordings, and credi
 metadata/shinso-ondo.yaml
 ```
 
-Public pages, including the lyrics and contributors pages, read this canonical metadata and present it in forms appropriate to their respective purposes.
+Public pages and structured data refer to or use this canonical metadata where practical, then present or generate forms appropriate to their respective purposes.
 
 ```text
 metadata/shinso-ondo.yaml
@@ -369,9 +371,11 @@ metadata/shinso-ondo.yaml
         └── other publication and reuse formats
 ```
 
-Rather than maintaining the same information separately in multiple files, this archive follows a **One Source, Multi Use** approach in which multiple presentation and reuse formats are generated from a single canonical source.
+Rather than maintaining the same descriptive metadata separately in multiple files, this archive follows a **One Source, Multi Use** approach in which multiple presentation and reuse formats are generated from a single canonical source. This does not mean that every kind of information is consolidated into one file.
 
-When information needs to be added, modified, or removed, `metadata/shinso-ondo.yaml` should generally be updated instead of editing the displayed HTML directly.
+When descriptive metadata needs to be added, modified, or removed, `metadata/shinso-ondo.yaml` should generally be updated. Some public pages and documents currently retain static text, so their corresponding displays should be checked when canonical metadata changes.
+
+`LICENSE` is independently maintained for license terms, rights, and legal information, while `README.md` is independently maintained to describe the repository and project. Editorial policies, operational guides, and directory-level `README.md` files are likewise explanatory or operational documents rather than descriptive metadata for the work. When these independent documents include names of people or organizations, their consistency should be checked individually when an official name changes.
 
 ---
 

@@ -438,8 +438,8 @@ work:
         name_en: Aki Hanawa
     musician:
       - agent_type: organization
-        name: ツーウィー
-        name_en: Tsuwi
+        name: 木管アンサンブル ツーウィー
+        name_en: Woodwind Ensemble 2WE
     conductor:
       - agent_type: person
         name: 馬立 明美
@@ -595,8 +595,8 @@ performances:
 
       - role: musician
         agent_type: organization
-        name: "ツーウィー"
-        name_en: "Tsuwi"
+        name: "木管アンサンブル ツーウィー"
+        name_en: "Woodwind Ensemble 2WE"
         note: "演奏"
 
       - role: conductor
@@ -649,8 +649,8 @@ performances:
 
       - role: musician
         agent_type: organization
-        name: "ツーウィー"
-        name_en: "Tsuwi"
+        name: "木管アンサンブル ツーウィー"
+        name_en: "Woodwind Ensemble 2WE"
         note: "演奏"
 
       - role: conductor
@@ -704,8 +704,8 @@ performances:
 
       - role: musician
         agent_type: organization
-        name: "ツーウィー"
-        name_en: "Tsuwi"
+        name: "木管アンサンブル ツーウィー"
+        name_en: "Woodwind Ensemble 2WE"
         note: "演奏"
 
       - role: conductor
@@ -848,7 +848,7 @@ rights:
     - "新荘音頭制作委員"
     - "新荘小学校管楽合奏部児童"
     - "塙 亜樹"
-    - "ツーウィー"
+    - "木管アンサンブル ツーウィー"
 
   recording_rights_holder:
   permission_status: permitted
