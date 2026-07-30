@@ -11,6 +11,8 @@
   >
 
   <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../homepage-v2.css">
+  <script src="../main.js" defer></script>
 
   <style>
     /* ==========================================
@@ -189,6 +191,10 @@
 <body>
   <a class="skip-link" href="#main">本文へ移動</a>
 
+  <header class="site-header"><div class="container header-inner"><div class="site-title-block"><p class="eyebrow">Official Digital Archive</p><p class="site-name">新荘音頭</p><p class="subtitle">Shinsō Ondo</p><p class="work-subtitle" data-i18n="workSubtitle">新荘よいとこ散歩道</p></div><div class="header-actions"><button class="language-button" id="language-toggle" type="button" aria-label="Switch to English">English</button><button class="menu-button" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true">☰</span><span class="menu-label" data-i18n="menu">メニュー</span></button></div></div></header>
+  <div class="menu-backdrop" id="menu-backdrop" hidden></div>
+  <nav class="site-menu" id="site-menu" aria-label="サイト内メニュー" aria-hidden="true" tabindex="-1" data-site-navigation data-site-root="../"></nav>
+
   <header>
     <p>Official Digital Archive</p>
     <h1 id="page-title">新荘音頭</h1>
@@ -196,10 +202,6 @@
   </header>
 
   <main id="main">
-    <nav class="page-navigation" aria-label="パンくずリスト">
-      <a href="../">新荘音頭 公式デジタルアーカイブへ戻る</a>
-    </nav>
-
     <article aria-labelledby="lyrics-heading">
       <section class="lyrics-introduction">
         <h2 id="lyrics-heading">歌詞</h2>
@@ -270,17 +272,7 @@
         </p>
       </aside>
     </article>
-  </main>
-
-  <footer>
-    <hr>
-    <p>
-      新荘音頭 公式デジタルアーカイブ
-    </p>
-    <p>
-      表示内容は
-      <a href="../metadata/shinso-ondo.yaml">正本メタデータ</a>
-      から生成しています。
+  <footer class="site-footer" data-site-footer></footer>
     </p>
   </footer>
 
