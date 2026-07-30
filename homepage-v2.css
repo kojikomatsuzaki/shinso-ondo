@@ -248,10 +248,6 @@ body.menu-open {
     right: 0;
   }
 
-  .top-page .language-button {
-    position: static;
-  }
-
   .language-button,
   .menu-button {
     min-height: 42px;
@@ -265,10 +261,6 @@ body.menu-open {
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
-  }
-
-  .site-title-block {
-    top: 86px;
   }
 
   .site-menu-inner {
