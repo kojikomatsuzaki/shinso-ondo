@@ -27,7 +27,7 @@
       footerTitle: "新荘音頭 公式デジタルアーカイブ", managedBy: "管理："
     },
     en: {
-      skip: "Skip to main content", workSubtitle: "Shinsō Yoi Toko Sanpomichi", menu: "Menu", home: "Home", materials: "Public Materials", guide: "Guide",
+      skip: "Skip to main content", workSubtitle: "Shinsō Yoi Toko Sampomichi", menu: "Menu", home: "Home", materials: "Public Materials", guide: "Guide",
       audio: "Audio", lyrics: "Lyrics", scores: "Scores", pamphlet: "Pamphlet", aboutShinso: "About the Shinsō District",
       aboutOndo: "About Shinsō Ondo", contributors: "Contributors", rights: "Rights and Terms of Use", metadata: "Metadata",
       noticeTitle: "This digital archive is currently under development",
@@ -50,6 +50,17 @@
       footerTitle: "Shinsō Ondo Official Digital Archive", managedBy: "Managed by: "
     }
   };
+
+  const navigation = document.querySelector("[data-site-navigation]");
+  if (navigation) {
+    const root = navigation.dataset.siteRoot || "./";
+    navigation.innerHTML = `<div class="site-menu-inner"><div class="site-menu-header"><strong data-i18n="menu">メニュー</strong><button class="menu-close" id="menu-close" type="button" aria-label="メニューを閉じる">×</button></div><div class="menu-home"><a href="${root}" data-nav-path="/"><span aria-hidden="true">🏠</span><span data-i18n="home">トップページ</span></a></div><section class="menu-section" aria-labelledby="menu-materials-title"><h2 id="menu-materials-title" data-i18n="materials">公開資料</h2><ul><li><a href="${root}audio/" data-nav-path="/audio/"><span aria-hidden="true">🎵</span><span data-i18n="audio">音源</span></a></li><li><a href="${root}lyrics/" data-nav-path="/lyrics/"><span aria-hidden="true">📝</span><span data-i18n="lyrics">歌詞</span></a></li><li><a href="${root}scores/" data-nav-path="/scores/"><span aria-hidden="true">🎼</span><span data-i18n="scores">楽譜</span></a></li><li><a href="${root}publications/" data-nav-path="/publications/"><span aria-hidden="true">📖</span><span data-i18n="pamphlet">パンフレット</span></a></li></ul></section><section class="menu-section" aria-labelledby="menu-guide-title"><h2 id="menu-guide-title" data-i18n="guide">案内</h2><ul><li><a href="${root}about-shinso/" data-nav-path="/about-shinso/"><span aria-hidden="true">🏘</span><span data-i18n="aboutShinso">新荘地区について</span></a></li><li><a href="${root}about-ondo/" data-nav-path="/about-ondo/"><span aria-hidden="true">🎶</span><span data-i18n="aboutOndo">新荘音頭について</span></a></li><li><a href="${root}contributors/" data-nav-path="/contributors/"><span aria-hidden="true">👥</span><span data-i18n="contributors">制作・協力者</span></a></li><li><a href="${root}editorial-policy/" data-nav-path="/editorial-policy/"><span aria-hidden="true">📋</span><span data-i18n="editorialPolicy">編集方針</span></a></li><li><a href="${root}rights/" data-nav-path="/rights/"><span aria-hidden="true">⚖</span><span data-i18n="rights">権利・利用条件</span></a></li><li><a href="${root}metadata/" data-nav-path="/metadata/"><span aria-hidden="true">🗂</span><span data-i18n="metadata">メタデータ</span></a></li></ul></section><div class="menu-repository"><a href="https://github.com/kojikomatsuzaki/shinso-ondo" target="_blank" rel="external noopener noreferrer"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="24" height="24" alt="GitHub"><span>GitHub Repository</span><span aria-hidden="true">↗</span></a></div></div>`;
+  }
+
+  const footer = document.querySelector("[data-site-footer]");
+  if (footer) {
+    footer.innerHTML = `<div class="container footer-inner"><div><strong data-i18n="footerTitle">新荘音頭 公式デジタルアーカイブ</strong><p><span data-i18n="managedBy">管理：</span>小松崎浩司（Hiroshi Komatsuzaki）</p></div><div class="footer-meta"><p>Copyright © 新荘音頭制作委員会</p><p>CC BY-NC-SA 4.0</p></div></div>`;
+  }
 
   const html = document.documentElement;
   const languageButton = document.getElementById("language-toggle");
@@ -101,7 +112,9 @@
     languageButton.setAttribute("aria-label", language === "ja" ? "Switch to English" : "日本語表示に切り替える");
     menu.setAttribute("aria-label", language === "ja" ? "サイト内メニュー" : "Site menu");
     menuClose.setAttribute("aria-label", language === "ja" ? "メニューを閉じる" : "Close menu");
-    document.title = language === "ja" ? "新荘音頭 公式デジタルアーカイブ" : "Shinsō Ondo Official Digital Archive";
+    if (document.body.classList.contains("top-page")) {
+      document.title = language === "ja" ? "新荘音頭 公式デジタルアーカイブ" : "Shinsō Ondo Official Digital Archive";
+    }
     localStorage.setItem(STORAGE_KEY, language);
   }
 

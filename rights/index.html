@@ -12,16 +12,22 @@
     <title>権利とライセンス | 新荘音頭デジタルアーカイブ</title>
 
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../homepage-v2.css">
+    <script src="../main.js" defer></script>
 </head>
 
 <body>
+<a class="skip-link" href="#main" data-i18n="skip">本文へ移動</a>
+<header class="site-header"><div class="container header-inner"><div class="site-title-block"><p class="eyebrow">Official Digital Archive</p><p class="site-name">新荘音頭</p><p class="subtitle">Shinsō Ondo</p><p class="work-subtitle" data-i18n="workSubtitle">新荘よいとこ散歩道</p></div><div class="header-actions"><button class="language-button" id="language-toggle" type="button" aria-label="Switch to English">English</button><button class="menu-button" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true">☰</span><span class="menu-label" data-i18n="menu">メニュー</span></button></div></div></header>
+<div class="menu-backdrop" id="menu-backdrop" hidden></div>
+<nav class="site-menu" id="site-menu" aria-label="サイト内メニュー" aria-hidden="true" tabindex="-1" data-site-navigation data-site-root="../"></nav>
 
 <header>
     <h1>権利とライセンス</h1>
     <p>Rights and License</p>
 </header>
 
-<main>
+<main id="main">
 
     <section>
         <h2>基本方針</h2>
@@ -235,17 +241,7 @@
 
 </main>
 
-<footer>
-    <hr>
-
-    <p>
-        <a href="../index.html">トップページへ戻る</a>
-    </p>
-
-    <p>
-        © Shinso Ondo Production Committee
-    </p>
-</footer>
+<footer class="site-footer" data-site-footer></footer>
 
 </body>
 </html>
